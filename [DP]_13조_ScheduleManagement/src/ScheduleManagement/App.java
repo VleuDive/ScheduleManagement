@@ -7,6 +7,8 @@ public class App {
 	private Monthly_Schedule MonthlyPointer;
 	private Goal S_Goal;//배열 또는 List로 
 	private BucketList S_BucketList;//배열 또는 List로 
+	private Goal S_Goal;
+	private BucketList S_BucketList;
 	
 	public int getUser()
 	{
