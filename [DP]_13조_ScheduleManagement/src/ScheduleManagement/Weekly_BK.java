@@ -1,34 +1,55 @@
 package ScheduleManagement;
 
+import java.util.ArrayList;
+
 public class Weekly_BK {
 
-	private Daily_BK DBK;
-	private boolean CheckBK;
-	private String WBKName;
+	private ArrayList<Daily_BK> DBList;
+	private int week;
 	
-	public Daily_BK getDBK()
+	public Weekly_BK()
 	{
-		return DBK;
-	}
-	public boolean CheckBK()
-	{
-		return CheckBK;
-	}
-	public String getWBKName()
-	{
-		return WBKName;
+ 	Daily_BK empty=new Daily_BK();
+		week=empty.getTodayBK().get(0).getWeek();
+		DBList=new ArrayList<Daily_BK>();
+		for(int i=0;i<7;i++)
+		{
+			DBList.add(empty);
+		}
 	}
 	
-	public void setDBK(Daily_BK bk)
+	public ArrayList<Daily_BK> getWBList()
 	{
-		DBK=bk;
+		return DBList;
 	}
-	public void setCheckBK(boolean b)
+	public int getWeek()
 	{
-		CheckBK=b;
+		return week;
 	}
-	public void setWBKName(String name)
+	
+	public void setWBList(ArrayList<Daily_BK> wg)
 	{
-		WBKName=name;
+		DBList=wg;
 	}
+	public void setWeek(int w)
+	{
+		week=w;
+	}
+	public void addGoalToWBList(Daily_BK db)
+	{
+		week=db.getTodayBK().get(0).getWeek();
+		DBList.add(db);
+	}
+	public void deleteDailyBKFromList(BucketList db)
+	{
+		int date=db.getDate();
+		DBList.get(date).deleteBKFromList(db);
+	}
+	public void deleteDate(Daily_BK db)
+	{
+		int date=db.getDate();
+		DBList.remove(date);
+	}
+	
+
 }

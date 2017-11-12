@@ -4,7 +4,7 @@ public class Goal {
 
 	//Goal은 수량형 목표를 가리키므로, 목표치가 얼마고 달성치가 얼마인지도 멤버로 포함
 	private String G_Name;
-	private boolean Checking=false;//'목표가 모두 달성되었는가?(목표치를 채웠는가?)'가 기준! 기본적으로는 완료가 안되어 있는 상태
+	private boolean Checking;//'목표가 모두 달성되었는가?(목표치를 채웠는가?)'가 기준! 기본적으로는 완료가 안되어 있는 상태
 	private int targetValue; //달성 목표치(ex: '책 3권 읽기'의 '3권')
 	private int completedValue; //달성량(ex: 책을 1권 읽었으면 달성량은 '1')
 	private int date;//0~6까지의 수. 0:월, 1:화...
@@ -12,6 +12,7 @@ public class Goal {
 	private int month;// 이 세 가지는 Bucketlist나 schedule에서도 쓰는 요소 -> enum형을 하나의 파일에 정리한 뒤 그것을 다른 파일에서 가져다 쓰게 할 방법은 없을까?
 	public Goal()
 	{
+		Checking=false;
 		G_Name="";
 		targetValue=0;
 		completedValue=0;

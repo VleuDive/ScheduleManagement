@@ -7,21 +7,23 @@
 	 */
 package ScheduleManagement;
 
+import java.util.ArrayList;
+
 public class DailyGoal {
 
 	//Daily goal 할당도 필요함. 날짜 이월을 자연스럽게 처리할 알고리즘 필요.
 	private int numOfDGoals;//하루에 할당되는 목표의 개수.
-	private Goal[] TodayGoalList;
+	private ArrayList<Goal> TodayGoalList;//TodayGoalList는 일반 배열에서 ArrayList로 변경
 	private int date;
 	public DailyGoal()
 	{
 		numOfDGoals=0;
 		Goal empty=new Goal();
 		date=empty.getDate();
-		TodayGoalList=new Goal[numOfDGoals];
+		TodayGoalList=new ArrayList<Goal>();
 		for(int i=0;i<numOfDGoals;i++)
 		{
-			TodayGoalList[i]=empty;
+			TodayGoalList.add(empty);
 		}
 	}
 	
@@ -34,7 +36,7 @@ public class DailyGoal {
 	{
 		return numOfDGoals;
 	}
-	public Goal[] getTodayGoalList()
+	public ArrayList<Goal> getTodayGoalList()
 	{
 		return TodayGoalList;
 	}
@@ -43,7 +45,7 @@ public class DailyGoal {
 	{
 		numOfDGoals=ng;
 	}
-	public void setTodayGoalList(Goal[] list)
+	public void setTodayGoalList(ArrayList<Goal> list)
 	{
 		//list하나를 통째로 TodayGoalList로 설정. 일반적인 setter 함수
 		TodayGoalList=list;
@@ -57,13 +59,11 @@ public class DailyGoal {
 	{
 		date=DG.getDate();
 		//todayGoalList에 항목 하나 채우기 ->일별 목표 배분 시 사용
-		for(int i=0;i<numOfDGoals;i++)
-		{
-			if(TodayGoalList[i].getGName()=="")
-			{
-				TodayGoalList[i]=DG;
-				break;
-			}
-		}
+		//해당 배열 칸에 든 goal의 이름이 비어있으면 배열에 DG넣기->ArrayList에 DG 추가하기
+		TodayGoalList.add(DG);
+	}
+	public void deleteGoalFromList(Goal DG)
+	{
+		TodayGoalList.remove(DG);
 	}
 }

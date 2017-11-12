@@ -1,41 +1,44 @@
 package ScheduleManagement;
 
+import java.util.ArrayList;
+
 public class MonthlyGoal {
 	//지금이 무슨 month인지 나타내는 변수 추가?
-	private WeeklyGoal[] WGList;
+	private ArrayList<WeeklyGoal> WGList;
 
 	public MonthlyGoal()
 	{
 		WeeklyGoal empty=new WeeklyGoal();
-		WGList=new WeeklyGoal[5];//5주까지 있는 달도 있으므로 최대 5개로 설정
+		WGList=new ArrayList<WeeklyGoal>();//5주까지 있는 달도 있으므로 최대 5개로 설정
 		for(int i=0;i<5;i++)
 		{
-			WGList[i]=empty;
+			WGList.add(empty);
 		}
 	}
-	public WeeklyGoal[] getWGList()
+	public ArrayList<WeeklyGoal> getWGList()
 	{
 		return WGList;
 	}
 
-	public void setWGList(WeeklyGoal[] w)
+	public void setWGList(ArrayList<WeeklyGoal> w)
 	{
 		WGList=w;
 	}
 
 	public void addGoalToWGList(WeeklyGoal wg)
 	{
-		for(int i=0;i<5;i++)
-		{
-			if(WGList[i].getWeek()==-1)
-			{
-				if(wg.getWeek()==i)
-				{
-					WGList[i]=wg;
-					break;
-				}
-			}
-		}
+		WGList.add(wg);
 	}
-	
+	public void deleteWeeklyGoalFromList(DailyGoal dg)
+	{
+		//특정 주에 접근해 그 주의 한 날짜에 있는 goal 모두를 통째로 지우는 함수
+		int week=dg.getTodayGoalList().get(0).getWeek();
+		WGList.get(week).deleteDate(dg);
+	}
+	public void deleteWeek(WeeklyGoal wg)
+	{
+		//한 주의 목표 전체를 지우는 함수
+		int week=wg.getWeek();
+		WGList.remove(week);
+	}
 }
