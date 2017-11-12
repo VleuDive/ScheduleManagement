@@ -5,7 +5,7 @@ public class Student extends User {
 	private String school;
 	private String major;
 	private String Nickname;
-	private School_Schedule MyClassTable;
+	//private School_Schedule MyClassTable;
 	
 	public String getSchool()
 	{
@@ -19,10 +19,11 @@ public class Student extends User {
 	{
 		return Nickname;
 	}
-	public School_Schedule getClassTable()
+	/*public School_Schedule getClassTable()
 	{
 		return MyClassTable;
 	}
+	*/
 	public void setSchool(String s)
 	{
 		school=s;
@@ -35,8 +36,9 @@ public class Student extends User {
 	{
 		Nickname=n;
 	}
-	public void setTable(School_Schedule st)
+	/*public void setTable(School_Schedule st)
 	{
 		MyClassTable=st;
 	}
+	*/
 }
