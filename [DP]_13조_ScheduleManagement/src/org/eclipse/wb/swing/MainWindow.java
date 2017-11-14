@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.border.EtchedBorder;
 
 public class MainWindow {
 
@@ -65,6 +66,7 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().setLayout(cards);
 		frmScheduleManagementSystem.setSize(500,300);
 		JPanel MainPanel = new JPanel();
+		MainPanel.setBackground(new Color(176, 224, 230));
 		frmScheduleManagementSystem.getContentPane().add(MainPanel, "MainPanel");
 		MainPanel.setLayout(null);
 		
@@ -75,15 +77,21 @@ public class MainWindow {
 		MainPanel.add(lblScheduleManager);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(248, 248, 255));
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_1.setBounds(34, 76, 187, 162);
 		MainPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel label = new JLabel("학생 회원");
-		label.setBounds(70, 10, 57, 15);
+		label.setForeground(Color.BLUE);
+		label.setFont(new Font("DX우등생B", Font.PLAIN, 16));
+		label.setBounds(65, 10, 62, 23);
 		panel_1.add(label);
 		
 		JButton btnNewButton = new JButton("Login!");
+		btnNewButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton.setForeground(new Color(0, 0, 128));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -98,19 +106,27 @@ public class MainWindow {
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Register!");
+		btnNewButton_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_1.setForeground(new Color(0, 0, 128));
 		btnNewButton_1.setBounds(48, 102, 97, 23);
 		panel_1.add(btnNewButton_1);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(248, 248, 255));
+		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_2.setBounds(267, 76, 190, 162);
 		MainPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel label_1 = new JLabel("학교 회원");
-		label_1.setBounds(73, 10, 57, 15);
+		label_1.setForeground(new Color(0, 100, 0));
+		label_1.setFont(new Font("DX우등생B", Font.PLAIN, 16));
+		label_1.setBounds(69, 10, 79, 30);
 		panel_2.add(label_1);
 		
 		JButton btnLogin = new JButton("Login!");
+		btnLogin.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnLogin.setForeground(new Color(47, 79, 79));
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -121,6 +137,8 @@ public class MainWindow {
 		panel_2.add(btnLogin);
 		
 		JButton btnRegister = new JButton("Register!");
+		btnRegister.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnRegister.setForeground(new Color(47, 79, 79));
 		btnRegister.setBounds(51, 102, 97, 23);
 		panel_2.add(btnRegister);
 		
