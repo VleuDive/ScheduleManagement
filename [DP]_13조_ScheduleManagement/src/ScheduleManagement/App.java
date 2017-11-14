@@ -2,19 +2,19 @@ package ScheduleManagement;
 
 public class App {
 	private int p_User;
-	private Daily_Schedule DailyPointer;
-	private Weekly_Schedule WeeklyPointer;
-	private Monthly_Schedule MonthlyPointer;
-	private Goal S_Goal;//배열 또는 List로 
-	private BucketList S_BucketList;//배열 또는 List로 
-	private Goal S_Goal;
-	private BucketList S_BucketList;
+	//private Daily_Schedule DailyPointer;
+	//private Weekly_Schedule WeeklyPointer;
+	//private Monthly_Schedule MonthlyPointer;
+	//private Goal S_Goal;//배열 또는 List로 
+	//private BucketList S_BucketList;//배열 또는 List로 
+	//private Goal S_Goal;
+	//private BucketList S_BucketList;
 	
 	public int getUser()
 	{
 		return p_User;
 	}
-	public Daily_Schedule getDPointer()
+	/*public Daily_Schedule getDPointer()
 	{
 		return DailyPointer;
 	}
@@ -58,5 +58,5 @@ public class App {
 	public void setSBucketList(BucketList s_BucketList)
 	{
 		S_BucketList = s_BucketList;
-	}
+	}*/
 }
