@@ -1,9 +1,12 @@
 package ScheduleManagement;
 
-import java.util.ArrayList;
+import java.nio.channels.ShutdownChannelGroupException;
 
 public class App {
 	private User p_User; // p_User의 자료형을 int 에서 User로 변경
+	private ScheduleHandler S_Handler;
+	private DBHandler D_Handler;
+	private ScoreBoard_Calculator score_Calc;
 	//private ArrayList<Daily_Schedule> DailyPointer;
 	//private ArrayList<Weekly_Schedule> WeeklyPointer;
 	//private ArrayList<Monthly_Schedule> MonthlyPointer;
@@ -20,6 +23,10 @@ public class App {
 	public App()
 	{
 		p_User=new User();//여기서는 새로운 User 클래스를 정의하고, 이후 유저의 타입에 따라 p_User=new Student() 또는 p_User=new School(); 할당
+		S_Handler=new ScheduleHandler();
+		D_Handler=new DBHandler();
+		score_Calc=new ScoreBoard_Calculator();
+	
 	}
 	public User getUser()
 	{
@@ -41,6 +48,10 @@ public class App {
 	{
 		
 	}
+	public void withDraw()
+	{
+		//회원 탈퇴
+	}
 	public void StudentRegister(int type, String id, String pw, String schoolName,String Major,String nickname)
 	{
 		//학생 회원 가입
@@ -57,53 +68,56 @@ public class App {
 	{
 		
 	}
-	public void buildSchoolMajorList()
+	public void buildSchoolMajorList(String major)
 	{
 		
 	}
-	/*public Daily_Schedule getDPointer()
+	public void showScheduleByMonth(int month)
 	{
-		return DailyPointer;
+		
 	}
-	public Weekly_Schedule getWPointer()
+	public void showScheduleByWeek(int week)
 	{
-		return WeeklyPointer;
+		
 	}
-	public Monthly_Schedule getMPointer()
+	public void showScheduleByDate(int date)
 	{
-		return MonthlyPointer;
+		
 	}
-	public Goal getGoal()
+	public void registerSchedule(String name, int month, int week, int date, int timeline, int type, int sort)
 	{
-		return S_Goal;
+		
 	}
-	public BucketList getBucketList()
+	public void deleteSchedule(int month, int week, int date, String name)
 	{
-		return S_BucketList;
+		
 	}
-	
-	public void setPUser(int p)
+	public void sortSchedule(int month, int week, int date, int sort)
 	{
-		p_User = p;
+		
 	}
-	public void setDailyPointer(Daily_Schedule dailyPointer) 
+	public void calcScoreBoard()
 	{
-		DailyPointer = dailyPointer;
+		
 	}
-	public void setWeeklyPointer(Weekly_Schedule weeklyPointer)
+	public void showScoreBoardByMonth(int month)
 	{
-		WeeklyPointer = weeklyPointer;
+		
 	}
-	public void setMonthlyPointer(Monthly_Schedule monthlyPointer) 
+	public void showScoreBoardByWeek(int week)
 	{
-		MonthlyPointer = monthlyPointer;
+		
 	}
-	public void setSGoal(Goal s_Goal)
+	public void showScoreBoardByDate(int date)
 	{
-		S_Goal = s_Goal;
 	}
-	public void setSBucketList(BucketList s_BucketList)
+	public void feedBackAlarm()
 	{
-		S_BucketList = s_BucketList;
-	}*/
+		//별도의 thread로 관리?
+	}
+	public void registerFeedBack(int month, int week, int date, String feed)
+	{
+		
+	}
+
 }
