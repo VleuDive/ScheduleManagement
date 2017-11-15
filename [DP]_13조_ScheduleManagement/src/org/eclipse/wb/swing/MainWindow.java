@@ -90,6 +90,7 @@ public class MainWindow {
 		panel_1.add(label);
 		
 		JButton btnNewButton = new JButton("Login!");
+		btnNewButton.setBackground(new Color(224, 255, 255));
 		btnNewButton.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton.setForeground(new Color(0, 0, 128));
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -106,6 +107,7 @@ public class MainWindow {
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Register!");
+		btnNewButton_1.setBackground(new Color(224, 255, 255));
 		btnNewButton_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton_1.setForeground(new Color(0, 0, 128));
 		btnNewButton_1.setBounds(48, 102, 97, 23);
@@ -148,44 +150,54 @@ public class MainWindow {
 		MainPanel.add(lblWelcome);
 		
 		JPanel LoginPanel = new JPanel();
+		LoginPanel.setBackground(new Color(176, 224, 230));
 		frmScheduleManagementSystem.getContentPane().add(LoginPanel, "LoginPanel");
 		LoginPanel.setLayout(null);
 		
 		JLabel lblLogin = new JLabel("회원 로그인");
+		lblLogin.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		lblLogin.setForeground(new Color(0, 0, 0));
+		lblLogin.setBackground(new Color(248, 248, 255));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogin.setBounds(182, 21, 114, 28);
+		lblLogin.setBounds(191, 30, 114, 28);
 		LoginPanel.add(lblLogin);
 		
 		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnGoBack.setForeground(new Color(25, 25, 112));
 		btnGoBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cards.show(frmScheduleManagementSystem.getContentPane(),"MainPanel");
 			}
 		});
-		btnGoBack.setBounds(40, 24, 97, 23);
+		btnGoBack.setBounds(36, 34, 97, 23);
 		LoginPanel.add(btnGoBack);
 		
 		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(129, 98, 24, 15);
+		lblId.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblId.setBounds(115, 98, 24, 15);
 		LoginPanel.add(lblId);
 		
 		JLabel lblPw = new JLabel("PW:");
-		lblPw.setBounds(129, 145, 24, 15);
+		lblPw.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPw.setBounds(113, 146, 36, 15);
 		LoginPanel.add(lblPw);
 		
 		textField = new JTextField();
-		textField.setBounds(165, 96, 164, 18);
+		textField.setBounds(151, 96, 192, 23);
 		LoginPanel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(165, 142, 164, 23);
+		textField_1.setBounds(151, 142, 192, 23);
 		LoginPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JButton btnLogin_1 = new JButton("Login!");
-		btnLogin_1.setBounds(283, 198, 97, 23);
+		btnLogin_1.setForeground(new Color(25, 25, 112));
+		btnLogin_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnLogin_1.setBounds(355, 98, 83, 67);
 		LoginPanel.add(btnLogin_1);
 	}
 }
