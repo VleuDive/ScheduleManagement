@@ -3,6 +3,7 @@ package ScheduleManagement;
 
 public class Schedule_ItemType {
 		
+	protected String StudentID;
 	protected String Name;
 	protected int TimeLine;
 	private int type;
@@ -20,6 +21,10 @@ public class Schedule_ItemType {
 	public int Get_Type()
 	{
 		return type;
+	}
+	public String getStudentId()
+	{
+		return StudentID;
 	}
 
 	/*Set 함수*/
@@ -40,7 +45,11 @@ public class Schedule_ItemType {
 	Name = input.Get_Name();
 	TimeLine = input.Get_TimeLine();
 	}
-
+	public void Set_StudentId(String input)
+	{
+		StudentID=input;
+	}
+	
 	public String Get_Assignment()
 	{
 		return "virtual";

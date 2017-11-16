@@ -13,7 +13,6 @@ public class Daily_Schedule {
 	/*동적 할당해야하지만 일단 30분단위로 일정을 넣을 수 있게 함.*/
 	private Schedule_ItemType[] TimecontentList = new Schedule_ItemType[96];
 	
-	private ScoreBoard_ItemType DSB;
 	
 	private String Feedback;
 	
@@ -40,10 +39,6 @@ public class Daily_Schedule {
 		return TimecontentList;
 	}
 	
-	public ScoreBoard_ItemType Get_DSB()
-	{
-		return DSB;
-	}
 	
 	public String Get_Feedback()
 	{
@@ -93,12 +88,6 @@ public class Daily_Schedule {
 		TimecontentList[N].Set_AllRecord(input);
 	}
 	
-	public void Set_DSB(ScoreBoard_ItemType input)
-	{
-		/*그래픽 정보*/
-		/*DBS = input;*/
-	}
-	
 	public void Set_Feedback(String input)
 	{
 		Feedback = input;
@@ -129,8 +118,6 @@ public class Daily_Schedule {
 			TimecontentList[i].Set_AllRecord(input.Get_TimecontentList()[i]);
 		}
 		
-		/*DSB Set 함수 부분 구현 필요*/
-		DSB = input.Get_DSB();
 		
 		Feedback = input.Get_Feedback();
 		

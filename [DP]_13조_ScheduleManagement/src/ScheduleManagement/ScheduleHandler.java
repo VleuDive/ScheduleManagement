@@ -80,17 +80,17 @@ public class ScheduleHandler {
 	{
 		this.dayBK = dayBK;
 	}
-	public void registerSchedule()
+	public void registerSchedule(String name, int month, int week, int date, int timeline, int type, int sort)
 	{
 		//스케줄 등록
 	}
-	public void deleteSchedule()
+	public void deleteSchedule(int month, int week, int date, String name)
 	{
 		//스케줄 삭제
 	}
-	public void showScheduleByDate()
+	public void showScheduleByDate(int date)
 	{
-		//일별 스케줄 출력
+		//날짜별로 스케줄을 찾아 보여줌
 	}
 	public void constructDailyGoal()
 	{

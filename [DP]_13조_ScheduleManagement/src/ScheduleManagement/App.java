@@ -1,18 +1,18 @@
 package ScheduleManagement;
 
 import java.nio.channels.ShutdownChannelGroupException;
+import java.util.ArrayList;
 
 public class App {
-	private User p_User; // p_User의 자료형을 int 에서 User로 변경
-	private ScheduleHandler S_Handler;
-	private DBHandler D_Handler;
-	private ScoreBoard_Calculator score_Calc;
-	//private ArrayList<Daily_Schedule> DailyPointer;
-	//private ArrayList<Weekly_Schedule> WeeklyPointer;
-	//private ArrayList<Monthly_Schedule> MonthlyPointer;
-	//private ArrayList<Goal> S_Goal; 
-	//private ArrayList<BucketList> S_BucketList; //위의 멤버들은 전부 ArrayList로 정의. 각각 로그인한 회원의 전체 목표/일정 정보'를 뜻한다.
-	//private ArrayList<String> MajorList;
+	private User p_User; // p_User의 자료형을 int 에서 User로 변경. 현재 로그인한 유저
+	
+	private ArrayList<Schedule_ItemType> TotalSchedules;//데이터베이스에 등록된 전체 Schedule
+	private ArrayList<Goal> TotalGoals;// 데이터베이스에 등록된 전체 Goal 목록
+	private ArrayList<BucketList> TotalBKs;// 데이터베이스에 등록된 전체 BK 목록
+	private ArrayList<ScoreBoard_ItemType> scoreBoardList;// 데이터베이스에 등록된 전체 ScoreBoard목록
+	
+	private ScheduleHandler S_Handler;// 일정관리 Handler
+	private DBHandler D_Handler; //DB 연결 및 쿼리 핸들러
 	
 	/*
 	 * p_User를 User형으로 정의할 경우, p_User의 타입은 두 가지로 분류 ->Student, School
@@ -25,7 +25,10 @@ public class App {
 		p_User=new User();//여기서는 새로운 User 클래스를 정의하고, 이후 유저의 타입에 따라 p_User=new Student() 또는 p_User=new School(); 할당
 		S_Handler=new ScheduleHandler();
 		D_Handler=new DBHandler();
-		score_Calc=new ScoreBoard_Calculator();
+		scoreBoardList=new ArrayList<ScoreBoard_ItemType>();
+		TotalSchedules=new ArrayList<Schedule_ItemType>();
+		TotalGoals=new ArrayList<Goal>();
+		TotalBKs=new ArrayList<BucketList>();
 	
 	}
 	public User getUser()

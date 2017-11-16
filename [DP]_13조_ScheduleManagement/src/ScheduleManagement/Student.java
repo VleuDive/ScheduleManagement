@@ -1,11 +1,14 @@
 package ScheduleManagement;
 
+import java.util.ArrayList;
+
 public class Student extends User {
 
 	private String school;
 	private String major;
 	private String Nickname;
-	//private ArrayList<School_Schedule> MyClassTable;
+	private ArrayList<School_Schedule> MyClassTable;
+	
 	
 	public String getSchool()
 	{
@@ -19,11 +22,11 @@ public class Student extends User {
 	{
 		return Nickname;
 	}
-	/*public ArrayList<School_Schedule> getClassTable()
+	public ArrayList<School_Schedule> getClassTable()
 	{
 		return MyClassTable;
 	}
-	*/
+	
 	public void setSchool(String s)
 	{
 		school=s;
