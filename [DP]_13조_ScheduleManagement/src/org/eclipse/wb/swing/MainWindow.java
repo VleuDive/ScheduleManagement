@@ -26,6 +26,9 @@ import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JComboBox;
+import javax.swing.UIManager;
+import java.awt.event.MouseMotionAdapter;
 
 public class MainWindow {
 
@@ -34,6 +37,14 @@ public class MainWindow {
 	private CardLayout cards=new CardLayout(0,0);
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
 	/**
 	 * Launch the application.
 	 */
@@ -62,6 +73,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frmScheduleManagementSystem = new JFrame();
+		frmScheduleManagementSystem.setBackground(new Color(176, 224, 230));
 		frmScheduleManagementSystem.setTitle("Schedule Management System");
 		frmScheduleManagementSystem.getContentPane().setLayout(cards);
 		frmScheduleManagementSystem.setSize(500,300);
@@ -107,6 +119,12 @@ public class MainWindow {
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Register!");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "StudentRegisterPanel");
+			}
+		});
 		btnNewButton_1.setBackground(new Color(224, 255, 255));
 		btnNewButton_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton_1.setForeground(new Color(0, 0, 128));
@@ -139,6 +157,12 @@ public class MainWindow {
 		panel_2.add(btnLogin);
 		
 		JButton btnRegister = new JButton("Register!");
+		btnRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "SchoolRegisterPanel");
+			}
+		});
 		btnRegister.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnRegister.setForeground(new Color(47, 79, 79));
 		btnRegister.setBounds(51, 102, 97, 23);
@@ -199,5 +223,217 @@ public class MainWindow {
 		btnLogin_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnLogin_1.setBounds(355, 98, 83, 67);
 		LoginPanel.add(btnLogin_1);
+		
+		JPanel MonthlyPanel = new JPanel();
+		MonthlyPanel.setBackground(new Color(176, 224, 230));
+		frmScheduleManagementSystem.getContentPane().add(MonthlyPanel, "MonthlyPanel");
+		MonthlyPanel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Monthly Schedule");
+		lblNewLabel.setFont(new Font("DX우등생B", Font.PLAIN, 20));
+		lblNewLabel.setBounds(179, 10, 139, 31);
+		MonthlyPanel.add(lblNewLabel);
+		
+		JPanel StudentRegisterPanel = new JPanel();
+		StudentRegisterPanel.setBackground(new Color(176, 224, 230));
+		frmScheduleManagementSystem.getContentPane().add(StudentRegisterPanel, "StudentRegisterPanel");
+		StudentRegisterPanel.setLayout(null);
+		
+		JLabel label_2 = new JLabel("학생 회원 가입");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		label_2.setBounds(171, 10, 140, 31);
+		StudentRegisterPanel.add(label_2);
+		
+		JButton btnNewButton_2 = new JButton("Go Back");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(),"MainPanel");
+			}
+		});
+		btnNewButton_2.setForeground(new Color(0, 0, 128));
+		btnNewButton_2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_2.setBounds(39, 15, 97, 23);
+		StudentRegisterPanel.add(btnNewButton_2);
+		
+		JLabel lblId_1 = new JLabel("ID:");
+		lblId_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblId_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblId_1.setBounds(39, 55, 57, 15);
+		StudentRegisterPanel.add(lblId_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(109, 51, 140, 23);
+		StudentRegisterPanel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblPassword = new JLabel("PassWord:");
+		lblPassword.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPassword.setBounds(12, 116, 84, 15);
+		StudentRegisterPanel.add(lblPassword);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(109, 116, 225, 23);
+		StudentRegisterPanel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JButton btnNewButton_3 = new JButton("Check");
+		btnNewButton_3.setForeground(new Color(0, 0, 128));
+		btnNewButton_3.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 12));
+		btnNewButton_3.setBounds(262, 51, 72, 24);
+		StudentRegisterPanel.add(btnNewButton_3);
+		
+		JLabel lblPasswordCheck = new JLabel("PW Check:");
+		lblPasswordCheck.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPasswordCheck.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPasswordCheck.setBounds(12, 149, 84, 23);
+		StudentRegisterPanel.add(lblPasswordCheck);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(109, 149, 225, 23);
+		StudentRegisterPanel.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JLabel lblSchool = new JLabel("School:");
+		lblSchool.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblSchool.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSchool.setBounds(39, 182, 57, 15);
+		StudentRegisterPanel.add(lblSchool);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(109, 182, 225, 36);
+		StudentRegisterPanel.add(comboBox);
+		
+		JLabel lblDepartment = new JLabel("Department:");
+		lblDepartment.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblDepartment.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDepartment.setBounds(12, 228, 84, 15);
+		StudentRegisterPanel.add(lblDepartment);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(109, 228, 225, 23);
+		StudentRegisterPanel.add(comboBox_1);
+		
+		JButton btnNewButton_4 = new JButton("Next Step!");
+		btnNewButton_4.setForeground(new Color(0, 0, 128));
+		btnNewButton_4.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_4.setBounds(362, 52, 97, 97);
+		StudentRegisterPanel.add(btnNewButton_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(109, 84, 225, 21);
+		StudentRegisterPanel.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("NickName:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(24, 91, 72, 15);
+		StudentRegisterPanel.add(lblNewLabel_1);
+		
+		JButton btnNewButton_5 = new JButton("Skip Next");
+		btnNewButton_5.setForeground(new Color(0, 0, 128));
+		btnNewButton_5.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_5.setBounds(362, 159, 97, 92);
+		StudentRegisterPanel.add(btnNewButton_5);
+		
+		JPanel SchoolRegisterPanel = new JPanel();
+		SchoolRegisterPanel.setBackground(new Color(176, 224, 230));
+		frmScheduleManagementSystem.getContentPane().add(SchoolRegisterPanel, "SchoolRegisterPanel");
+		SchoolRegisterPanel.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("학교 회원 가입");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(179, 10, 131, 28);
+		SchoolRegisterPanel.add(lblNewLabel_2);
+		
+		JButton btnGoBack_1 = new JButton("Go Back");
+		btnGoBack_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "MainPanel");
+			}
+		});
+		btnGoBack_1.addMouseMotionListener(new MouseMotionAdapter() {
+		
+		});
+		btnGoBack_1.setForeground(new Color(47, 79, 79));
+		btnGoBack_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnGoBack_1.setBounds(45, 14, 97, 23);
+		SchoolRegisterPanel.add(btnGoBack_1);
+		
+		JLabel lblId_2 = new JLabel("ID:");
+		lblId_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblId_2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblId_2.setBounds(32, 59, 57, 15);
+		SchoolRegisterPanel.add(lblId_2);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(101, 55, 141, 23);
+		SchoolRegisterPanel.add(textField_6);
+		textField_6.setColumns(10);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(101, 91, 251, 23);
+		SchoolRegisterPanel.add(textField_7);
+		textField_7.setColumns(10);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(101, 125, 251, 23);
+		SchoolRegisterPanel.add(textField_8);
+		textField_8.setColumns(10);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(101, 158, 251, 21);
+		SchoolRegisterPanel.add(textField_9);
+		textField_9.setColumns(10);
+		
+		JButton btnNewButton_6 = new JButton("Regitser Departments");
+		btnNewButton_6.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_6.setForeground(new Color(47, 79, 79));
+		btnNewButton_6.setBounds(101, 189, 209, 23);
+		SchoolRegisterPanel.add(btnNewButton_6);
+		
+		JButton btnNewButton_7 = new JButton("Check");
+		btnNewButton_7.setForeground(new Color(47, 79, 79));
+		btnNewButton_7.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 12));
+		btnNewButton_7.setBackground(UIManager.getColor("Button.background"));
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_7.setBounds(254, 55, 97, 23);
+		SchoolRegisterPanel.add(btnNewButton_7);
+		
+		JButton btnNewButton_8 = new JButton("Next Step!");
+		btnNewButton_8.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_8.setForeground(new Color(47, 79, 79));
+		btnNewButton_8.setBounds(364, 56, 97, 93);
+		SchoolRegisterPanel.add(btnNewButton_8);
+		
+		JLabel lblPassword_1 = new JLabel("PassWord:");
+		lblPassword_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPassword_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPassword_1.setBounds(12, 95, 77, 15);
+		SchoolRegisterPanel.add(lblPassword_1);
+		
+		JLabel lblPwCheck = new JLabel("PW Check:");
+		lblPwCheck.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblPwCheck.setBounds(22, 127, 77, 19);
+		SchoolRegisterPanel.add(lblPwCheck);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblName.setBounds(32, 161, 57, 15);
+		SchoolRegisterPanel.add(lblName);
+		
+		JLabel lblDepartments = new JLabel("Departments:");
+		lblDepartments.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		lblDepartments.setBounds(10, 191, 89, 19);
+		SchoolRegisterPanel.add(lblDepartments);
 	}
 }
