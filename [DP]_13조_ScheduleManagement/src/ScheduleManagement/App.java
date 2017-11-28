@@ -45,7 +45,7 @@ public class App {
 	}
 	public void StudentLogin(String id, String pw)
 	{
-		//학생 회원 로그인
+		
 	}
 	public void Logout()
 	{
