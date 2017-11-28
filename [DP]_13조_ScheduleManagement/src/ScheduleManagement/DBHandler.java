@@ -34,17 +34,27 @@ public class DBHandler {
 	// 각 함수의 parameter는 각 테이블의 field 종류와 일치. DB 프로젝트 DepartmentManagement 참고할 것
 	
 	//User테이블
-	public void insertRowToUser(ArrayList<String> input)
+	public void insertRowToUser(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO User(UserID,Type,Password) VALUES('";
+		query=query+input.get(0)+"',"+input.get(1)+",'"+input.get(2)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromUser(String id)
+	public void deleteRowFromUser(String id) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM Users WHERE UserID=";
+		query=query+id;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
 	public void updateRowOfUser(String id,ArrayList<String> input)
 	{
-		
+		  
 	}
 	public ArrayList<ArrayList<User>> searchUser(ArrayList<String> input)
 	{
@@ -55,13 +65,23 @@ public class DBHandler {
 	}
 	
 	//Student 테이블
-	public void insertRowToStudent(ArrayList<String> input)
+	public void insertRowToStudent(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO Student(Number,StudentID,SchoolID,MajorNum,NickName)VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"',"+input.get(3)+",'"+input.get(4)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromStudent(int num)
+	public void deleteRowFromStudent(int num) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM Users WHERE StudentID=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
 	public void updateRowOfStudent(int num,ArrayList<String> input)
 	{
@@ -77,13 +97,22 @@ public class DBHandler {
 	}
 	
 	//School 테이블
-	public void insertRowToSchool(ArrayList<String> input)
+	public void insertRowToSchool(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO School(Number,SchoolID,Name)VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromSchool(int num)
+	public void deleteRowFromSchool(int num) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM School WHERE Number=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfSchool(int num, ArrayList<String> input)
 	{
@@ -99,13 +128,23 @@ public class DBHandler {
 	}
 	
 	//StudentSchedule 테이블
-	public void insertRowToStudentSchedule(ArrayList<String> input)
+	public void insertRowToStudentSchedule(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO StudentSchedule(Number,StudentID,Time,Date,Week,Month,Subject,State,Type) VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+",'"+input.get(6)+"',"+input.get(7)+","+input.get(8)+")";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromStudentSchedule(int num)
+	public void deleteRowFromStudentSchedule(int num) throws SQLException
 	{
-		
+
+		stmt=conn.createStatement();
+		String query="DELETE FROM StudentSchedule WHERE Number=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfStudentSchedule(int num, ArrayList<String> input)
 	{
@@ -120,13 +159,23 @@ public class DBHandler {
 		
 	}
 	//TotalTimeTable 테이블
-	public void insertRowToTotalTimeTable(ArrayList<String> input)
+	public void insertRowToTotalTimeTable(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO TotalTimeTable(Number,SchoolID,Time,Name,Professor,Room,Credits,Type) VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+",'"+input.get(3)+"','"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+")";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromTotalTimeTable(int num)
+	public void deleteRowFromTotalTimeTable(int num) throws SQLException
 	{
-		
+
+		stmt=conn.createStatement();
+		String query="DELETE FROM TotalTimeTable WHERE Number=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfTotalTimeTable(int num, ArrayList<String> input)
 	{
@@ -140,13 +189,22 @@ public class DBHandler {
 		return toRet;
 	}
 	//Major 테이블
-	public void insertRowToMajor(ArrayList<String> input)
+	public void insertRowToMajor(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO Major(Number,SchoolID,Name) VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromMajor(int num)
+	public void deleteRowFromMajor(int num) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM Major WHERE Number=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfMajor(int num, ArrayList<String> input)
 	{
@@ -160,13 +218,22 @@ public class DBHandler {
 		return toRet;
 	}
 	//ScoreBoard 테이블
-	public void insertRowToScoreBoard(ArrayList<String> input)
+	public void insertRowToScoreBoard(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO ScoreBoard(Code,NumOfDone,NumOfDelay,NumOfCommit,NumOfCancel,NumOfProgress,Scoer,NumOfDone_Goal,NumOfDone_Bucket,Feedback) VALUES('";
+		query=query+input.get(0)+"',"+input.get(1)+","+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+","+input.get(6)+","+input.get(7)+","+input.get(8)+",'"+input.get(9)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromScoreBoard(String code)
+	public void deleteRowFromScoreBoard(String code) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM ScoreBoard WHERE Code LIKE";
+		query=query+"'"+code+"'";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfScoreBoard(String code, ArrayList<String> input)
 	{
@@ -180,13 +247,22 @@ public class DBHandler {
 		return toRet;
 	}
 	//StudentTimeTable 테이블
-	public void insertRowToStudentTimeTable(ArrayList<String> input)
+	public void insertRowToStudentTimeTable(ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="INSERT INTO StudentTimeTable(Number,StudentID,Time,Professor,Room,Credits,Type,IfTest,IfAssignment) VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+",'"+input.get(3)+"','"+input.get(4)+"',"+input.get(5)+","+input.get(6)+","+input.get(7)+","+input.get(8)+"')";
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public void deleteRowFromStudentTimeTable(int num)
+	public void deleteRowFromStudentTimeTable(int num) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="DELETE FROM StudentTimeTable WHERE Number=";
+		query=query+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
 	}
 	public void updateRowOfStudentTimeTable(int num, ArrayList<String> input)
 	{

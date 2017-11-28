@@ -67,6 +67,7 @@ public class Schedule_ItemType {
 	/*학교일정 virtual함수*/
 	public void Set_Assignment(String input)
 	{
+		
 	}
 	public void Set_Exam(String input)
 	{
