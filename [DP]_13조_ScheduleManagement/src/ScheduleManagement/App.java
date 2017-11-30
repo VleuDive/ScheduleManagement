@@ -4,25 +4,26 @@ import java.nio.channels.ShutdownChannelGroupException;
 import java.util.ArrayList;
 
 public class App {
-	private User p_User; // p_User의 자료형을 int 에서 User로 변경. 현재 로그인한 유저
+	private User p_User; // p_User�쓽 �옄猷뚰삎�쓣 int �뿉�꽌 User濡� 蹂�寃�. �쁽�옱 濡쒓렇�씤�븳 �쑀��
 	
-	private ArrayList<Schedule_ItemType> TotalSchedules;//데이터베이스에 등록된 전체 Schedule
-	private ArrayList<Goal> TotalGoals;// 데이터베이스에 등록된 전체 Goal 목록
-	private ArrayList<BucketList> TotalBKs;// 데이터베이스에 등록된 전체 BK 목록
-	private ArrayList<ScoreBoard_ItemType> scoreBoardList;// 데이터베이스에 등록된 전체 ScoreBoard목록
+	private ArrayList<Schedule_ItemType> TotalSchedules;//�뜲�씠�꽣踰좎씠�뒪�뿉 �벑濡앸맂 �쟾泥� Schedule
+	private ArrayList<Goal> TotalGoals;// �뜲�씠�꽣踰좎씠�뒪�뿉 �벑濡앸맂 �쟾泥� Goal 紐⑸줉
+	private ArrayList<BucketList> TotalBKs;// �뜲�씠�꽣踰좎씠�뒪�뿉 �벑濡앸맂 �쟾泥� BK 紐⑸줉
+	private ArrayList<ScoreBoard_ItemType> scoreBoardList;// �뜲�씠�꽣踰좎씠�뒪�뿉 �벑濡앸맂 �쟾泥� ScoreBoard紐⑸줉
 	
-	private ScheduleHandler S_Handler;// 일정관리 Handler
-	private DBHandler D_Handler; //DB 연결 및 쿼리 핸들러
+	private ScheduleHandler S_Handler;// �씪�젙愿�由� Handler
+	private DBHandler D_Handler; //DB �뿰寃� 諛� 荑쇰━ �빖�뱾�윭
+	//test
 	
 	/*
-	 * p_User를 User형으로 정의할 경우, p_User의 타입은 두 가지로 분류 ->Student, School
-	 * 실제로 구현 시에는 먼저 User 타입으로 할당한 후 로그인한 회원의 타입에 따라 p_User에 Student 또는 School 클래스 할당
-	 * 이렇게 할 시, p_User 객체를 통해 각 객체가 가진 전체 목표 / 일정 목록에 접근 가능하며, App이 가지고 있을 필요 X
-	 * App이 모든 List들을 다 가지고 있게 하려면: School 회원만 가지고 있는 전공 또는 종합시간표 등도 이 클래스에 포함되어야 함 ->관리가 복잡해지고 비효율적?
+	 * p_User瑜� User�삎�쑝濡� �젙�쓽�븷 寃쎌슦, p_User�쓽 ���엯�� �몢 媛�吏�濡� 遺꾨쪟 ->Student, School
+	 * �떎�젣濡� 援ы쁽 �떆�뿉�뒗 癒쇱� User ���엯�쑝濡� �븷�떦�븳 �썑 濡쒓렇�씤�븳 �쉶�썝�쓽 ���엯�뿉 �뵲�씪 p_User�뿉 Student �삉�뒗 School �겢�옒�뒪 �븷�떦
+	 * �씠�젃寃� �븷 �떆, p_User 媛앹껜瑜� �넻�빐 媛� 媛앹껜媛� 媛�吏� �쟾泥� 紐⑺몴 / �씪�젙 紐⑸줉�뿉 �젒洹� 媛��뒫�븯硫�, App�씠 媛�吏�怨� �엳�쓣 �븘�슂 X
+	 * App�씠 紐⑤뱺 List�뱾�쓣 �떎 媛�吏�怨� �엳寃� �븯�젮硫�: School �쉶�썝留� 媛�吏�怨� �엳�뒗 �쟾怨� �삉�뒗 醫낇빀�떆媛꾪몴 �벑�룄 �씠 �겢�옒�뒪�뿉 �룷�븿�릺�뼱�빞 �븿 ->愿�由ш� 蹂듭옟�빐吏�怨� 鍮꾪슚�쑉�쟻?
 	 */
 	public App()
 	{
-		p_User=new User();//여기서는 새로운 User 클래스를 정의하고, 이후 유저의 타입에 따라 p_User=new Student() 또는 p_User=new School(); 할당
+		p_User=new User();//�뿬湲곗꽌�뒗 �깉濡쒖슫 User �겢�옒�뒪瑜� �젙�쓽�븯怨�, �씠�썑 �쑀���쓽 ���엯�뿉 �뵲�씪 p_User=new Student() �삉�뒗 p_User=new School(); �븷�떦
 		S_Handler=new ScheduleHandler();
 		D_Handler=new DBHandler();
 		scoreBoardList=new ArrayList<ScoreBoard_ItemType>();
@@ -41,7 +42,7 @@ public class App {
 	}
 	public void SchoolLogin(String id, String pw)
 	{
-		//학교 회원 로그인
+		//�븰援� �쉶�썝 濡쒓렇�씤
 	}
 	public void StudentLogin(String id, String pw)
 	{
@@ -53,11 +54,11 @@ public class App {
 	}
 	public void withDraw()
 	{
-		//회원 탈퇴
+		//�쉶�썝 �깉�눜
 	}
 	public void StudentRegister(int type, String id, String pw, String schoolName,String Major,String nickname)
 	{
-		//학생 회원 가입
+		//�븰�깮 �쉶�썝 媛��엯
 	}
 	public void SchoolRegister(int type, String id, String pw, String schoolName)
 	{
@@ -116,7 +117,7 @@ public class App {
 	}
 	public void feedBackAlarm()
 	{
-		//별도의 thread로 관리?
+		//蹂꾨룄�쓽 thread濡� 愿�由�?
 	}
 	public void registerFeedBack(int month, int week, int date, String feed)
 	{
