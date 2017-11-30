@@ -10,7 +10,7 @@ public class Daily_Schedule {
 	int TodoListcount =0;
 	
 	
-	/*동적 할당해야하지만 일단 30분단위로 일정을 넣을 수 있게 함.*/
+	/*동적 할당해야하지만 일단 15분단위로 일정을 넣을 수 있게 함.*/
 	private Schedule_ItemType[] TimecontentList = new Schedule_ItemType[96];
 	
 	

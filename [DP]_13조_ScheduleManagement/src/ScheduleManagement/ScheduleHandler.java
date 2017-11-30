@@ -1,7 +1,13 @@
 package ScheduleManagement;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 //스케줄 및 장기 목표를 등록하고, 삭제하고, 배분하는 등의 일을 해 주는 클래스.
 public class ScheduleHandler {
 
+	private DBHandler dbHandler;
+	private ArrayList<Monthly_Schedule> total;
 	private Monthly_Schedule month;
 	private Weekly_Schedule week;
 	private Daily_Schedule day;
@@ -17,7 +23,8 @@ public class ScheduleHandler {
 	public ScheduleHandler()
 	{
 		//생성자
-	
+		dbHandler=new DBHandler();
+		total=new ArrayList<Monthly_Schedule>();
 	}
 	public Monthly_Schedule getMonth()
 	{
@@ -80,9 +87,38 @@ public class ScheduleHandler {
 	{
 		this.dayBK = dayBK;
 	}
-	public void registerSchedule(String name, int month, int week, int date, int timeline, int type, int sort)
+	public void registerSchedule(String StudentID, String name, int month, int week, int date, int timeline, int type, int sort)
 	{
-		//스케줄 등록
+		Schedule_ItemType schedule;
+		int monthIdx=month;
+		int weekIdx=week;
+		int dateIdx=date;
+		
+		//Verifying process
+		
+		if(type==0)
+		{
+			schedule=new School_Schedule();
+			schedule.Set_Type(type);
+			schedule.Set_Name(name);
+			schedule.Set_StudentId(StudentID);
+			schedule.Set_TimeLine(timeline);
+		}
+		else if(type==1)
+		{
+			schedule=new Private_Schedule();
+			schedule.Set_Type(type);
+			schedule.Set_Name(name);
+			schedule.Set_StudentId(StudentID);
+			schedule.Set_TimeLine(timeline);
+		}
+		ArrayList<String> input=new ArrayList<String>();
+		try {
+			dbHandler.insertRowToStudentSchedule(input);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void deleteSchedule(int month, int week, int date, String name)
 	{

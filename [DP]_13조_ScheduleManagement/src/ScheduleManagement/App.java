@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class App {
 	private User p_User; // p_User의 자료형을 int 에서 User로 변경. 현재 로그인한 유저
 	
-	private ArrayList<Schedule_ItemType> TotalSchedules;//데이터베이스에 등록된 전체 Schedule
+	private ArrayList<Monthly_Schedule> TotalSchedules;//데이터베이스에 등록된 전체 Schedule
 	private ArrayList<Goal> TotalGoals;// 데이터베이스에 등록된 전체 Goal 목록
 	private ArrayList<BucketList> TotalBKs;// 데이터베이스에 등록된 전체 BK 목록
 	private ArrayList<ScoreBoard_ItemType> scoreBoardList;// 데이터베이스에 등록된 전체 ScoreBoard목록
@@ -26,7 +26,7 @@ public class App {
 		S_Handler=new ScheduleHandler();
 		D_Handler=new DBHandler();
 		scoreBoardList=new ArrayList<ScoreBoard_ItemType>();
-		TotalSchedules=new ArrayList<Schedule_ItemType>();
+		TotalSchedules=new ArrayList<Monthly_Schedule>();
 		TotalGoals=new ArrayList<Goal>();
 		TotalBKs=new ArrayList<BucketList>();
 	
@@ -87,7 +87,7 @@ public class App {
 	{
 		
 	}
-	public void registerSchedule(String name, int month, int week, int date, int timeline, int type, int sort)
+	public void registerSchedule(String StudentID,String name, int month, int week, int date, int timeline, int type, int sort)
 	{
 		
 	}
