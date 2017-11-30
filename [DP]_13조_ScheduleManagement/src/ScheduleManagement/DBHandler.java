@@ -2,7 +2,7 @@ package ScheduleManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+//DBHandler class funcs
 public class DBHandler {
 
 	private Connection conn;
