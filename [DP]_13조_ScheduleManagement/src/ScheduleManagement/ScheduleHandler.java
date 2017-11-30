@@ -94,7 +94,7 @@ public class ScheduleHandler {
 		int weekIdx=week;
 		int dateIdx=date;
 		
-		//Verifying process : 시간표와 Timeline 비교?
+		//Verifying process : 시간표와 Timeline 비교
 		
 		if(type==0)
 		{
