@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 //스케줄 및 장기 목표를 등록하고, 삭제하고, 배분하는 등의 일을 해 주는 클래스.
+//주석 깨짐 테스트
 public class ScheduleHandler {
 
 	private DBHandler dbHandler;
@@ -95,6 +96,40 @@ public class ScheduleHandler {
 		int dateIdx=date;
 		
 		//Verifying process : 시간표와 Timeline 비교
+		ArrayList<String> studentId=new ArrayList<String>();
+		studentId.add(StudentID);
+		ArrayList<ArrayList<Student>> targetStudent=new ArrayList<ArrayList<Student>>();
+		targetStudent=dbHandler.searchStudent(studentId);
+		Student stu=targetStudent.get(0).get(0);
+		int studentTimeLine=0;
+		for(int i=0;i<stu.getClassTable().size();i++)
+		{
+			studentTimeLine=stu.getClassTable().get(i).Get_TimeLine();
+			if(timeline==studentTimeLine)
+			{
+				if(type==0)
+				{
+					type=0;
+					break;
+				}
+				else if(type==1)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if(type==0)
+				{
+					return;
+				}
+				else if(type==1)
+				{
+					type=1;
+					break;
+				}
+			}
+		}
 		
 		if(type==0)
 		{
