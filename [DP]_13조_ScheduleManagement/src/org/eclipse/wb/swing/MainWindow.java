@@ -86,10 +86,10 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().add(MainPanel, "MainPanel");
 		MainPanel.setLayout(null);
 		
-		JLabel lblScheduleManager = new JLabel("학생 일정 관리 프로그램");
-		lblScheduleManager.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		JLabel lblScheduleManager = new JLabel("\uD559\uC0DD \uC77C\uC815 \uAD00\uB9AC \uD504\uB85C\uADF8\uB7A8");
+		lblScheduleManager.setFont(new Font("DX紐⑤뜕怨좊뵓B", Font.PLAIN, 20));
 		lblScheduleManager.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScheduleManager.setBounds(143, 23, 209, 27);
+		lblScheduleManager.setBounds(121, 26, 239, 27);
 		MainPanel.add(lblScheduleManager);
 		
 		JPanel panel_1 = new JPanel();
@@ -99,10 +99,10 @@ public class MainWindow {
 		MainPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel label = new JLabel("학생 회원");
+		JLabel label = new JLabel("\uD559\uC0DD\uD68C\uC6D0");
 		label.setForeground(Color.BLUE);
-		label.setFont(new Font("DX우등생B", Font.PLAIN, 16));
-		label.setBounds(65, 10, 62, 23);
+		label.setFont(new Font("DX�슦�벑�깮B", Font.PLAIN, 16));
+		label.setBounds(65, 10, 73, 23);
 		panel_1.add(label);
 		
 		JButton btnNewButton = new JButton("Login!");
@@ -142,9 +142,9 @@ public class MainWindow {
 		MainPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel label_1 = new JLabel("학교 회원");
+		JLabel label_1 = new JLabel("\uD559\uAD50\uD68C\uC6D0");
 		label_1.setForeground(new Color(0, 100, 0));
-		label_1.setFont(new Font("DX우등생B", Font.PLAIN, 16));
+		label_1.setFont(new Font("DX�슦�벑�깮B", Font.PLAIN, 16));
 		label_1.setBounds(69, 10, 79, 30);
 		panel_2.add(label_1);
 		
@@ -173,8 +173,8 @@ public class MainWindow {
 		panel_2.add(btnRegister);
 		
 		JLabel lblWelcome = new JLabel("Welcome!");
-		lblWelcome.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 15));
-		lblWelcome.setBounds(218, 51, 57, 15);
+		lblWelcome.setFont(new Font("1�썕�븯��怨좎뼇�씠 R", Font.PLAIN, 15));
+		lblWelcome.setBounds(203, 51, 78, 15);
 		MainPanel.add(lblWelcome);
 		
 		JPanel StudentLoginPanel = new JPanel();
@@ -182,8 +182,8 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().add(StudentLoginPanel, "StudentLoginPanel");
 		StudentLoginPanel.setLayout(null);
 		
-		JLabel lblLogin = new JLabel("학생 회원 로그인");
-		lblLogin.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		JLabel lblLogin = new JLabel("\uD68C\uC6D0 \uB85C\uADF8\uC778");
+		lblLogin.setFont(new Font("DX紐⑤뜕怨좊뵓B", Font.PLAIN, 20));
 		lblLogin.setForeground(new Color(0, 0, 0));
 		lblLogin.setBackground(new Color(248, 248, 255));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -246,7 +246,7 @@ public class MainWindow {
 		MonthlyPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Monthly Schedule");
-		lblNewLabel.setFont(new Font("DX우등생B", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("DX�슦�벑�깮B", Font.PLAIN, 20));
 		lblNewLabel.setBounds(179, 10, 139, 31);
 		MonthlyPanel.add(lblNewLabel);
 		
@@ -255,9 +255,9 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().add(StudentRegisterPanel, "StudentRegisterPanel");
 		StudentRegisterPanel.setLayout(null);
 		
-		JLabel label_2 = new JLabel("학생 회원 가입");
+		JLabel label_2 = new JLabel("\uD559\uC0DD \uD68C\uC6D0 \uAC00\uC785");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		label_2.setFont(new Font("DX紐⑤뜕怨좊뵓B", Font.PLAIN, 20));
 		label_2.setBounds(171, 10, 140, 31);
 		StudentRegisterPanel.add(label_2);
 		
@@ -390,9 +390,9 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().add(SchoolRegisterPanel, "SchoolRegisterPanel");
 		SchoolRegisterPanel.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("학교 회원 가입");
+		JLabel lblNewLabel_2 = new JLabel("\uD559\uAD50 \uD68C\uC6D0 \uAC00\uC785");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		lblNewLabel_2.setFont(new Font("DX紐⑤뜕怨좊뵓B", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(179, 10, 131, 28);
 		SchoolRegisterPanel.add(lblNewLabel_2);
 		
@@ -499,10 +499,10 @@ public class MainWindow {
 		frmScheduleManagementSystem.getContentPane().add(SchoolLoginPanel, "SchoolLoginPanel");
 		SchoolLoginPanel.setLayout(null);
 		
-		JLabel label_3 = new JLabel("학교 회원 로그인");
+		JLabel label_3 = new JLabel("\uD559\uAD50 \uB85C\uADF8\uC778");
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setForeground(Color.BLACK);
-		label_3.setFont(new Font("DX모던고딕B", Font.PLAIN, 20));
+		label_3.setFont(new Font("DX紐⑤뜕怨좊뵓B", Font.PLAIN, 20));
 		label_3.setBackground(new Color(248, 248, 255));
 		label_3.setBounds(178, 29, 145, 28);
 		SchoolLoginPanel.add(label_3);
