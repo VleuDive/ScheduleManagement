@@ -98,9 +98,17 @@ public class ScheduleHandler {
 		//Verifying process : 시간표와 Timeline 비교
 		ArrayList<String> studentId=new ArrayList<String>();
 		studentId.add(StudentID);
-		ArrayList<ArrayList<Student>> targetStudent=new ArrayList<ArrayList<Student>>();
-		targetStudent=dbHandler.searchStudent(studentId);
-		Student stu=targetStudent.get(0).get(0);
+		ArrayList<ArrayList<String>> targetStudent=new ArrayList<ArrayList<String>>();
+		try {
+			targetStudent=dbHandler.searchStudent(studentId);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String StuId=targetStudent.get(0).get(1);//Num으로 학생을 찾아오는 방법 필요!
+		//StudentTimeTable에는 학생 ID가 포함. 학생 ID를 가지고 StudentTimeTable 검색!
+		//이부분 다시 정리할 것!
+		Student stu=new Student();
 		int studentTimeLine=0;
 		for(int i=0;i<stu.getClassTable().size();i++)
 		{
@@ -155,9 +163,102 @@ public class ScheduleHandler {
 			e.printStackTrace();
 		}
 	}
+	
 	public void deleteSchedule(int month, int week, int date, String name)
 	{
-		//스케줄 삭제
+		Schedule_ItemType[] target=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date].Get_TimecontentList();
+		//여기서 복제본을 가져와 복제본을 편집한 뒤 원본에 복제본을 덮어씌우는 것이 효윻적(배열의 차원이 복잡)
+		int delIdx=-1;//지울 스케줄이 위치한 인덱스 번호
+		for(int i=0;i<target.length;i++)
+		{
+			if(target[i].Get_Name()==name)
+			{
+				delIdx=i;
+				break;
+			}
+		}
+		if(delIdx==-1)
+		{
+			ToDoList_ItemType[] newTarget=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date].Get_TodoList();
+			for(int i=0;i<newTarget.length;i++)
+			{
+				if(newTarget[i].Get_Name()==name)
+				{
+					delIdx=i;
+					break;
+				}
+				
+			}
+			ToDoList_ItemType blank=new ToDoList_ItemType();
+			//모든 정보가 비어있는 객체를 만들어 타겟 인덱스에 넣음->정보를 삭제하는 효과
+			newTarget[delIdx].Set_AllRecord(blank);
+			for(int i=0;i<target.length-1;i++)
+			{
+				target[i]=target[i+1];// 배열을 한 칸씩 민다.
+			}
+			newTarget[newTarget.length-1].Set_AllRecord(blank);//마지막 칸이 비도록
+			for(int i=0;i<newTarget.length;i++)
+			{
+			total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date].Set_TodoList(newTarget[i], i);
+			}
+			ArrayList<String> input=new ArrayList<String>();
+			input.add("");
+			input.add("");
+			input.add("");
+			input.add(Integer.toString(date));
+			input.add(Integer.toString(week));
+			input.add(Integer.toString(month));
+			for(int i=0;i<3;i++)
+			{
+				input.add("");
+			}
+			ArrayList<ArrayList<String>> sche;
+			try {
+				sche = dbHandler.searchStudentSchedule(input);
+				int num=Integer.parseInt(sche.get(0).get(0));
+				dbHandler.deleteRowFromStudentSchedule(num);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+		else
+		{
+			Schedule_ItemType blank=new Schedule_ItemType();
+			//모든 정보가 비어있는 객체를 만들어 타겟 인덱스에 넣음->정보를 삭제하는 효과
+			target[delIdx].Set_AllRecord(blank);
+			for(int i=0;i<target.length-1;i++)
+			{
+				target[i]=target[i+1];// 배열을 한 칸씩 민다.
+			}
+			target[target.length-1].Set_AllRecord(blank);//마지막 칸이 비도록
+			for(int i=0;i<target.length;i++)
+			{
+			total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date].Set_TimecontentList(target[i], i);
+			}
+			ArrayList<String> input=new ArrayList<String>();
+			input.add("");
+			input.add("");
+			input.add("");
+			input.add(Integer.toString(date));
+			input.add(Integer.toString(week));
+			input.add(Integer.toString(month));
+			for(int i=0;i<3;i++)
+			{
+				input.add("");
+			}
+			ArrayList<ArrayList<String>> sche;
+			try {
+				sche = dbHandler.searchStudentSchedule(input);
+				int num=Integer.parseInt(sche.get(0).get(0));
+				dbHandler.deleteRowFromStudentSchedule(num);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	public void showScheduleByDate(int date)
 	{
@@ -195,8 +296,47 @@ public class ScheduleHandler {
 	{
 		//버킷리스트 하나 수행
 	}
-	public void sortTodoList()
+	public void sortTodoList(int month, int week, int date, String name)
 	{
-		//To do list의 항목을 5가지 중 하나로 분류
+		Schedule_ItemType[] target=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date].Get_TimecontentList();
+		int sortIdx=0;
+		for(int i=0;i<target.length;i++)
+		{
+			if(target[i].Get_Name()==name)
+			{
+				sortIdx=i;
+				break;
+			}
+		}
+		int sortNum=target[sortIdx].Get_Checking();
+		sortNum=(sortNum+1)%5;
+		target[sortIdx].Set_Checking(sortNum);
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add("");
+		input.add("");
+		input.add(Integer.toString(date));
+		input.add(Integer.toString(week));
+		input.add(Integer.toString(month));
+		for(int i=0;i<3;i++)
+		{
+			input.add("");
+		}
+		ArrayList<ArrayList<String>> sche;
+		try {
+			sche = dbHandler.searchStudentSchedule(input);
+			int num=Integer.parseInt(sche.get(0).get(0));
+			ArrayList<String> update=new ArrayList<String>();
+			for(int i=0;i<7;i++)
+			{
+				update.add("");
+			}
+			update.add(Integer.toString(sortNum));
+			update.add("");
+			dbHandler.updateRowOfStudentSchedule(num, update);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

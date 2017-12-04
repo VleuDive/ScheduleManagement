@@ -52,15 +52,115 @@ public class DBHandler {
 		System.out.println(query+" Executed");
 		stmt.close();
 	}
-	public void updateRowOfUser(String id,ArrayList<String> input)
+	public void updateRowOfUser(String id,ArrayList<String> input) throws SQLException
 	{
-		  
+		stmt=conn.createStatement();
+		String query="UPDATE User SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Type="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Password='"+input.get(i)+"'";
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE UserID="+id;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<User>> searchUser(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchUser(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<User> users=new ArrayList<User>();
-		ArrayList<ArrayList<User>> toRet=new ArrayList<ArrayList<User>>();
-		toRet.add(users);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM User WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"UserID LIKE'"+input.get(i)+"'";
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Type="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Password LIKE '"+input.get(i)+"'";
+				}
+				
+				break;
+			}
+			
+			}
+			
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("USERID"));
+			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("PASSWORD"));
+			toRet.add(temp);
+		}
 		return toRet;
 	}
 	
@@ -83,17 +183,192 @@ public class DBHandler {
 		System.out.println(query+" Executed");
 		stmt.close();
 	}
-	public void updateRowOfStudent(int num,ArrayList<String> input)
+	public void updateRowOfStudent(int num,ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="UPDATE School SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" StudentID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" SchoolID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" MajorNum="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 4:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NickName='"+input.get(i)+"'";
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<Student>> searchStudent(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchStudent(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<Student> students=new ArrayList<Student>();
-		ArrayList<ArrayList<Student>> toRet=new ArrayList<ArrayList<Student>>();
-		toRet.add(students);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM Student WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Number="+input.get(i);
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"StudentID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"SchoolID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"MajorNum="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 4:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NickName LIKE '"+input.get(i)+"'";
+				}
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("MAJORNUM"));
+			temp.add(rs.getString("NICKNAME"));
+			toRet.add(temp);
+		}
 		return toRet;
-		
 	}
 	
 	//School 테이블
@@ -114,17 +389,115 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfSchool(int num, ArrayList<String> input)
+	public void updateRowOfSchool(int num, ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="UPDATE School SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" SchoolID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Name='"+input.get(i)+"'";
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<School>> searchSchool(ArrayList<String> input)
+	
+	public ArrayList<ArrayList<String>> searchSchool(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<School> schools=new ArrayList<School>();
-		ArrayList<ArrayList<School>> toRet=new ArrayList<ArrayList<School>>();
-		toRet.add(schools);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM School WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Number="+input.get(i);
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"SchoolID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Name LIKE '"+input.get(i)+"'";
+	
+				}
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("NAME"));
+			toRet.add(temp);
+		}
 		return toRet;
-		
 	}
 	
 	//StudentSchedule 테이블
@@ -146,15 +519,351 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfStudentSchedule(int num, ArrayList<String> input)
+	public void updateRowOfStudentSchedule(int num, ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="UPDATE StudentSchedule SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" SchoolID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Time="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Date="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 4:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Week="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 5:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Month="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 6:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Subject='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 7:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" State="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 8:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Type="+input.get(i);
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<Schedule_ItemType>> searchStudentSchedule(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchStudentSchedule(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<Schedule_ItemType> schedules=new ArrayList<Schedule_ItemType>();
-		ArrayList<ArrayList<Schedule_ItemType>> toRet=new ArrayList<ArrayList<Schedule_ItemType>>();
-		toRet.add(schedules);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM StudentSchedule WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Number="+input.get(i);
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"StudentID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Time="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Date="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 4:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Week="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 5:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Month="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 6:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Subject LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 7:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"State="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 8:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Date="+input.get(i);
+				}	
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("TIME"));
+			temp.add(rs.getString("DATE"));
+			temp.add(rs.getString("WEEK"));
+			temp.add(rs.getString("MONTH"));
+			temp.add(rs.getString("SUBJECT"));
+			temp.add(rs.getString("STATE"));
+			temp.add(rs.getString("TYPE"));
+			toRet.add(temp);
+		}
 		return toRet;
 		
 	}
@@ -177,15 +886,313 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfTotalTimeTable(int num, ArrayList<String> input)
+	public void updateRowOfTotalTimeTable(int num, ArrayList<String> input) throws SQLException
 	{
-		
+
+		stmt=conn.createStatement();
+		String query="UPDATE TotalTimeTable SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" SchoolID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Time="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Name='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 4:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Professor='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 5:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Room='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 6:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Credits="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 7:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Type="+input.get(i);
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<Schedule_ItemType>> searchTotalTimeTable(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchTotalTimeTable(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<Schedule_ItemType> schedules=new ArrayList<Schedule_ItemType>();
-		ArrayList<ArrayList<Schedule_ItemType>> toRet=new ArrayList<ArrayList<Schedule_ItemType>>();
-		toRet.add(schedules);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM TotalTimeTable WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Number="+input.get(i);
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"SchoolID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Time="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Name LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 4:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Professor LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 5:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Room LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 6:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Credits="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 7:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Type="+input.get(i);
+				}
+				
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("TIME"));
+			temp.add(rs.getString("NAME"));
+			temp.add(rs.getString("PROFESSOR"));
+			temp.add(rs.getString("ROOM"));
+			temp.add(rs.getString("CREDITS"));
+			temp.add(rs.getString("TYPE"));
+			toRet.add(temp);
+		}
 		return toRet;
 	}
 	//Major 테이블
@@ -206,22 +1213,119 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfMajor(int num, ArrayList<String> input)
+	public void updateRowOfMajor(int num, ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="UPDATE Major SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" SchoolID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Name='"+input.get(i)+"'";
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<String>> searchMajor(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchMajor(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<String> majors=new ArrayList<String>();
 		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
-		toRet.add(majors);
-		return toRet;
+	stmt=conn.createStatement();
+	String query="SELECT* FROM Major WHERE ";
+	for(int i=0;i<input.size();i++)
+	{
+		switch(i)
+		{
+		case 0:
+		{
+			if(!input.get(i).equals(""))
+			{
+			query=query+"Number="+input.get(i);
+			int count=0;
+			for(int j=i+1;j<input.size();j++)
+			{
+				if(!input.get(j).equals(""))
+					count++;
+			}
+			if(count!=0)
+			{
+				query=query+"AND";
+			}
+			}
+			break;
+		}
+		case 1:{
+			if(!input.get(i).equals(""))
+			{
+				query=query+"SchoolID LIKE '"+input.get(i)+"'";
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+			break;
+		}
+		case 2:
+		{
+			if(!input.get(i).equals(""))
+			{
+				query=query+"Name LIKE '"+input.get(i)+"'";
+			}
+			break;
+		}
+		}
+	}
+	ResultSet rs=stmt.executeQuery(query);
+	while(rs.next())
+	{
+		ArrayList<String> temp=new ArrayList<String>();
+		temp.add(rs.getString("NUMBER"));
+		temp.add(rs.getString("SCHOOLID"));
+		temp.add(rs.getString("NAME"));
+		toRet.add(temp);
+	}
+	return toRet;
 	}
 	//ScoreBoard 테이블
 	public void insertRowToScoreBoard(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO ScoreBoard(Code,NumOfDone,NumOfDelay,NumOfCommit,NumOfCancel,NumOfProgress,Scoer,NumOfDone_Goal,NumOfDone_Bucket,Feedback) VALUES('";
+		String query="INSERT INTO ScoreBoard(Code,NumOfDone,NumOfDelay,NumOfCommit,NumOfCancel,NumOfProgress,Score,NumOfDone_Goal,NumOfDone_Bucket,Feedback) VALUES('";
 		query=query+input.get(0)+"',"+input.get(1)+","+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+","+input.get(6)+","+input.get(7)+","+input.get(8)+",'"+input.get(9)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -235,15 +1339,393 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfScoreBoard(String code, ArrayList<String> input)
+	public void updateRowOfScoreBoard(String code, ArrayList<String> input) throws SQLException
 	{
-		
+
+		stmt=conn.createStatement();
+		String query="UPDATE StudentSchedule SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfDone="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfDelay="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfCommit="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 4:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfCancel="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 5:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfProgress="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 6:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Score="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 7:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfDone_Goal="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 8:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" NumOfDone_Bucket="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 9:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Feedback='"+input.get(i)+"'";
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Code="+code;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
-	public ArrayList<ArrayList<ScoreBoard_ItemType>> searchScoreBoard(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchScoreBoard(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<ScoreBoard_ItemType> scoreboards=new ArrayList<ScoreBoard_ItemType>();
-		ArrayList<ArrayList<ScoreBoard_ItemType>> toRet=new ArrayList<ArrayList<ScoreBoard_ItemType>>();
-		toRet.add(scoreboards);
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM ScoreBoard WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Code LIKE '"+input.get(i)+"'";
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfDone="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfDelay="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfCommit="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 4:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfCancel="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 5:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfProgress="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 6:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Score="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 7:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfDone_Goal="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 8:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"NumOfDone_Bucket="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 9:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"FeedBack LIKE '"+input.get(i)+"'";
+				}	
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("CODE"));
+			temp.add(rs.getString("NUMOFDONE"));
+			temp.add(rs.getString("NUMOFDELAY"));
+			temp.add(rs.getString("NUMOFCOMMIT"));
+			temp.add(rs.getString("NUMOFCANCEL"));
+			temp.add(rs.getString("NUMOFPROGRESS"));
+			temp.add(rs.getString("SCORE"));
+			temp.add(rs.getString("NUMOFDONE_GOAL"));
+			temp.add(rs.getString("NUMOFDONE_BUCKET"));
+			temp.add(rs.getString("FEEDBACK"));
+			toRet.add(temp);
+		}
 		return toRet;
 	}
 	//StudentTimeTable 테이블
@@ -264,9 +1746,168 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 	}
-	public void updateRowOfStudentTimeTable(int num, ArrayList<String> input)
+	public void updateRowOfStudentTimeTable(int num, ArrayList<String> input) throws SQLException
 	{
-		
+		stmt=conn.createStatement();
+		String query="UPDATE StudentTimeTable SET";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+				case 1:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" StudentID='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 2:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Time="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Professor='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 4:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Room='"+input.get(i)+"'";
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 5:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Credits="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 6:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" Type="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 7:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" IfTest="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 8:
+				{
+					if(!input.get(i).equals(""))
+					{
+						query=query+" IfAssignment="+input.get(i);
+					}
+					break;
+				}
+			}
+		}
+		query=query+" WHERE Number="+num;
+		stmt.executeQuery(query);
+		System.out.println(query+" Executed");
+		stmt.close();
 	}
 	public ArrayList<ArrayList<Schedule_ItemType>> searchStudentTimeTable(ArrayList<String> input)
 	{
