@@ -309,6 +309,32 @@ public class ScheduleHandler {
 		}
 		totalGoal.get(month).getWGList().get(week).getDGList().get(date).setTodayGoalList(d_Goal);
 		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add("");
+		input.add("");
+		input.add(Integer.toString(date));
+		input.add(Integer.toString(week));
+		input.add(Integer.toString(month));
+		for(int i=0;i<3;i++)
+		{
+			input.add("");
+		}
+		ArrayList<ArrayList<String>> tempSche=new ArrayList<ArrayList<String>>();
+		try {
+			tempSche = dbHandler.searchStudentSchedule(input);
+			int num=Integer.parseInt(tempSche.get(0).get(0));
+			for(int i=0;i<7;i++)
+			{
+				input.set(i,"");
+			}
+			input.set(7, ifDone);
+			input.set(8, Integer.toString(2));
+			dbHandler.updateRowOfStudentTimeTable(num, input);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//num을 추출해 올 것!
 		//DBupdate 함수 완성하기!
 		
@@ -332,8 +358,31 @@ public class ScheduleHandler {
 		}
 		totalBK.get(month).getWBList().get(week).getDBList().get(date).setTodayBK(d_Buck);
 		ArrayList<String> input=new ArrayList<String>();
-		//num을 추출해 올 것!
-		//DBupdate 함수 완성하기!
+		input.add("");
+		input.add("");
+		input.add("");
+		input.add(Integer.toString(date));
+		input.add(Integer.toString(week));
+		input.add(Integer.toString(month));
+		for(int i=0;i<3;i++)
+		{
+			input.add("");
+		}
+		ArrayList<ArrayList<String>> tempSche=new ArrayList<ArrayList<String>>();
+		try {
+			tempSche = dbHandler.searchStudentSchedule(input);
+			int num=Integer.parseInt(tempSche.get(0).get(0));
+			for(int i=0;i<7;i++)
+			{
+				input.set(i,"");
+			}
+			input.set(7, ifDone);
+			input.set(8, Integer.toString(3));
+			dbHandler.updateRowOfStudentTimeTable(num, input);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void sortTodoList(int month, int week, int date, String name)
 	{
