@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MonthlyGoal {
 	//지금이 무슨 month인지 나타내는 변수 추가?
 	private ArrayList<WeeklyGoal> WGList;
-
+	private int month;//새로  추가!
 	public MonthlyGoal()
 	{
 		WeeklyGoal empty=new WeeklyGoal();
@@ -14,6 +14,10 @@ public class MonthlyGoal {
 		{
 			WGList.add(empty);
 		}
+	}
+	public int getMonth()
+	{
+		return month;
 	}
 	public ArrayList<WeeklyGoal> getWGList()
 	{
@@ -28,6 +32,10 @@ public class MonthlyGoal {
 	public void addGoalToWGList(WeeklyGoal wg)
 	{
 		WGList.add(wg);
+	}
+	public void setMonth(int m)
+	{
+		month=m;
 	}
 	public void deleteWeeklyGoalFromList(DailyGoal dg)
 	{

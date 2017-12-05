@@ -18,7 +18,7 @@ public class Weekly_BK {
 		}
 	}
 	
-	public ArrayList<Daily_BK> getWBList()
+	public ArrayList<Daily_BK> getDBList()
 	{
 		return DBList;
 	}

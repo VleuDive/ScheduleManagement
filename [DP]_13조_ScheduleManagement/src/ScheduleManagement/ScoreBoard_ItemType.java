@@ -139,9 +139,9 @@ public class ScoreBoard_ItemType {
 	{
 		for(int i=0; i<7; i++)
 		{
-			for(int j=0; j<input.getWBList().get(i).getNumOfDailyBK(); j++)
+			for(int j=0; j<input.getDBList().get(i).getNumOfDailyBK(); j++)
 			{
-				if(input.getWBList().get(i).getTodayBK().get(j).getCheck() == true)
+				if(input.getDBList().get(i).getTodayBK().get(j).getCheck() == true)
 				{
 					CompleteBucketNum = CompleteBucketNum +1;
 				}
@@ -206,9 +206,9 @@ public class ScoreBoard_ItemType {
 		{
 			for(int j=0; j<7; j++)
 			{
-				for(int y=0; y<input.getWBList().get(i).getWBList().get(j).getNumOfDailyBK(); y++)
+				for(int y=0; y<input.getWBList().get(i).getDBList().get(j).getNumOfDailyBK(); y++)
 				{
-					if(input.getWBList().get(i).getWBList().get(j).getTodayBK().get(y).getCheck() == true)
+					if(input.getWBList().get(i).getDBList().get(j).getTodayBK().get(y).getCheck() == true)
 					{
 						CompleteBucketNum = CompleteBucketNum +1;
 					}

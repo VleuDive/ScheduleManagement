@@ -24,7 +24,7 @@ public class ScoreBoard_Calculator {
 	{
 		for(int i=0; i<7; i++)
 		{
-			CurrentPoint = CurrentPoint + MakeDSBpoint(input1.Get_Weekly_Schedule()[i],input2.getDGList().get(i),input3.getWBList().get(i));
+			CurrentPoint = CurrentPoint + MakeDSBpoint(input1.Get_Weekly_Schedule()[i],input2.getDGList().get(i),input3.getDBList().get(i));
 		}
 		return CurrentPoint;
 	}

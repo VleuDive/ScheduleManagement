@@ -13,10 +13,12 @@ public class ScheduleHandler {
 	private Weekly_Schedule week;
 	private Daily_Schedule day;
 	
+	private ArrayList<MonthlyGoal> totalGoal;// 새로 추가된 배열
 	private MonthlyGoal montG;
 	private WeeklyGoal weekG;
 	private DailyGoal dayG;
 	
+	private ArrayList<Monthly_BK> totalBK;// 새로 추가된 배열
 	private Monthly_BK montBK;
 	private Weekly_BK weekBK;
 	private Daily_BK dayBK;
@@ -26,6 +28,8 @@ public class ScheduleHandler {
 		//생성자
 		dbHandler=new DBHandler();
 		total=new ArrayList<Monthly_Schedule>();
+		totalGoal=new ArrayList<MonthlyGoal>();
+		totalBK=new ArrayList<Monthly_BK>();
 	}
 	public Monthly_Schedule getMonth()
 	{
@@ -98,17 +102,14 @@ public class ScheduleHandler {
 		//Verifying process : 시간표와 Timeline 비교
 		ArrayList<String> studentId=new ArrayList<String>();
 		studentId.add(StudentID);
-		ArrayList<ArrayList<String>> targetStudent=new ArrayList<ArrayList<String>>();
+		ArrayList<Student> targetStudent=new ArrayList<Student>();
 		try {
 			targetStudent=dbHandler.searchStudent(studentId);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String StuId=targetStudent.get(0).get(1);//Num으로 학생을 찾아오는 방법 필요!
-		//StudentTimeTable에는 학생 ID가 포함. 학생 ID를 가지고 StudentTimeTable 검색!
-		//이부분 다시 정리할 것!
-		Student stu=new Student();
+		Student stu=targetStudent.get(0);
 		int studentTimeLine=0;
 		for(int i=0;i<stu.getClassTable().size();i++)
 		{
@@ -288,13 +289,51 @@ public class ScheduleHandler {
 	{
 		//월별 버킷리스트 배분
 	}
-	public void completeGoal()
+	public void completeGoal(int month, int week, int date, String name)
 	{
-		//배분된 목표 하나 수행
+		//기존 함수에 파라미터 추가!
+		//배분된 목표 하나 수행. Type2번
+		String ifDone="false";
+		ArrayList<Goal> d_Goal=totalGoal.get(month).getWGList().get(week).getDGList().get(date).getTodayGoalList();
+		for(int i=0;i<d_Goal.size();i++)
+		{
+			if(d_Goal.get(i).getGName()==name)
+			{
+				d_Goal.get(i).completeGoal(1);
+				if(d_Goal.get(i).getCheck())
+				{
+					ifDone="true";
+				}
+				break;
+			}
+		}
+		totalGoal.get(month).getWGList().get(week).getDGList().get(date).setTodayGoalList(d_Goal);
+		ArrayList<String> input=new ArrayList<String>();
+		//num을 추출해 올 것!
+		//DBupdate 함수 완성하기!
+		
+		
+		
 	}
-	public void completeBK()
+	public void completeBK(int month, int week, int date, String name)
 	{
-		//버킷리스트 하나 수행
+		//버킷리스트 하나 수행. Type3번
+
+		String ifDone="false";
+		ArrayList<BucketList> d_Buck=totalBK.get(month).getWBList().get(week).getDBList().get(date).getTodayBK();
+		for(int i=0;i<d_Buck.size();i++)
+		{
+			if(d_Buck.get(i).getName()==name)
+			{
+				d_Buck.get(i).setCheck(true);
+				ifDone="true";
+				break;
+			}
+		}
+		totalBK.get(month).getWBList().get(week).getDBList().get(date).setTodayBK(d_Buck);
+		ArrayList<String> input=new ArrayList<String>();
+		//num을 추출해 올 것!
+		//DBupdate 함수 완성하기!
 	}
 	public void sortTodoList(int month, int week, int date, String name)
 	{

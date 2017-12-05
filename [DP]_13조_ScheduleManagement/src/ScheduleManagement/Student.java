@@ -39,9 +39,9 @@ public class Student extends User {
 	{
 		Nickname=n;
 	}
-	/*public void setTable(ArrayList<School_Schedule> st)
+	public void setTable(ArrayList<School_Schedule> st)
 	{
 		MyClassTable=st;
 	}
-	*/
+	
 }

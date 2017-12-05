@@ -266,7 +266,7 @@ public class DBHandler {
 		System.out.println(query+" Executed");
 		stmt.close();
 	}
-	public ArrayList<ArrayList<String>> searchStudent(ArrayList<String> input) throws SQLException
+	public ArrayList<Student> searchStudent(ArrayList<String> input) throws SQLException
 	{
 		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
 		stmt=conn.createStatement();
@@ -357,18 +357,66 @@ public class DBHandler {
 			}
 			}
 		}
+		ArrayList<Student> result=new ArrayList<Student>();
 		ResultSet rs=stmt.executeQuery(query);
+		Student toAdd=new Student();
 		while(rs.next())
 		{
 			ArrayList<String> temp=new ArrayList<String>();
+			ArrayList<String> mjsearch=new ArrayList<String>();
+			mjsearch.add("");
 			temp.add(rs.getString("NUMBER"));
 			temp.add(rs.getString("STUDENTID"));
+			toAdd.setId(rs.getString("STUDENTID"));
 			temp.add(rs.getString("SCHOOLID"));
+			toAdd.setSchool(rs.getString("SCHOOLID"));
 			temp.add(rs.getString("MAJORNUM"));
+			mjsearch.add(rs.getString("MAJORNUM"));
+			mjsearch.add("");
+			ArrayList<ArrayList<String>> tempMj=searchMajor(mjsearch);
+			String mjName=tempMj.get(0).get(2);
+			toAdd.setMajor(mjName);
 			temp.add(rs.getString("NICKNAME"));
+			toAdd.setNickName(rs.getString("NICKNAME"));
+			ArrayList<String> tableSearch=new ArrayList<String>();
+			School_Schedule tmpSchSche=new School_Schedule();
+			ArrayList<School_Schedule> tmpTable=new ArrayList<School_Schedule>();
+			tableSearch.add("");
+			tableSearch.add(toRet.get(0).get(1));
+			for(int i=2;i<9;i++)
+			{
+				tableSearch.add("");
+			}
+			ArrayList<ArrayList<String>> tempTable=searchStudentTimeTable(tableSearch);
+			for(int i=0;i<tempTable.size();i++)
+			{
+				tmpSchSche.Set_StudentId(tempTable.get(i).get(1));
+				tmpSchSche.Set_TimeLine(Integer.parseInt(tempTable.get(i).get(2)));
+				tmpSchSche.Set_Type(0);
+				tmpSchSche.Set_Name(tempTable.get(i).get(2));
+				if(Boolean.parseBoolean(tempTable.get(i).get(7)))
+				{
+					tmpSchSche.Set_Exam("True");
+				}
+				else
+				{
+					tmpSchSche.Set_Exam("False");
+				}
+				if(Boolean.parseBoolean(tempTable.get(i).get(8)))
+				{
+					tmpSchSche.Set_Assignment("True");
+				}
+				else
+				{
+					tmpSchSche.Set_Assignment("False");
+				}
+				tmpTable.add(tmpSchSche);
+			}
 			toRet.add(temp);
+			toAdd.setTable(tmpTable);
+			result.add(toAdd);
 		}
-		return toRet;
+		return result;
 	}
 	
 	//School 테이블
@@ -1732,8 +1780,8 @@ public class DBHandler {
 	public void insertRowToStudentTimeTable(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO StudentTimeTable(Number,StudentID,Time,Professor,Room,Credits,Type,IfTest,IfAssignment) VALUES(";
-		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+",'"+input.get(3)+"','"+input.get(4)+"',"+input.get(5)+","+input.get(6)+","+input.get(7)+","+input.get(8)+"')";
+		String query="INSERT INTO StudentTimeTable(Number,StudentID,Name,Time,Professor,Room,Credits,Type,IfTest,IfAssignment) VALUES(";
+		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"',"+input.get(3)+",'"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+","+input.get(8)+","+input.get(9)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -1758,7 +1806,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" StudentID='"+input.get(i)+"'";
+						query=query+" StudentID LIKE '"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1778,7 +1826,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Time="+input.get(i);
+						query=query+" Name LIKE'"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1798,7 +1846,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Professor='"+input.get(i)+"'";
+						query=query+" Time="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1818,7 +1866,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Room='"+input.get(i)+"'";
+						query=query+" Professor='"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1838,7 +1886,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Credits="+input.get(i);
+						query=query+" Room='"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1858,7 +1906,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Type="+input.get(i);
+						query=query+" Credits="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1878,7 +1926,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" IfTest="+input.get(i);
+						query=query+" Type="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1898,6 +1946,26 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
+						query=query+" IfTest="+input.get(i);
+						int count=0;
+						for(int j=i+1;j<input.size();j++)
+						{
+							if(!input.get(j).equals(""))
+							{
+								count++;
+							}
+						}
+						if(count!=0)
+						{
+							query=query+",";
+						}
+					}
+					break;
+				}
+				case 9:
+				{
+					if(!input.get(i).equals(""))
+					{
 						query=query+" IfAssignment="+input.get(i);
 					}
 					break;
@@ -1909,11 +1977,209 @@ public class DBHandler {
 		System.out.println(query+" Executed");
 		stmt.close();
 	}
-	public ArrayList<ArrayList<Schedule_ItemType>> searchStudentTimeTable(ArrayList<String> input)
+	public ArrayList<ArrayList<String>> searchStudentTimeTable(ArrayList<String> input) throws SQLException
 	{
-		ArrayList<Schedule_ItemType> schedules=new ArrayList<Schedule_ItemType>();
-		ArrayList<ArrayList<Schedule_ItemType>> toRet=new ArrayList<ArrayList<Schedule_ItemType>>();
-		toRet.add(schedules);
+
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT* FROM StudentTimeTable WHERE ";
+		for(int i=0;i<input.size();i++)
+		{
+			switch(i)
+			{
+			case 0:
+			{
+				if(!input.get(i).equals(""))
+				{
+				query=query+"Number="+input.get(i);
+				int count=0;
+				for(int j=i+1;j<input.size();j++)
+				{
+					if(!input.get(j).equals(""))
+						count++;
+				}
+				if(count!=0)
+				{
+					query=query+"AND";
+				}
+				}
+				break;
+			}
+			case 1:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"StudentID LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 2:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Name LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+					}
+				break;
+			}
+			case 3:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Time="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				break;
+			}
+			case 4:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Professor LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 5:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Room LIKE '"+input.get(i)+"'";
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 6:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Credits="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 7:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"Type="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 8:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"IfTest="+input.get(i);
+					int count=0;
+					for(int j=i+1;j<input.size();j++)
+					{
+						if(!input.get(j).equals(""))
+							count++;
+					}
+					if(count!=0)
+					{
+						query=query+"AND";
+					}
+				}
+				
+				break;
+			}
+			case 9:
+			{
+				if(!input.get(i).equals(""))
+				{
+					query=query+"IfAssignment="+input.get(i);
+				}
+				
+				break;
+			}
+			}
+		}
+		ResultSet rs=stmt.executeQuery(query);
+		while(rs.next())
+		{
+			ArrayList<String> temp=new ArrayList<String>();
+			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("TIME"));
+			temp.add(rs.getString("PROFESSOR"));
+			temp.add(rs.getString("ROOM"));
+			temp.add(rs.getString("CREDITS"));
+			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("IFTEST"));
+			temp.add(rs.getString("IFASSIGNMENT"));
+			toRet.add(temp);
+		}
 		return toRet;
 	}
 	
