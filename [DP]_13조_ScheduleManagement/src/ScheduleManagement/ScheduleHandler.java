@@ -7,11 +7,13 @@ import java.util.ArrayList;
 //주석 깨짐 테스트
 public class ScheduleHandler {
 
+	private ArrayList<Goal> everyGoals;//배분 전의 전체 Goal 목록
+	private ArrayList<BucketList> everyBKs;// 배분 전의 전체 BK 목록
 	private DBHandler dbHandler;
 	private ArrayList<Monthly_Schedule> total;
-	private Monthly_Schedule month;
-	private Weekly_Schedule week;
-	private Daily_Schedule day;
+//	private Monthly_Schedule month;
+//	private Weekly_Schedule week;
+//	private Daily_Schedule day;
 	
 	private ArrayList<MonthlyGoal> totalGoal;// 새로 추가된 배열
 	private MonthlyGoal montG;
@@ -22,7 +24,7 @@ public class ScheduleHandler {
 	private Monthly_BK montBK;
 	private Weekly_BK weekBK;
 	private Daily_BK dayBK;
-	
+//	
 	public ScheduleHandler()
 	{
 		//생성자
@@ -30,19 +32,54 @@ public class ScheduleHandler {
 		total=new ArrayList<Monthly_Schedule>();
 		totalGoal=new ArrayList<MonthlyGoal>();
 		totalBK=new ArrayList<Monthly_BK>();
+		everyBKs=new ArrayList<BucketList>();
+		everyGoals=new ArrayList<Goal>();
 	}
-	public Monthly_Schedule getMonth()
+	public ArrayList<Monthly_Schedule> getTotal()
 	{
-		return month;
+		return total;
 	}
-	public Weekly_Schedule getWeek()
+	public ArrayList<MonthlyGoal> getTotalGoal()
 	{
-		return week;
+		return totalGoal;
 	}
-	public Daily_Schedule getDay() 
+	public ArrayList<Monthly_BK> getTotalBK()
 	{
-		return day;
+		return totalBK;
 	}
+	public void setTotal(ArrayList<Monthly_Schedule> t)
+	{
+		total=t;
+	}
+	public void setTotalGoal(ArrayList<MonthlyGoal> t)
+	{
+		totalGoal=t;
+	}
+	public void setTotalBK(ArrayList<Monthly_BK> t)
+	{
+		totalBK=t;
+	}
+	public void setEveryGoal(ArrayList<Goal> g)
+	{
+		everyGoals=g;
+	}
+	public void setEveryBK(ArrayList<BucketList> b)
+	{
+		everyBKs=b;
+	}
+	
+//	public Monthly_Schedule getMonth()
+//	{
+//		return month;
+//	}
+//	public Weekly_Schedule getWeek()
+//	{
+//		return week;
+//	}
+//	public Daily_Schedule getDay() 
+//	{
+//		return day;
+//	}
 	public MonthlyGoal getMontG() 
 	{
 		return montG;
@@ -55,19 +92,31 @@ public class ScheduleHandler {
 	{
 		return dayG;
 	}
-	
-	public void setMonth(Monthly_Schedule month) 
+	public Monthly_BK getMonthBK()
 	{
-		this.month = month;
+		return montBK;
 	}
-	public void setWeek(Weekly_Schedule week)
+	public Weekly_BK getWeeklyBK()
 	{
-		this.week = week;
+		return weekBK;
 	}
-	public void setDay(Daily_Schedule day)
+	public Daily_BK getDailyBK()
 	{
-		this.day = day;
+		return dayBK;
 	}
+//	
+	//public void setMonth(Monthly_Schedule month) 
+//	{
+//		this.month = month;
+	//}
+//	public void setWeek(Weekly_Schedule week)
+//	{
+//		this.week = week;
+//	}
+//	public void setDay(Daily_Schedule day)
+//	{
+//		this.day = day;
+//	}
 	public void setMontG(MonthlyGoal montG) 
 	{
 		this.montG = montG;
@@ -261,11 +310,99 @@ public class ScheduleHandler {
 		}
 		
 	}
-	public void showScheduleByDate(int date)
+	public Daily_Schedule sortScheduleByDate(int month,int week,int date)
 	{
-		//날짜별로 스케줄을 찾아 보여줌
+		//하루 Schedule을 Sort해주는 함수로 변경!(Show는 여기서 리턴을 받은 App에서)
+		Daily_Schedule toRet=new Daily_Schedule();
+		toRet=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date];
+		int len=toRet.Get_TimecontentList().length;
+		Schedule_ItemType[] tmpAry=new Schedule_ItemType[10];
+		tmpAry=toRet.Get_TimecontentList();
+		Schedule_ItemType temp=new Schedule_ItemType();
+		//Schedule을 Timeline 순서대로 Bubble Sort
+		for(int i=0;i<len;i++)
+		{
+			for(int j=1;j<len-1;j++)
+			{
+				if(tmpAry[j-1].Get_TimeLine()>tmpAry[j].Get_TimeLine())
+				{
+					temp=tmpAry[j-1];
+					tmpAry[j-1]=tmpAry[j];
+					tmpAry[j]=temp;
+				}
+			}
+		}
+		for(int i=0;i<10;i++)
+		{
+			toRet.Set_TimecontentList(tmpAry[i], i);
+		}
+		return toRet;
 	}
-	public void constructDailyGoal()
+	public void constructGoal()
+	{
+		int length=everyGoals.size();
+		if(length<=12)
+		{
+			Goal toFill=new Goal();
+			//월간만 가능
+			for(int i=0;i<length;i++)
+			{
+				toFill=everyGoals.get(i);
+				dayG.fillTodayGoalList(toFill);
+				for(int j=0;j<7;j++)
+				{
+					weekG.addGoalToDGList(dayG);
+				}
+				for(int j=0;j<4;j++)
+				{
+					montG.addGoalToWGList(weekG);
+				}
+				totalGoal.add(montG);
+	
+			}
+		}
+		else if(length<=48)
+		{
+			int flag=0;//각 구간을 시작하는 인덱스
+			//월간+주간
+			for(int i=0;i<12;i++)
+			{
+				for(int k=flag;k<flag+4;k++)
+				{
+					dayG.fillTodayGoalList(everyGoals.get(k));
+					for(int j=0;j<7;j++)
+					{
+					weekG.addGoalToDGList(dayG);
+					}
+					montG.addGoalToWGList(weekG);
+				}
+				totalGoal.add(montG);
+				flag+=4;
+			}
+		}
+		else if(length<=336)
+		{
+			int weekidx=0;
+			int dayidx=0;
+			//월간+주간+불완전한 일간
+			for(int i=0;i<12;i++)
+			{
+			 for(int j=weekidx;j<weekidx+4;j++)
+			 {
+				for(int k=dayidx;k<dayidx+7;k++)
+				{
+					dayG.fillTodayGoalList(everyGoals.get(k));
+					weekG.addGoalToDGList(dayG);
+				}
+				montG.addGoalToWGList(weekG);
+				dayidx+=7;
+			 }
+			 totalGoal.add(montG);
+			 weekidx+=4;
+			}
+		}
+	}
+/*	public void constructDailyGoal()
 	{
 		//일별 목표 배분
 	}
@@ -276,10 +413,76 @@ public class ScheduleHandler {
 	public void constructMonthlyGoal()
 	{
 		//월별 목표 배분
+	}*/
+	public void constructBK()
+	{
+		//새로 추가. BucketList 개수에 따라 배분 과정을 달리함
+		int length=everyBKs.size();
+		if(length<=12)
+		{
+			BucketList toFill=new BucketList();
+			//월간만 가능
+			for(int i=0;i<length;i++)
+			{
+				toFill=everyBKs.get(i);
+				dayBK.fillTodayBKList(toFill);
+				for(int j=0;j<7;j++)
+				{
+					weekBK.addGoalToWBList(dayBK);
+				}
+				for(int j=0;j<4;j++)
+				{
+					montBK.addBKToWBList(weekBK);
+				}
+				totalBK.add(montBK);
+	
+			}
+		}
+		else if(length<=48)
+		{
+			int flag=0;//각 구간을 시작하는 인덱스
+			//월간+주간
+			for(int i=0;i<12;i++)
+			{
+				for(int k=flag;k<flag+4;k++)
+				{
+					dayBK.fillTodayBKList(everyBKs.get(k));
+					for(int j=0;j<7;j++)
+					{
+					weekBK.addGoalToWBList(dayBK);
+					}
+					montBK.addBKToWBList(weekBK);
+				}
+				totalBK.add(montBK);
+				flag+=4;
+			}
+		}
+		else if(length<=336)
+		{
+			int weekidx=0;
+			int dayidx=0;
+			//월간+주간+불완전한 일간
+			for(int i=0;i<12;i++)
+			{
+			 for(int j=weekidx;j<weekidx+4;j++)
+			 {
+				for(int k=dayidx;k<dayidx+7;k++)
+				{
+					dayBK.fillTodayBKList(everyBKs.get(k));
+					weekBK.addGoalToWBList(dayBK);
+				}
+				montBK.addBKToWBList(weekBK);
+				dayidx+=7;
+			 }
+			 totalBK.add(montBK);
+			 weekidx+=4;
+			}
+		}
 	}
-	public void constructDailyBK()
+/*	public void constructDailyBK()
 	{
 		//일별 버킷리스트 배분
+		
 	}
 	public void constructWeeklyBK()
 	{
@@ -288,7 +491,15 @@ public class ScheduleHandler {
 	public void constructMonthlyBK()
 	{
 		//월별 버킷리스트 배분
-	}
+		int num=(int)(everyBKs.size()/12);
+		for(int i=0;i<12;i++)
+		{
+			for(int j=0;j<num;j++)
+			{
+				
+			}
+		}
+	}*/
 	public void completeGoal(int month, int week, int date, String name)
 	{
 		//기존 함수에 파라미터 추가!
