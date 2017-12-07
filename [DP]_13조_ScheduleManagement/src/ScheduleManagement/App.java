@@ -1,6 +1,10 @@
 package ScheduleManagement;
 
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class App {
 	private User p_User; // p_User�쓽 �옄猷뚰삎�쓣 in �뿉�꽌 User濡� 蹂�寃�. �쁽�옱 濡쒓렇�씤�븳 �쑀��
@@ -9,8 +13,10 @@ public class App {
 	private ArrayList<Goal> TotalGoals;// 데이터베이스에 등록된 전체 Goal 목록
 	private ArrayList<BucketList> TotalBKs;// 데이터베이스에 등록된 전체 BK 목록
 	private ArrayList<ScoreBoard_ItemType> scoreBoardList;// 데이터베이스에 등록된 전체 ScoreBoard목록
-	
-
+	private Daily_Schedule today;//새로 추가!
+	private int month;
+	private int week;
+	private int date;
 	
 	private ScheduleHandler S_Handler;// �씪�젙愿�由� Handler
 	private DBHandler D_Handler; //DB �뿰寃� 諛� 荑쇰━ �빖�뱾�윭
@@ -18,14 +24,20 @@ public class App {
 
 	public App()
 	{
+		today=new Daily_Schedule();
 		p_User=new User();//�뿬湲곗꽌�뒗 �깉濡쒖슫 User �겢�옒�뒪瑜� �젙�쓽�븯怨�, �씠�썑 �쑀���쓽 ���엯�뿉 �뵲�씪 p_User=new Student() �삉�뒗 p_User=new School(); �븷�떦
 		S_Handler=new ScheduleHandler();
 		D_Handler=new DBHandler();
 		scoreBoardList=new ArrayList<ScoreBoard_ItemType>();
 		TotalSchedules=new ArrayList<Monthly_Schedule>();
 		TotalGoals=new ArrayList<Goal>();
-		TotalBKs=new ArrayList<BucketList>();
-	
+		
+		Calendar cl=Calendar.getInstance();
+		month=cl.get(Calendar.MONTH);
+		System.out.println(cl.get(Calendar.DATE));
+		date=cl.get(Calendar.DAY_OF_WEEK)-1;
+		
+		//week 함수 구현!
 	}
 	public User getUser()
 	{
@@ -35,17 +47,166 @@ public class App {
 	{
 		p_User=u;
 	}
-	public void SchoolLogin(String id, String pw)
+	public Daily_Schedule getToday()
+	{
+		return today;
+	}
+	public void setToday(Daily_Schedule t)
+	{
+		today=t;
+	}
+	public boolean SchoolLogin(String id, String pw) throws SQLException
 	{
 		//�븰援� �쉶�썝 濡쒓렇�씤
+		ArrayList<String> input=new ArrayList<String>();
+		input.add(id);
+		input.add("0");//학교 회원은 0
+		input.add(pw);
+		ArrayList<ArrayList<String>> temp=D_Handler.searchUser(input);
+		if(temp.get(0).get(0)=="")
+		{
+			return false;
+		}
+		else
+		{
+			User cur=new User();
+			cur.setId(id);
+			cur.setPw(pw);
+			cur.setLogin(true);
+			p_User=cur;
+			return true;
+		}
 	}
-	public void StudentLogin(String id, String pw)
+	public boolean StudentLogin(String id, String pw) throws SQLException
 	{
-		
+		ArrayList<String> input=new ArrayList<String>();
+		input.add(id);
+		input.add("1");//학생 회원은 1
+		input.add(pw);
+		ArrayList<ArrayList<String>> temp=D_Handler.searchUser(input);
+		if(temp.get(0).get(0)=="")
+		{
+			return false;
+		}
+		else
+		{
+			User cur=new User();
+			cur.setId(id);
+			cur.setPw(pw);
+			cur.setLogin(true);
+		    p_User=cur;
+		    ArrayList<String> input2=new ArrayList<String>();
+			input2.add("");
+			input2.add(p_User.getId());
+			input2.add("");
+			input2.add("");
+			input2.add("");
+			input2.add("");
+			input2.add("");
+			input2.add("");
+			input2.add("2");
+			Goal ent=new Goal();
+			ArrayList<ArrayList<String>> Goals=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			for(int i=0;i<Goals.size();i++)
+			{
+				for(int j=0;j<Goals.get(i).size();j++)
+				{
+					switch(j)
+					{
+					case 3:
+					{
+						//date
+						ent.setDate(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 4:
+					{
+						//week
+						ent.setWeek(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 5:
+					{
+						//month
+						ent.setMonth(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 6:
+					{
+						//subject
+						ent.setName(Goals.get(i).get(j));
+						break;
+					}
+					case 7:
+					{
+						//state
+						ent.setCheck(false);
+						break;
+					}
+					}
+				}
+				TotalGoals.add(ent);
+			}
+			S_Handler.setEveryGoal(TotalGoals);
+			BucketList ent2=new BucketList();
+			input2.set(8, "3");
+			ArrayList<ArrayList<String>> Buckets=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			for(int i=0;i<Buckets.size();i++)
+			{
+				for(int j=0;j<Buckets.get(i).size();j++)
+				{
+					switch(j)
+					{
+					case 3:
+					{
+						//date
+						ent2.setDate(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 4:
+					{
+						//week
+						ent2.setWeek(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 5:
+					{
+						//month
+						ent2.setMonth(Integer.parseInt(Goals.get(i).get(j)));
+						break;
+					}
+					case 6:
+					{
+						//subject
+						ent2.setName(Goals.get(i).get(j));
+						break;
+					}
+					case 7:
+					{
+						//state
+						ent2.setCheck(false);
+						break;
+					}
+					}
+				}
+				TotalBKs.add(ent2);
+			}
+			S_Handler.setEveryBK(TotalBKs);
+			return true;
+		}
 	}
-	public void Logout()
+	public boolean Logout()
 	{
-		
+		if(p_User.getLog())
+		{
+			User empty=new User();
+			p_User=empty;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	public void withDraw()
 	{
@@ -81,6 +242,7 @@ public class App {
 	}
 	public void showScheduleByDate(int date)
 	{
+		today=S_Handler.sortScheduleByDate(month, week, date);
 		
 	}
 	public void registerSchedule(String StudentID,String name, int month, int week, int date, int timeline, int type, int sort)
@@ -112,7 +274,7 @@ public class App {
 	}
 	public void feedBackAlarm()
 	{
-		//蹂꾨룄�쓽 thread濡� 愿�由�?
+		
 	}
 	public void registerFeedBack(int month, int week, int date, String feed)
 	{

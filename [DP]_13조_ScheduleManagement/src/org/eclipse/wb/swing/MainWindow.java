@@ -29,6 +29,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
+
 import ScheduleManagement.App;
 public class MainWindow {
 
@@ -232,7 +234,21 @@ public class MainWindow {
 			public void mouseClicked(MouseEvent e) {
 				String id=textField.getText();
 				String pw=textField_1.getText();
-				app.StudentLogin(id, pw);
+				try {
+					boolean res=app.StudentLogin(id, pw);
+					if(res)
+					{
+						cards.show(frmScheduleManagementSystem.getContentPane(),"MonthlyPanel");
+					}
+					else
+					{
+						
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnLogin_1.setForeground(new Color(25, 25, 112));
@@ -549,7 +565,12 @@ public class MainWindow {
 			public void mouseClicked(MouseEvent e) {
 				String id=textField_10.getText();
 				String pw=textField_11.getText();
-				app.SchoolLogin(id, pw);
+				try {
+					app.SchoolLogin(id, pw);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		button_1.setForeground(new Color(25, 25, 112));
