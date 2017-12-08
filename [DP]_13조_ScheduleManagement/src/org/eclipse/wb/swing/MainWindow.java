@@ -102,10 +102,17 @@ public class MainWindow {
 	private JTextField textField_17;
 	private JTextField textField_18;
 	private JTable table_1;
+	private JTable table_8;
 	private JTextField textField_20;
 	private JTextField textField_19;
 	private JTextField textField_22;
 	private JTextField textField_21;
+	private JTextField textField_23;
+	private JTable table_9;
+	private JTable table_10;
+	private BarChart3DDemo3 ScoreBoard1;
+	protected String[] MainWindow;
+	protected String[] args;
 	
 	
 	/**
@@ -761,6 +768,75 @@ public class MainWindow {
 		});
 		btnNewButton_26.setBounds(363, 5, 105, 27);
 		TotalTimeTablePanel.add(btnNewButton_26);
+		table_8 = new JTable();
+		table_8.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		table_8.setBounds(14, 280, 454, 16);
+		TotalTimeTablePanel.add(table_8);
+		
+		JLabel lblNewLabel_20 = new JLabel("학교 이름");
+		lblNewLabel_20.setBounds(13, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_20);
+		
+		JLabel lblNewLabel_21 = new JLabel("수업 시간");
+		lblNewLabel_21.setBounds(80, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_21);
+		
+		JLabel lblNewLabel_22 = new JLabel("강의명");
+		lblNewLabel_22.setBounds(156, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_22);
+		
+		JLabel lblNewLabel_23 = new JLabel("교수명");
+		lblNewLabel_23.setBounds(218, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_23);
+		
+		JLabel lblNewLabel_24 = new JLabel("수업교실");
+		lblNewLabel_24.setBounds(274, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_24);
+		
+		JLabel lblNewLabel_25 = new JLabel("Credits");
+		lblNewLabel_25.setBounds(345, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_26 = new JLabel("Type");
+		lblNewLabel_26.setBounds(406, 250, 62, 18);
+		TotalTimeTablePanel.add(lblNewLabel_26);
+		
+		JButton btnComplete_1 = new JButton("Add");
+		btnComplete_1.setBounds(363, 308, 105, 27);
+		btnComplete_1.setForeground(new Color(0, 0, 128));
+		btnComplete_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		TotalTimeTablePanel.add(btnComplete_1);
+		
+		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4.setBounds(14, 40, 105, 24);
+		TotalTimeTablePanel.add(comboBox_4);
+		comboBox_4.addItem("학교명");
+		
+		JComboBox comboBox_5 = new JComboBox();
+		comboBox_5.setBounds(132, 40, 105, 24);
+		TotalTimeTablePanel.add(comboBox_5);
+		comboBox_5.addItem("전공");
+		comboBox_5.addItem("컴퓨터공학과");
+		comboBox_5.addItem("전자공학과");
+		
+		JComboBox comboBox_6 = new JComboBox();
+		comboBox_6.setBounds(250, 40, 105, 24);
+		TotalTimeTablePanel.add(comboBox_6);
+		comboBox_6.addItem("강의명");
+		comboBox_6.addItem("인간의 가치 탐색");
+		
+		JComboBox comboBox_7 = new JComboBox();
+		comboBox_7.setBounds(363, 40, 105, 24);
+		TotalTimeTablePanel.add(comboBox_7);
+		comboBox_7.addItem("교수명");
+		comboBox_7.addItem("이승형");
 		
 		JPanel StudentTimeTablePanel = new JPanel();
 		StudentTimeTablePanel.setBackground(new Color(176, 224, 230));
@@ -863,6 +939,27 @@ public class MainWindow {
 		});
 		btnNewButton_22.setBounds(368, 15, 100, 27);
 		StudentTimeTablePanel.add(btnNewButton_22);
+		
+		JScrollPane scrollPane_2_1 = new JScrollPane();
+		scrollPane_2_1.setBounds(22, 269, 446, 107);
+		StudentTimeTablePanel.add(scrollPane_2);
+		
+		table_6 = new JTable();
+		scrollPane_2_1.setViewportView(table_6);
+		table_6.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"School", "Major", "Name", "Professor", "Time", "Room", "Credits"
+			}
+		));
 		
 		JPanel DailyPanel = new JPanel();
 		DailyPanel.setBackground(new Color(176, 224, 230));
@@ -977,109 +1074,109 @@ public class MainWindow {
 		
 		table_1 = new JTable();
 		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"\uC911\uC694\uB3C4", "\uC608\uC815 \uC2DC\uAC04", "\uACFC\uC81Cor\uC2DC\uD5D8", "Check"
-			}
-		));
-		scrollPane_4.setViewportView(table_1);
+				new Object[][] {
+					{null, "AM 00:00 ~ 00:15 ", null, null},
+					{null, "00:15 ~ 00:30", null, null},
+					{null, "00:30 ~ 00:45", null, null},
+					{null, "00:45 ~ 01:00", null, null},
+					{null, "01:00 ~ 01:15", null, null},
+					{null, "01:15 ~ 01:30", null, null},
+					{null, "01:30 ~ 01:45", null, null},
+					{null, "01:45 ~ 02:00", null, null},
+					{null, "02:00 ~ 02:15", null, null},
+					{null, "02:15 ~ 02:30", null, null},
+					{null, "02:30 ~ 02:45", null, null},
+					{null, "02:45 ~ 03:00", null, null},
+					{null, "03:00 ~ 03:15", null, null},
+					{null, "03:15 ~ 03:30", null, null},
+					{null, "03:30 ~ 03:45", null, null},
+					{null, "03:45 ~ 04:00", null, null},
+					{null, "04:00 ~ 04:15", null, null},
+					{null, "04:15 ~ 04:30", null, null},
+					{null, "04:30 ~ 04:45", null, null},
+					{null, "04:45 ~ 05:00", null, null},
+					{null, "05:00 ~ 05:15", null, null},
+					{null, "05:15 ~ 05:30", null, null},
+					{null, "05:30 ~ 05:45", null, null},
+					{null, "05:45 ~ 06:00", null, null},
+					{null, "06:00 ~ 06:15", null, null},
+					{null, "06:15 ~ 06:30", null, null},
+					{null, "06:30 ~ 06:45", null, null},
+					{null, "06:45 ~ 07:00", null, null},
+					{null, "07:00 ~ 07:15", null, null},
+					{null, "07:15 ~ 07:30", null, null},
+					{null, "07:30 ~ 07:45", null, null},
+					{null, "07:45 ~ 08:00", null, null},
+					{null, "08:00 ~ 08:15", null, null},
+					{null, "08:15 ~ 08:30", null, null},
+					{null, "08:30 ~ 08:45", null, null},
+					{null, "08:45 ~ 09:00", null, null},
+					{null, "09:00 ~ 09:15", null, null},
+					{null, "09:15 ~ 09:30", null, null},
+					{null, "09:30 ~ 09:45", null, null},
+					{null, "09:45 ~ 10:00", null, null},
+					{null, "10:00 ~ 10:15", null, null},
+					{null, "10:15 ~ 10:30", null, null},
+					{null, "10:30 ~ 10:45", null, null},
+					{null, "10:45 ~ 11:00", null, null},
+					{null, "11:00 ~ 11:15", null, null},
+					{null, "11:15 ~ 11:30", null, null},
+					{null, "11:30 ~ 11:45", null, null},
+					{null, "11:45 ~ 12:00", null, null},
+					{null, "PM 12:00 ~ 12:15", null, null},
+					{null, "12:15 ~ 12:30", null, null},
+					{null, "12:30 ~ 12:45", null, null},
+					{null, "12:45 ~ 01:00", null, null},
+					{null, "01:00 ~ 01:15", null, null},
+					{null, "01:15 ~ 01:30", null, null},
+					{null, "01:30 ~ 01:45", null, null},
+					{null, "01:45 ~ 02:00", null, null},
+					{null, "02:00 ~ 02:15", null, null},
+					{null, "02:15 ~ 02:30", null, null},
+					{null, "02:30 ~ 02:45", null, null},
+					{null, "02:45 ~ 03:00", null, null},
+					{null, "03:00 ~ 03:15", null, null},
+					{null, "03:15 ~ 03:30", null, null},
+					{null, "03:30 ~ 03:45", null, null},
+					{null, "03:45 ~ 04:00", null, null},
+					{null, "04:00 ~ 04:15", null, null},
+					{null, "04:15 ~ 04:30", null, null},
+					{null, "04:30 ~ 04:45", null, null},
+					{null, "04:45 ~ 05:00", null, null},
+					{null, "05:00 ~ 05:15", null, null},
+					{null, "05:15 ~ 05:30", null, null},
+					{null, "05:30 ~ 05:45", null, null},
+					{null, "05:45 ~ 06:00", null, null},
+					{null, "06:00 ~ 06:15", null, null},
+					{null, "06:15 ~ 06:30", null, null},
+					{null, "06:30 ~ 06:45", null, null},
+					{null, "06:45 ~ 07:00", null, null},
+					{null, "07:00 ~ 07:15", null, null},
+					{null, "07:15 ~ 07:30", null, null},
+					{null, "07:30 ~ 07:45", null, null},
+					{null, "07:45 ~ 08:00", null, null},
+					{null, "08:00 ~ 08:15", null, null},
+					{null, "08:15 ~ 08:30", null, null},
+					{null, "08:30 ~ 08:45", null, null},
+					{null, "08:45 ~ 09:00", null, null},
+					{null, "09:00 ~ 09:15", null, null},
+					{null, "09:15 ~ 09:30", null, null},
+					{null, "09:30 ~ 09:45", null, null},
+					{null, "09:45 ~ 10:00", null, null},
+					{null, "10:00 ~ 10:15", null, null},
+					{null, "10:15 ~ 10:30", null, null},
+					{null, "10:30 ~ 10:45", null, null},
+					{null, "10:45 ~ 11:00", null, null},
+					{null, "11:00 ~ 11:15", null, null},
+					{null, "11:15 ~ 11:30", null, null},
+					{null, "11:30 ~ 11:45", null, null},
+					{null, "11:45 ~ 12:00", null, null},
+				},
+				new String[] {
+					"\uC911\uC694\uB3C4", "\uC608\uC815 \uC2DC\uAC04", "\uACFC\uC81Cor\uC2DC\uD5D8", "Check"
+				}
+			));
+			scrollPane_4.setViewportView(table_1);
 		Daily_Schedule day=new Daily_Schedule();
 		day=app.getToday();
 		ToDoList_ItemType todo=new ToDoList_ItemType();
@@ -1117,6 +1214,54 @@ public class MainWindow {
 		JPanel ScoreBoardPanel = new JPanel();
 		ScoreBoardPanel.setBackground(new Color(176, 224, 230));
 		frmScheduleManagementSystem.getContentPane().add(ScoreBoardPanel, "ScoreBoardPanel");
+ScoreBoardPanel.setLayout(null);
+		
+		JButton btnNewButton_12_1 = new JButton("Today's Checking Number");
+		btnNewButton_12_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ScoreBoard1.main(args);
+			}
+		});
+		btnNewButton_12_1.setBounds(128, 216, 219, 27);
+		btnNewButton_12_1.setForeground(new Color(0, 0, 128));
+		btnNewButton_12_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnNewButton_12_1);
+		
+		JButton btnNewButton_37 = new JButton("Today's Final Point");
+		btnNewButton_37.setBounds(128, 144, 219, 27);
+		btnNewButton_37.setForeground(new Color(0, 0, 128));
+		btnNewButton_37.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnNewButton_37);
+		
+		JButton btnNewButton_38 = new JButton("Today's Getting Goal");
+		btnNewButton_38.setBounds(128, 294, 219, 27);
+		btnNewButton_38.setForeground(new Color(0, 0, 128));
+		btnNewButton_38.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnNewButton_38);
+		
+		JButton btnNewButton_39 = new JButton("Today's Getting Bucket List");
+		btnNewButton_39.setBounds(128, 367, 219, 27);
+		btnNewButton_39.setForeground(new Color(0, 0, 128));
+		btnNewButton_39.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnNewButton_39);
+		
+		JLabel lblScoreboardFeedback = new JLabel("ScoreBoard & Feedback");
+		lblScoreboardFeedback.setFont(new Font("굴림", Font.BOLD, 23));
+		lblScoreboardFeedback.setBounds(108, 78, 307, 18);
+		ScoreBoardPanel.add(lblScoreboardFeedback);
+		
+		JButton btnGoBack_2 = new JButton("Go Back");
+		btnGoBack_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "StudentMenu");
+			}
+		});
+		btnGoBack_2.setBounds(363, 23, 105, 27);
+		btnGoBack_2.setForeground(new Color(0, 0, 128));
+		btnGoBack_2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnGoBack_2);
 		
 		JPanel SchoolLoginPanel = new JPanel();
 		SchoolLoginPanel.setBackground(new Color(176, 224, 230));
@@ -1212,6 +1357,61 @@ public class MainWindow {
 		});
 		btnComplete.setBounds(363, 12, 105, 27);
 		AddDepartment.add(btnComplete);
+		JButton btnNewButton_36 = new JButton("Go Back");
+		btnNewButton_36.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "SchoolRegisterPanel");
+			}
+		});
+		btnNewButton_36.setBackground(new Color(224, 255, 255));
+		btnNewButton_36.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_36.setForeground(new Color(0, 0, 128));
+		btnNewButton_36.setBounds(363, 22, 105, 27);
+		AddDepartment.add(btnNewButton_36);
+		
+		textField_23 = new JTextField();
+		textField_23.setBounds(121, 375, 224, 27);
+		AddDepartment.add(textField_23);
+		textField_23.setColumns(10);
+		
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(49, 128, 368, 158);
+		AddDepartment.add(scrollPane_5);
+		
+		table_9 = new JTable();
+		scrollPane_5.setViewportView(table_9);
+		table_9.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\uCEF4\uD4E8\uD130\uACF5\uD559\uACFC"},
+				{"\uC804\uC790\uACF5\uD559\uACFC"},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+			},
+			new String[] {
+				"Registered Department List"
+			}
+		));
+		
+		JLabel lblNewLabel_27 = new JLabel("Current Department");
+		lblNewLabel_27.setBounds(127, 85, 218, 18);
+		lblNewLabel_27.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 26));
+		AddDepartment.add(lblNewLabel_27);
+		
+		JButton btnNewButton_10_1 = new JButton("Add");
+		btnNewButton_10_1.setBounds(176, 414, 105, 27);
+		btnNewButton_10_1.setBackground(new Color(224, 255, 255));
+		btnNewButton_10_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_10_1.setForeground(new Color(0, 0, 128));
+		AddDepartment.add(btnNewButton_10_1);
 		
 		JPanel StudentMenu = new JPanel();
 		StudentMenu.setBackground(new Color(176, 224, 230));
@@ -1541,6 +1741,39 @@ public class MainWindow {
 		btnNewButton_31.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton_31.setForeground(new Color(0, 0, 128));
 		AddToDoList.add(btnNewButton_31);
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(47, 137, 373, 130);
+		AddToDoList.add(scrollPane_6);
+		
+		table_10 = new JTable();
+		scrollPane_6.setViewportView(table_10);
+		table_10.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+			},
+			new String[] {
+				"Registered To do list"
+			}
+		));
+		
+		JLabel lblNewLabel_28 = new JLabel("Current List");
+		lblNewLabel_28.setBounds(158, 86, 208, 31);
+		lblNewLabel_28.setFont(new Font("Dialog", Font.PLAIN, 23));
+		AddToDoList.add(lblNewLabel_28);
+		
+		JButton btnNewButton_11_1 = new JButton("Add");
+		btnNewButton_11_1.setBounds(179, 437, 105, 27);
+		btnNewButton_11_1.setBackground(new Color(224, 255, 255));
+		btnNewButton_11_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_11_1.setForeground(new Color(0, 0, 128));
+		AddToDoList.add(btnNewButton_11_1);
 		
 		JPanel AddSchedule = new JPanel();
 		AddSchedule.setBackground(new Color(176, 224, 230));

@@ -5,12 +5,17 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.CardLayout;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class PopUp extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel SchoolList = new JPanel();
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -30,25 +35,34 @@ public class PopUp extends JDialog {
 	 */
 	public PopUp() {
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().setLayout(new CardLayout(0, 0));
+		getContentPane().add(SchoolList, "name_7135415796411");
+		SchoolList.setLayout(null);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			JButton btnSelect = new JButton("Select");
+			btnSelect.setActionCommand("OK");
+			btnSelect.setBounds(259, 214, 77, 27);
+			SchoolList.add(btnSelect);
+		}
+		{
+			JButton button = new JButton("Cancel");
+			button.setActionCommand("Cancel");
+			button.setBounds(341, 214, 77, 27);
+			SchoolList.add(button);
+		}
+		{
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(14, 12, 404, 189);
+			SchoolList.add(scrollPane);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				table = new JTable();
+				scrollPane.setViewportView(table);
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		}
+		{
+			JPanel plus = new JPanel();
+			plus.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(plus, "name_7135438819606");
 		}
 	}
 
