@@ -39,6 +39,18 @@ public class App {
 		
 		//week 함수 구현!
 	}
+	public int getmonth()
+	{
+		return month;
+	}
+	public int getWeek()
+	{
+		return week;
+	}
+	public int getDate()
+	{
+		return date;
+	}
 	public User getUser()
 	{
 		return p_User;
@@ -62,17 +74,25 @@ public class App {
 		input.add(id);
 		input.add("0");//학교 회원은 0
 		input.add(pw);
-		ArrayList<ArrayList<String>> temp=D_Handler.searchUser(input);
+		ArrayList<ArrayList<String>> temp=new ArrayList<ArrayList<String>>();
+		temp=D_Handler.searchUser(input);
+		input.set(0, "");
+		input.set(1, id);
+		input.set(2, "");
+		ArrayList<ArrayList<String>> tempS=new ArrayList<ArrayList<String>>();
+		tempS=D_Handler.searchSchool(input);
 		if(temp.get(0).get(0)=="")
 		{
 			return false;
 		}
 		else
 		{
-			User cur=new User();
-			cur.setId(id);
-			cur.setPw(pw);
+			p_User=new School();
+			School cur=new School();
+			cur.setId(tempS.get(0).get(0));
 			cur.setLogin(true);
+			cur.setPw(pw);
+			cur.setName(tempS.get(0).get(2));
 			p_User=cur;
 			return true;
 		}
@@ -84,16 +104,23 @@ public class App {
 		input.add("1");//학생 회원은 1
 		input.add(pw);
 		ArrayList<ArrayList<String>> temp=D_Handler.searchUser(input);
+		for(int i=0;i<2;i++)
+		{
+			input.add("");
+		}
+		input.set(0, "");
+		input.set(1, id);
+		ArrayList<Student> tempS=new ArrayList<Student>();
+		tempS=D_Handler.searchStudent(input);
 		if(temp.get(0).get(0)=="")
 		{
 			return false;
 		}
 		else
 		{
-			User cur=new User();
-			cur.setId(id);
-			cur.setPw(pw);
-			cur.setLogin(true);
+			p_User=new Student();
+			Student cur=new Student();
+			cur=tempS.get(0);
 		    p_User=cur;
 		    ArrayList<String> input2=new ArrayList<String>();
 			input2.add("");
@@ -212,13 +239,45 @@ public class App {
 	{
 		//�쉶�썝 �깉�눜
 	}
-	public void StudentRegister(int type, String id, String pw, String schoolName,String Major,String nickname)
+	public void StudentRegister(int type, String id, String pw, String schoolName,String Major,String nickname) throws SQLException
 	{
-		//�븰�깮 �쉶�썝 媛��엯
+		ArrayList<String> scFind=new ArrayList<String>();
+		scFind.add("");
+		scFind.add("");
+		scFind.add(schoolName);
+		ArrayList<ArrayList<String>> school=new ArrayList<ArrayList<String>>();
+		school=D_Handler.searchSchool(scFind);
+		String schoolID=school.get(0).get(1);
+		ArrayList<ArrayList<String>> maj=new ArrayList<ArrayList<String>>();
+		scFind.set(1, schoolID);
+		scFind.set(2, Major);
+		maj=D_Handler.searchMajor(scFind);
+		String majNum=maj.get(0).get(0);
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add(id);
+		input.add(schoolID);
+		input.add(majNum);
+		input.add(nickname);
+		ArrayList<String> uInput=new ArrayList<String>();
+		uInput.add(id);
+		uInput.add("1");
+		uInput.add(pw);
+		D_Handler.insertRowToStudent(input);
+		D_Handler.insertRowToUser(uInput);
 	}
-	public void SchoolRegister(int type, String id, String pw, String schoolName)
+	public void SchoolRegister(int type, String id, String pw, String schoolName) throws SQLException
 	{
-		
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add(id);
+		input.add(schoolName);
+		D_Handler.insertRowToSchool(input);
+		ArrayList<String> uInput=new ArrayList<String>();
+		uInput.add(id);
+		uInput.add("0");
+		uInput.add(pw);
+		D_Handler.insertRowToUser(uInput);
 	}
 	public void buildStudentTimeTable()
 	{
@@ -245,17 +304,17 @@ public class App {
 		today=S_Handler.sortScheduleByDate(month, week, date);
 		
 	}
-	public void registerSchedule(String StudentID,String name, int month, int week, int date, int timeline, int type, int sort)
+	public void registerSchedule(String StudentID,String name, int month, int week, int date, int timeline, int type, int sort,boolean e, boolean a)
 	{
-		
+		S_Handler.registerSchedule(StudentID, name, month, week, date, timeline, type, sort,e,a);
 	}
 	public void deleteSchedule(int month, int week, int date, String name)
 	{
-		
+		S_Handler.deleteSchedule(month, week, date, name);
 	}
-	public void sortSchedule(int month, int week, int date, int sort)
+	public void sortSchedule(int month, int week, int date, String name)
 	{
-		
+		S_Handler.sortTodoList(month, week, date, name);
 	}
 	public void calcScoreBoard()
 	{

@@ -50,13 +50,13 @@ public class Schedule_ItemType {
 		StudentID=input;
 	}
 	
-	public String Get_Assignment()
+	public boolean Get_Assignment()
 	{
-		return "virtual";
+		return false;
 	}
-	public String Get_Exam()
+	public boolean Get_Exam()
 	{
-		return "virtual";
+		return false;
 	}
 	public boolean Get_Attendance()
 	{
@@ -65,11 +65,11 @@ public class Schedule_ItemType {
 
 
 	/*학교일정 virtual함수*/
-	public void Set_Assignment(String input)
+	public void Set_Assignment(boolean input)
 	{
 		
 	}
-	public void Set_Exam(String input)
+	public void Set_Exam(boolean input)
 	{
 	}
 	public void Set_Attendance(boolean input)
@@ -97,15 +97,15 @@ public class Schedule_ItemType {
 
 class School_Schedule extends Schedule_ItemType
 {
-	private String Assignment;
-	private String Exam;
+	private boolean Assignment;
+	private boolean Exam;
 	private boolean Attendance;
 	/*Get 함수*/
-	public String Get_Assignment()
+	public boolean Get_Assignment()
 	{
 	return Assignment;
 	}
-	public String Get_Exam()
+	public boolean Get_Exam()
 	{
 	return Exam;
 	}
@@ -116,11 +116,11 @@ class School_Schedule extends Schedule_ItemType
 
 
 	/*Set 함수*/
-	public void Set_Assignment(String input)
+	public void Set_Assignment(boolean input)
 	{
 	Assignment = input;
 	}
-	public void Set_Exam(String input)
+	public void Set_Exam(boolean input)
 	{
 	Exam = input;
 	}

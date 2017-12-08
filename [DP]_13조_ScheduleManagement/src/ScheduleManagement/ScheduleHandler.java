@@ -141,13 +141,22 @@ public class ScheduleHandler {
 	{
 		this.dayBK = dayBK;
 	}
-	public void registerSchedule(String StudentID, String name, int month, int week, int date, int timeline, int type, int sort)
+	public void registerSchedule(String StudentID, String name, int month, int week, int date, int timeline, int type, int sort,boolean ex, boolean a)
 	{
-		Schedule_ItemType schedule;
+		Schedule_ItemType schedule=new Schedule_ItemType();
+		ToDoList_ItemType todo=new ToDoList_ItemType();
 		int monthIdx=month;
 		int weekIdx=week;
 		int dateIdx=date;
-		
+		if(timeline==-1)
+		{//TodoList.
+			todo.Set_ColoringCheck(4);
+			todo.Set_Important(false);
+			todo.Set_Name(name);
+			todo.Set_TimeLine(timeline);
+		}
+		else
+		{
 		//Verifying process : 시간표와 Timeline 비교
 		ArrayList<String> studentId=new ArrayList<String>();
 		studentId.add(StudentID);
@@ -196,6 +205,8 @@ public class ScheduleHandler {
 			schedule.Set_Name(name);
 			schedule.Set_StudentId(StudentID);
 			schedule.Set_TimeLine(timeline);
+			schedule.Set_Exam(ex);
+			schedule.Set_Assignment(a);
 		}
 		else if(type==1)
 		{
@@ -205,6 +216,7 @@ public class ScheduleHandler {
 			schedule.Set_StudentId(StudentID);
 			schedule.Set_TimeLine(timeline);
 		}
+		}
 		ArrayList<String> input=new ArrayList<String>();
 		try {
 			dbHandler.insertRowToStudentSchedule(input);
@@ -212,7 +224,23 @@ public class ScheduleHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		Daily_Schedule day=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date];
+		for(int i=0;i<96;i++)
+		{
+			if(day.Get_TimecontentList()[i].StudentID=="")
+			{
+				day.Get_TimecontentList()[i]=schedule;
+			}
+		}
+		for (int i=0;i<10;i++)
+		{
+			if(day.Get_TodoList()[i].Get_Name()=="")
+			{
+				day.Get_TodoList()[i]=todo;
+			}
+		}
+		total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date]=day;
+		}
 	
 	public void deleteSchedule(int month, int week, int date, String name)
 	{

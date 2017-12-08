@@ -396,19 +396,19 @@ public class DBHandler {
 				tmpSchSche.Set_Name(tempTable.get(i).get(2));
 				if(Boolean.parseBoolean(tempTable.get(i).get(7)))
 				{
-					tmpSchSche.Set_Exam("True");
+					tmpSchSche.Set_Exam(true);
 				}
 				else
 				{
-					tmpSchSche.Set_Exam("False");
+					tmpSchSche.Set_Exam(false);
 				}
 				if(Boolean.parseBoolean(tempTable.get(i).get(8)))
 				{
-					tmpSchSche.Set_Assignment("True");
+					tmpSchSche.Set_Assignment(true);
 				}
 				else
 				{
-					tmpSchSche.Set_Assignment("False");
+					tmpSchSche.Set_Assignment(false);
 				}
 				tmpTable.add(tmpSchSche);
 			}

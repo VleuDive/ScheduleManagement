@@ -20,11 +20,16 @@ public class Daily_Schedule {
 	private int TimeToFeedBack;
 
 
-	Daily_Schedule()
+	public Daily_Schedule()
 	{
 		for(int i=0; i<96; i++)
 		{
-		TimecontentList[i].Set_TimeLine(9999);
+			TimecontentList[i]=new Schedule_ItemType();
+			TimecontentList[i].Set_TimeLine(9999);
+		}
+		for(int i=0;i<10;i++)
+		{
+			TodoList[i]=new ToDoList_ItemType();
 		}
 	}
 	
