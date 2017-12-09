@@ -872,12 +872,14 @@ public class MainWindow {
 			}
 		));
 		panel_4.add(table_4);
-		User cur=app.getUser();
-		Student stu=(Student)cur;
-		table_4.setValueAt(stu.getId(), 0, 0);
-		table_4.setValueAt(stu.getNickName(), 1, 0);
-		table_4.setValueAt(stu.getSchool(), 2, 0);
-		table_4.setValueAt(stu.getMajor(),3, 0);
+		Student stu=new Student();
+		User cur=new User();
+		//cur=app.getUser();
+		//Student stu1=(Student)cur;
+		//table_4.setValueAt(stu1.getId(), 0, 0);
+		//table_4.setValueAt(stu1.getNickName(), 1, 0);
+		//table_4.setValueAt(stu1.getSchool(), 2, 0);
+		//table_4.setValueAt(stu1.getMajor(),3, 0);
 		JLabel label_7 = new JLabel("학생 정보");
 		label_7.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 20));
 		label_7.setBounds(22, 18, 62, 18);
@@ -1900,8 +1902,18 @@ ScoreBoardPanel.setLayout(null);
 		AddSchedule.add(textField_21);
 		textField_21.setColumns(10);
 		String name=textField_21.getText();
-		int time=Integer.parseInt(textField_22.getText());
-		app.registerSchedule(stu.getId(), name, app.getmonth(), app.getWeek(), app.getDate(), time, type, 4,exam,assign);
+		String time=textField_22.getText();
+		int itime=-1;
+		if(time=="")
+		{
+			itime=-1;
+		}
+		else
+		{
+			time="-1";
+			itime=Integer.parseInt(time);
+		}
+		app.registerSchedule(stu.getId(), name, app.getmonth(), app.getWeek(), app.getDate(), itime, type, 4,exam,assign);
 
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {

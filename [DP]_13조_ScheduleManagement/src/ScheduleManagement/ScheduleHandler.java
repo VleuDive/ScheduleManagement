@@ -219,6 +219,10 @@ public class ScheduleHandler {
 		}
 		ArrayList<String> input=new ArrayList<String>();
 		try {
+			for(int i=0;i<9;i++)
+			{
+				input.add("");
+			}
 			dbHandler.insertRowToStudentSchedule(input);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

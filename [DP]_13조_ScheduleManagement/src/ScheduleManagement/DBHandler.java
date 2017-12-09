@@ -2,6 +2,9 @@ package ScheduleManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 //DBHandler class funcs
 public class DBHandler {
 
@@ -10,6 +13,21 @@ public class DBHandler {
 	String toRet=" ";
 	public DBHandler() 
 	{
+		conn = null;
+		stmt = null;
+		try {
+			Class.forName("com.tmax.tibero.jdbc.TbDriver"); // 사용할 DBMS 드라이버의 이름을 인수로 넘겨 설정한다.
+			System.out.println("드라이버 로딩성공"); // 드라이버 로딩에 성공한 경우 성공 메시지를 띄운다.
+
+			conn = DriverManager.getConnection(
+					"jdbc:tibero:thin:@localhost:8629:tibero", "sys", "system");// DBMS 드라이버와 실질적인 연결을 한다. 
+			System.out.println("DB연결 성공");// DB와의 연결에 성공한 경우 성공 메시지를 띄운다.
+			stmt = conn.createStatement();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("해당 클래스를 찾을 수 없습니다." + cnfe.getMessage());
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+		}
 
 	}
 	public void ConnectToDB()
@@ -37,7 +55,7 @@ public class DBHandler {
 	public void insertRowToUser(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO User(UserID,Type,Password) VALUES('";
+		String query="INSERT INTO TUser(UserID,Type,Password) VALUES('";
 		query=query+input.get(0)+"',"+input.get(1)+",'"+input.get(2)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -46,7 +64,7 @@ public class DBHandler {
 	public void deleteRowFromUser(String id) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM Users WHERE UserID=";
+		String query="DELETE FROM TUsers WHERE UserID=";
 		query=query+id;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -55,7 +73,7 @@ public class DBHandler {
 	public void updateRowOfUser(String id,ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="UPDATE User SET";
+		String query="UPDATE TUser SET";
 		for(int i=0;i<input.size();i++)
 		{
 			switch(i)
@@ -99,7 +117,7 @@ public class DBHandler {
 	{
 		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
 		stmt=conn.createStatement();
-		String query="SELECT* FROM User WHERE ";
+		String query="SELECT* FROM TUser WHERE ";
 		for(int i=0;i<input.size();i++)
 		{
 			switch(i)
@@ -168,7 +186,7 @@ public class DBHandler {
 	public void insertRowToStudent(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO Student(Number,StudentID,SchoolID,MajorNum,NickName)VALUES(";
+		String query="INSERT INTO Student(StuNumber,StudentID,SchoolID,MajorNum,NickName)VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"',"+input.get(3)+",'"+input.get(4)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -261,7 +279,7 @@ public class DBHandler {
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE StuNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -279,7 +297,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"Number="+input.get(i);
+				query=query+"StuNumber="+input.get(i);
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -365,7 +383,7 @@ public class DBHandler {
 			ArrayList<String> temp=new ArrayList<String>();
 			ArrayList<String> mjsearch=new ArrayList<String>();
 			mjsearch.add("");
-			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("STUNUMBER"));
 			temp.add(rs.getString("STUDENTID"));
 			toAdd.setId(rs.getString("STUDENTID"));
 			temp.add(rs.getString("SCHOOLID"));
@@ -423,7 +441,7 @@ public class DBHandler {
 	public void insertRowToSchool(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO School(Number,SchoolID,Name)VALUES(";
+		String query="INSERT INTO School(SchNumber,SchoolID,Name)VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -432,7 +450,7 @@ public class DBHandler {
 	public void deleteRowFromSchool(int num) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM School WHERE Number=";
+		String query="DELETE FROM School WHERE SchNumber=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -475,7 +493,7 @@ public class DBHandler {
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE ScheNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -494,7 +512,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"Number="+input.get(i);
+				query=query+"SchNumber="+input.get(i);
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -540,7 +558,7 @@ public class DBHandler {
 		while(rs.next())
 		{
 			ArrayList<String> temp=new ArrayList<String>();
-			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("SCHNUMBER"));
 			temp.add(rs.getString("SCHOOLID"));
 			temp.add(rs.getString("NAME"));
 			toRet.add(temp);
@@ -552,7 +570,7 @@ public class DBHandler {
 	public void insertRowToStudentSchedule(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO StudentSchedule(Number,StudentID,Time,Date,Week,Month,Subject,State,Type) VALUES(";
+		String query="INSERT INTO StudentSchedule(ScheNumber,StudentID,ScheTime,ScheDate,ScheWeek,ScheMonth,Subject,State,ScheType) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+",'"+input.get(6)+"',"+input.get(7)+","+input.get(8)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -560,9 +578,8 @@ public class DBHandler {
 	}
 	public void deleteRowFromStudentSchedule(int num) throws SQLException
 	{
-
 		stmt=conn.createStatement();
-		String query="DELETE FROM StudentSchedule WHERE Number=";
+		String query="DELETE FROM StudentSchedule WHERE ScheNumber=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -579,7 +596,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" SchoolID='"+input.get(i)+"'";
+						query=query+" StudentID='"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -599,7 +616,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Time="+input.get(i);
+						query=query+" ScheTime="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -619,7 +636,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Date="+input.get(i);
+						query=query+" ScheDate="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -639,7 +656,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Week="+input.get(i);
+						query=query+" ScheWeek="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -659,7 +676,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Month="+input.get(i);
+						query=query+" ScheMonth="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -719,13 +736,13 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Type="+input.get(i);
+						query=query+" ScheType="+input.get(i);
 					}
 					break;
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE ScheNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -743,7 +760,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"Number="+input.get(i);
+				query=query+"ScheNumber="+input.get(i);
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -778,7 +795,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Time="+input.get(i);
+					query=query+"ScheTime="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -796,7 +813,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Date="+input.get(i);
+					query=query+"ScheDate="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -815,7 +832,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Week="+input.get(i);
+					query=query+"ScheWeek="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -834,7 +851,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Month="+input.get(i);
+					query=query+"ScheMonth="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -891,7 +908,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Date="+input.get(i);
+					query=query+"ScheType="+input.get(i);
 				}	
 				break;
 			}
@@ -901,15 +918,15 @@ public class DBHandler {
 		while(rs.next())
 		{
 			ArrayList<String> temp=new ArrayList<String>();
-			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("SCHENUMBER"));
 			temp.add(rs.getString("STUDENTID"));
-			temp.add(rs.getString("TIME"));
-			temp.add(rs.getString("DATE"));
-			temp.add(rs.getString("WEEK"));
-			temp.add(rs.getString("MONTH"));
+			temp.add(rs.getString("SCHETIME"));
+			temp.add(rs.getString("SCHEDATE"));
+			temp.add(rs.getString("SCHEWEEK"));
+			temp.add(rs.getString("SCHEMONTH"));
 			temp.add(rs.getString("SUBJECT"));
 			temp.add(rs.getString("STATE"));
-			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("SCHETYPE"));
 			toRet.add(temp);
 		}
 		return toRet;
@@ -919,7 +936,7 @@ public class DBHandler {
 	public void insertRowToTotalTimeTable(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO TotalTimeTable(Number,SchoolID,Time,Name,Professor,Room,Credits,Type) VALUES(";
+		String query="INSERT INTO TotalTimeTable(TNumber,SchoolID,TTime,Name,Professor,Room,Credits,TType) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+",'"+input.get(3)+"','"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -929,7 +946,7 @@ public class DBHandler {
 	{
 
 		stmt=conn.createStatement();
-		String query="DELETE FROM TotalTimeTable WHERE Number=";
+		String query="DELETE FROM TotalTimeTable WHERE TNumber=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -967,7 +984,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Time="+input.get(i);
+						query=query+" TTime="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1067,13 +1084,13 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Type="+input.get(i);
+						query=query+" TType="+input.get(i);
 					}
 					break;
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE TNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -1091,7 +1108,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"Number="+input.get(i);
+				query=query+"TNumber="+input.get(i);
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -1126,7 +1143,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Time="+input.get(i);
+					query=query+"TTime="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -1220,7 +1237,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Type="+input.get(i);
+					query=query+"TType="+input.get(i);
 				}
 				
 				break;
@@ -1231,14 +1248,14 @@ public class DBHandler {
 		while(rs.next())
 		{
 			ArrayList<String> temp=new ArrayList<String>();
-			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("TNUMBER"));
 			temp.add(rs.getString("SCHOOLID"));
-			temp.add(rs.getString("TIME"));
+			temp.add(rs.getString("TTIME"));
 			temp.add(rs.getString("NAME"));
 			temp.add(rs.getString("PROFESSOR"));
 			temp.add(rs.getString("ROOM"));
 			temp.add(rs.getString("CREDITS"));
-			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("TTYPE"));
 			toRet.add(temp);
 		}
 		return toRet;
@@ -1247,7 +1264,7 @@ public class DBHandler {
 	public void insertRowToMajor(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO Major(Number,SchoolID,Name) VALUES(";
+		String query="INSERT INTO Major(MNumber,SchoolID,Name) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -1256,7 +1273,7 @@ public class DBHandler {
 	public void deleteRowFromMajor(int num) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM Major WHERE Number=";
+		String query="DELETE FROM Major WHERE MNumber=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -1299,7 +1316,7 @@ public class DBHandler {
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE MNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -1317,7 +1334,7 @@ public class DBHandler {
 		{
 			if(!input.get(i).equals(""))
 			{
-			query=query+"Number="+input.get(i);
+			query=query+"MNumber="+input.get(i);
 			int count=0;
 			for(int j=i+1;j<input.size();j++)
 			{
@@ -1362,7 +1379,7 @@ public class DBHandler {
 	while(rs.next())
 	{
 		ArrayList<String> temp=new ArrayList<String>();
-		temp.add(rs.getString("NUMBER"));
+		temp.add(rs.getString("MNUMBER"));
 		temp.add(rs.getString("SCHOOLID"));
 		temp.add(rs.getString("NAME"));
 		toRet.add(temp);
@@ -1780,7 +1797,7 @@ public class DBHandler {
 	public void insertRowToStudentTimeTable(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="INSERT INTO StudentTimeTable(Number,StudentID,Name,Time,Professor,Room,Credits,Type,IfTest,IfAssignment) VALUES(";
+		String query="INSERT INTO StudentTimeTable(StaNumber,StudentID,Name,StaTime,Professor,Room,Credits,StaType,IfTest,IfAssignment) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"',"+input.get(3)+",'"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+","+input.get(8)+","+input.get(9)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -1789,7 +1806,7 @@ public class DBHandler {
 	public void deleteRowFromStudentTimeTable(int num) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM StudentTimeTable WHERE Number=";
+		String query="DELETE FROM StudentTimeTable WHERE StaNumber=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -1846,7 +1863,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Time="+input.get(i);
+						query=query+" StaTime="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1926,7 +1943,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Type="+input.get(i);
+						query=query+" StaType="+input.get(i);
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -1972,7 +1989,7 @@ public class DBHandler {
 				}
 			}
 		}
-		query=query+" WHERE Number="+num;
+		query=query+" WHERE StaNumber="+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
@@ -1991,7 +2008,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"Number="+input.get(i);
+				query=query+"StaNumber="+input.get(i);
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -2045,7 +2062,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Time="+input.get(i);
+					query=query+"StaTime="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -2120,7 +2137,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-					query=query+"Type="+input.get(i);
+					query=query+"StaType="+input.get(i);
 					int count=0;
 					for(int j=i+1;j<input.size();j++)
 					{
@@ -2169,13 +2186,13 @@ public class DBHandler {
 		while(rs.next())
 		{
 			ArrayList<String> temp=new ArrayList<String>();
-			temp.add(rs.getString("NUMBER"));
+			temp.add(rs.getString("STANUMBER"));
 			temp.add(rs.getString("STUDENTID"));
-			temp.add(rs.getString("TIME"));
+			temp.add(rs.getString("STATIME"));
 			temp.add(rs.getString("PROFESSOR"));
 			temp.add(rs.getString("ROOM"));
 			temp.add(rs.getString("CREDITS"));
-			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("STATYPE"));
 			temp.add(rs.getString("IFTEST"));
 			temp.add(rs.getString("IFASSIGNMENT"));
 			toRet.add(temp);
