@@ -569,12 +569,27 @@ public class DBHandler {
 	//StudentSchedule 테이블
 	public void insertRowToStudentSchedule(ArrayList<String> input) throws SQLException
 	{
-		stmt=conn.createStatement();
-		String query="INSERT INTO StudentSchedule(ScheNumber,StudentID,ScheTime,ScheDate,ScheWeek,ScheMonth,Subject,State,ScheType) VALUES(";
+
+		int count=0;
+		for(int i=0;i<input.size();i++)
+		{
+			if(input.get(i)!="")
+			{
+				count++;
+			}
+		}
+		String query="";
+		if(count!=0)
+		{
+			stmt=conn.createStatement();
+		query="INSERT INTO StudentSchedule(ScheNumber,StudentID,ScheTime,ScheDate,ScheWeek,ScheMonth,Subject,State,ScheType) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+",'"+input.get(6)+"',"+input.get(7)+","+input.get(8)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+		}
+		
+		
 	}
 	public void deleteRowFromStudentSchedule(int num) throws SQLException
 	{
@@ -935,12 +950,23 @@ public class DBHandler {
 	//TotalTimeTable 테이블
 	public void insertRowToTotalTimeTable(ArrayList<String> input) throws SQLException
 	{
+		int count=0;
+		for(int i=0;i<input.size();i++)
+		{
+			if(input.get(i)!="")
+			{
+				count=0;
+			}
+		}
+		if(count!=0)
+		{
 		stmt=conn.createStatement();
 		String query="INSERT INTO TotalTimeTable(TNumber,SchoolID,TTime,Name,Professor,Room,Credits,TType) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"',"+input.get(2)+",'"+input.get(3)+"','"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+		}
 	}
 	public void deleteRowFromTotalTimeTable(int num) throws SQLException
 	{
@@ -1263,12 +1289,23 @@ public class DBHandler {
 	//Major 테이블
 	public void insertRowToMajor(ArrayList<String> input) throws SQLException
 	{
+		int count=0;
+		for(int i=0;i<input.size();i++)
+		{
+			if(input.get(i)!="")
+			{
+				count++;
+			}
+		}
+		if(count!=0)
+		{
 		stmt=conn.createStatement();
 		String query="INSERT INTO Major(MNumber,SchoolID,Name) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+		}
 	}
 	public void deleteRowFromMajor(int num) throws SQLException
 	{
@@ -1389,12 +1426,23 @@ public class DBHandler {
 	//ScoreBoard 테이블
 	public void insertRowToScoreBoard(ArrayList<String> input) throws SQLException
 	{
+		int count=0;
+		for(int i=0;i<input.size();i++)
+		{
+			if(input.get(i)!="")
+			{
+				count++;
+			}
+		}
+		if(count!=0)
+		{
 		stmt=conn.createStatement();
 		String query="INSERT INTO ScoreBoard(Code,NumOfDone,NumOfDelay,NumOfCommit,NumOfCancel,NumOfProgress,Score,NumOfDone_Goal,NumOfDone_Bucket,Feedback) VALUES('";
 		query=query+input.get(0)+"',"+input.get(1)+","+input.get(2)+","+input.get(3)+","+input.get(4)+","+input.get(5)+","+input.get(6)+","+input.get(7)+","+input.get(8)+",'"+input.get(9)+"')";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+		}
 	}
 	public void deleteRowFromScoreBoard(String code) throws SQLException
 	{
@@ -1796,12 +1844,23 @@ public class DBHandler {
 	//StudentTimeTable 테이블
 	public void insertRowToStudentTimeTable(ArrayList<String> input) throws SQLException
 	{
+		int count=0;
+		for(int i=0;i<input.size();i++)
+		{
+			if(input.get(i)!="")
+			{
+				count++;
+			}
+		}
+		if(count!=0)
+		{
 		stmt=conn.createStatement();
 		String query="INSERT INTO StudentTimeTable(StaNumber,StudentID,Name,StaTime,Professor,Room,Credits,StaType,IfTest,IfAssignment) VALUES(";
 		query=query+input.get(0)+",'"+input.get(1)+"','"+input.get(2)+"',"+input.get(3)+",'"+input.get(4)+"','"+input.get(5)+"',"+input.get(6)+","+input.get(7)+","+input.get(8)+","+input.get(9)+")";
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+		}
 	}
 	public void deleteRowFromStudentTimeTable(int num) throws SQLException
 	{

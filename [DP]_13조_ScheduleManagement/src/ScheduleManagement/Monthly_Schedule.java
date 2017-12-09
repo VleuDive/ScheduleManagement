@@ -8,7 +8,14 @@ public class Monthly_Schedule {
 	
 	private ScoreBoard_ItemType MSB;
 
-	
+	public Monthly_Schedule()
+	{
+		Weekly_Schedule empty=new Weekly_Schedule();
+		for(int i=0;i<4;i++)
+		{
+			WeeklyList[i]=empty;
+		}
+	}
 	/*Get 함수*/
 	
 	/* 사용자로부터 4주 중에 원하는 N주차의 정보를 얻게 해주는 함수. 사용 시 N주차의 N을 추가정보로 사용해야 한다.*/

@@ -30,6 +30,11 @@ public class ScheduleHandler {
 		//생성자
 		dbHandler=new DBHandler();
 		total=new ArrayList<Monthly_Schedule>();
+		Monthly_Schedule empty=new Monthly_Schedule();
+		for(int i=0;i<12;i++)
+		{
+			total.add(empty);
+		}
 		totalGoal=new ArrayList<MonthlyGoal>();
 		totalBK=new ArrayList<Monthly_BK>();
 		everyBKs=new ArrayList<BucketList>();

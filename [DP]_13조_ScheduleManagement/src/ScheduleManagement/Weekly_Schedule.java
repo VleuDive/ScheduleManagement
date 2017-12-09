@@ -10,7 +10,15 @@ public class Weekly_Schedule {
 	
 	private ScoreBoard_ItemType WSB;
 	
-	
+	public Weekly_Schedule()
+	{
+		WSB=new ScoreBoard_ItemType();
+		Daily_Schedule empty=new Daily_Schedule();
+		for(int i=0;i<7;i++)
+		{
+			DailyList[i]=empty;
+		}
+	}
 	/*Get 함수*/
 	public Daily_Schedule[] Get_Weekly_Schedule()
 	{

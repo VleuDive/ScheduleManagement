@@ -30,6 +30,13 @@ public class App {
 		D_Handler=new DBHandler();
 		scoreBoardList=new ArrayList<ScoreBoard_ItemType>();
 		TotalSchedules=new ArrayList<Monthly_Schedule>();
+		Monthly_Schedule empty=new Monthly_Schedule();
+		for(int i=0;i<12;i++)
+		{
+			TotalSchedules.add(empty);
+		}
+		
+
 		TotalGoals=new ArrayList<Goal>();
 		
 		Calendar cl=Calendar.getInstance();
@@ -279,16 +286,64 @@ public class App {
 		uInput.add(pw);
 		D_Handler.insertRowToUser(uInput);
 	}
-	public void buildStudentTimeTable()
+	public void buildStudentTimeTable(int timeline, String Name, String Professor, String Room, int Cred,int type, boolean ifTest, boolean ifAssign) throws SQLException
 	{
+		ArrayList<ArrayList<String>> table=new ArrayList<ArrayList<String>>();
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add(p_User.getId());
+		for(int i=0;i<8;i++)
+		{
+			input.add("");
+		}
+		table=D_Handler.searchStudentTimeTable(input);
+		int num=table.size();
+		input.set(0, Integer.toString(num));
+		input.set(2,Integer.toString(timeline));
+		input.set(3, Name);
+		input.set(4, Professor);
+		input.set(5, Room);
+		input.set(6, Integer.toString(Cred));
+		input.set(7, Integer.toString(type));
+		input.set(8, Boolean.toString(ifTest));
+		input.set(9, Boolean.toString(ifAssign));
+		D_Handler.insertRowToStudentTimeTable(input);
 		
 	}
-	public void buildTotalTimeTable()
+	public void buildTotalTimeTable(int timeline, String Name, String Professor,String Room, int Cred, int type ) throws SQLException
 	{
+		ArrayList<ArrayList<String>> table=new ArrayList<ArrayList<String>>();
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add(p_User.getId());
+		for(int i=0;i<6;i++)
+		{
+			input.add("");
+		}
+		table=D_Handler.searchTotalTimeTable(input);
+		int num=table.size();
+		input.set(0, Integer.toString(num));
+		input.set(2,Integer.toString(timeline));
+		input.set(3, Name);
+		input.set(4, Professor);
+		input.set(5, Room);
+		input.set(6, Integer.toString(Cred));
+		input.set(7, Integer.toString(type));
+		D_Handler.insertRowToTotalTimeTable(input);
 		
 	}
-	public void buildSchoolMajorList(String major)
+	public void buildSchoolMajorList(String major) throws SQLException
 	{
+		ArrayList<ArrayList<String>> majors=new ArrayList<ArrayList<String>>();
+		ArrayList<String> input=new ArrayList<String>();
+		input.add("");
+		input.add(p_User.getId());
+		input.add("");
+		majors=D_Handler.searchMajor(input);
+		int num=majors.size();
+		input.set(0, Integer.toString(num));
+		input.set(2, major);
+		D_Handler.insertRowToMajor(input);
 		
 	}
 	public void showScheduleByMonth(int month)
