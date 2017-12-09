@@ -248,6 +248,9 @@ public class App {
 	}
 	public void StudentRegister(int type, String id, String pw, String schoolName,String Major,String nickname) throws SQLException
 	{
+		ArrayList<ArrayList<String>> allS=new ArrayList<ArrayList<String>>();
+		allS=D_Handler.getAllStudent();
+		int num=allS.size();
 		ArrayList<String> scFind=new ArrayList<String>();
 		scFind.add("");
 		scFind.add("");
@@ -261,7 +264,7 @@ public class App {
 		maj=D_Handler.searchMajor(scFind);
 		String majNum=maj.get(0).get(0);
 		ArrayList<String> input=new ArrayList<String>();
-		input.add("");
+		input.add(Integer.toString(num));
 		input.add(id);
 		input.add(schoolID);
 		input.add(majNum);
@@ -275,8 +278,11 @@ public class App {
 	}
 	public void SchoolRegister(int type, String id, String pw, String schoolName) throws SQLException
 	{
+		ArrayList<ArrayList<String>> Alls=new ArrayList<ArrayList<String>>();
+		Alls=D_Handler.getAllSchools();
+		int num=Alls.size();
 		ArrayList<String> input=new ArrayList<String>();
-		input.add("0");
+		input.add(Integer.toString(num));
 		input.add(id);
 		input.add(schoolName);
 		D_Handler.insertRowToSchool(input);
