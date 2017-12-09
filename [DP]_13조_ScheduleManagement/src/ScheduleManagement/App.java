@@ -276,7 +276,7 @@ public class App {
 	public void SchoolRegister(int type, String id, String pw, String schoolName) throws SQLException
 	{
 		ArrayList<String> input=new ArrayList<String>();
-		input.add("");
+		input.add("0");
 		input.add(id);
 		input.add(schoolName);
 		D_Handler.insertRowToSchool(input);

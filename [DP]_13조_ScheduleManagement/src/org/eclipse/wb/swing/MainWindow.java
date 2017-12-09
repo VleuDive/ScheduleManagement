@@ -48,6 +48,8 @@ import java.awt.Panel;
 import javax.swing.JToggleButton;
 import java.awt.List;
 import java.awt.Scrollbar;
+import java.awt.SystemColor;
+
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
@@ -113,7 +115,16 @@ public class MainWindow {
 	private BarChart3DDemo3 ScoreBoard1;
 	protected String[] MainWindow;
 	protected String[] args;
-	
+	private JTable table_11;
+	private JTable table_12;
+	private JTable table_13;
+	private JTable table_14;
+	private JTextField textField_24;
+	private JTable table_15;
+	private JTextField textField_25;
+	private JTextField textField_26;
+	private JTextField textField_27;
+	private JTextField textField_28;
 	
 	/**
 	 * Launch the application.
@@ -370,6 +381,39 @@ public class MainWindow {
 		btnNewButton_9.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton_9.setBounds(373, 14, 95, 27);
 		MonthlyPanel.add(btnNewButton_9);
+		JScrollPane scrollPane_9 = new JScrollPane();
+		scrollPane_9.setBounds(14, 299, 438, 175);
+		MonthlyPanel.add(scrollPane_9);
+		table_12 = new JTable();
+		scrollPane_9.setViewportView(table_12);
+		table_12.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Check", "To do"
+			}
+		));
+		
+		JLabel lblMonthlyDidList = new JLabel("Monthly Did List");
+		lblMonthlyDidList.setBounds(160, 261, 144, 18);
+		lblMonthlyDidList.setFont(new Font("DX?슦?벑?깮B", Font.PLAIN, 20));
+		lblMonthlyDidList.setBackground(new Color(176, 224, 230));
+		MonthlyPanel.add(lblMonthlyDidList);
 		
 		JPanel StudentRegisterPanel = new JPanel();
 		StudentRegisterPanel.setBackground(new Color(176, 224, 230));
@@ -633,6 +677,15 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cards.show(frmScheduleManagementSystem.getContentPane(), "TotalTimeTablePanel");
+				String id=textField_6.getText();
+				String pw=textField_7.getText();
+				String SchoolName=textField_9.getText();
+				try {
+					app.SchoolRegister(0, id, pw, SchoolName);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnNewButton_8.addActionListener(new ActionListener() {
@@ -730,6 +783,9 @@ public class MainWindow {
 		
 		JList list_1 = new JList();
 		scrollPane.setViewportView(list_1);
+		
+		JLabel lblList = new JLabel("Registered Class List");
+		scrollPane.setColumnHeaderView(lblList);
 		
 		JButton btnNewButton_14 = new JButton("Go Back");
 		btnNewButton_14.addMouseListener(new MouseAdapter() {
@@ -1071,7 +1127,7 @@ public class MainWindow {
 		DailyPanel.add(btnNewButton_23);
 		
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(33, 203, 406, 291);
+		scrollPane_4.setBounds(33, 201, 406, 291);
 		DailyPanel.add(scrollPane_4);
 		
 		table_1 = new JTable();
@@ -1179,6 +1235,9 @@ public class MainWindow {
 				}
 			));
 			scrollPane_4.setViewportView(table_1);
+		textField_14.setText(Integer.toString(app.getmonth()));
+		textField_13.setText(Integer.toString(app.getWeek()));
+		textField_12.setText(Integer.toString(app.getDate()));
 		Daily_Schedule day=new Daily_Schedule();
 		day=app.getToday();
 		ToDoList_ItemType todo=new ToDoList_ItemType();
@@ -1198,12 +1257,22 @@ public class MainWindow {
 			table_1.setValueAt(sche.Get_Checking(), i, 3);
 		}
 		JButton btnNewButton_32 = new JButton("Check");
+		btnNewButton_32.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
 		btnNewButton_32.setForeground(new Color(47, 79, 79));
 		btnNewButton_32.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		btnNewButton_32.setBounds(195, 33, 105, 27);
 		DailyPanel.add(btnNewButton_32);
 		
 		JButton btnNewButton_33 = new JButton("Check");
+		btnNewButton_33.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		btnNewButton_33.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -1264,6 +1333,85 @@ ScoreBoardPanel.setLayout(null);
 		btnGoBack_2.setForeground(new Color(0, 0, 128));
 		btnGoBack_2.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		ScoreBoardPanel.add(btnGoBack_2);
+		JLabel lblNewLabel_30 = new JLabel("Today's Final Point");
+		lblNewLabel_30.setBounds(14, 144, 211, 18);
+		lblNewLabel_30.setForeground(new Color(0, 0, 128));
+		lblNewLabel_30.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(lblNewLabel_30);
+		
+		JLabel lblNewLabel_31 = new JLabel("Today's Getting Goal");
+		lblNewLabel_31.setBounds(14, 269, 185, 18);
+		lblNewLabel_31.setForeground(new Color(0, 0, 128));
+		lblNewLabel_31.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(lblNewLabel_31);
+		
+		JLabel lblNewLabel_32 = new JLabel("Today's Getting Bucket List");
+		lblNewLabel_32.setBounds(249, 269, 219, 18);
+		lblNewLabel_32.setForeground(new Color(0, 0, 128));
+		lblNewLabel_32.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(lblNewLabel_32);
+		
+		JLabel lblNewLabel_33 = new JLabel("Today's Checking Number");
+		lblNewLabel_33.setBounds(249, 144, 197, 18);
+		lblNewLabel_33.setForeground(new Color(0, 0, 128));
+		lblNewLabel_33.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(lblNewLabel_33);
+		
+		JLabel lblFinalPoint = new JLabel("Final Point here");
+		lblFinalPoint.setFont(new Font("굴림", Font.BOLD, 18));
+		lblFinalPoint.setBounds(14, 197, 185, 18);
+		ScoreBoardPanel.add(lblFinalPoint);
+		
+		JScrollPane scrollPane_10 = new JScrollPane();
+		scrollPane_10.setBounds(14, 316, 185, 80);
+		ScoreBoardPanel.add(scrollPane_10);
+		
+		table_13 = new JTable();
+		scrollPane_10.setViewportView(table_13);
+		table_13.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null},
+				{null},
+				{null},
+			},
+			new String[] {
+				"Complete Goal"
+			}
+		));
+		
+		JScrollPane scrollPane_11 = new JScrollPane();
+		scrollPane_11.setBounds(249, 316, 197, 80);
+		ScoreBoardPanel.add(scrollPane_11);
+		
+		table_14 = new JTable();
+		scrollPane_11.setViewportView(table_14);
+		table_14.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null},
+				{null},
+				{null},
+			},
+			new String[] {
+				"Complete BucketList"
+			}
+		));
+		
+		JLabel lblNewLabel_34 = new JLabel("Today's Feedback");
+		lblNewLabel_34.setBounds(14, 420, 141, 18);
+		lblNewLabel_34.setForeground(new Color(0, 0, 128));
+		lblNewLabel_34.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(lblNewLabel_34);
+		
+		textField_24 = new JTextField();
+		textField_24.setBounds(14, 448, 375, 52);
+		ScoreBoardPanel.add(textField_24);
+		textField_24.setColumns(10);
+		
+		JButton btnNewButton_37_1 = new JButton("Add");
+		btnNewButton_37_1.setBounds(405, 473, 63, 27);
+		btnNewButton_37_1.setForeground(new Color(0, 0, 128));
+		btnNewButton_37_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		ScoreBoardPanel.add(btnNewButton_37_1);
 		
 		JPanel SchoolLoginPanel = new JPanel();
 		SchoolLoginPanel.setBackground(new Color(176, 224, 230));
@@ -1334,10 +1482,6 @@ ScoreBoardPanel.setLayout(null);
 		frmScheduleManagementSystem.getContentPane().add(AddDepartment, "AddDepartment");
 		AddDepartment.setLayout(null);
 		
-		JList list = new JList();
-		list.setBounds(27, 45, 430, 196);
-		AddDepartment.add(list);
-		
 		JLabel lblAddDepartment = new JLabel("Add Department");
 		lblAddDepartment.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 26));
 		lblAddDepartment.setBounds(148, 15, 187, 18);
@@ -1381,6 +1525,8 @@ ScoreBoardPanel.setLayout(null);
 		scrollPane_5.setBounds(49, 128, 368, 158);
 		AddDepartment.add(scrollPane_5);
 		
+		JList list = new JList();
+		scrollPane_5.setViewportView(list);
 		table_9 = new JTable();
 		scrollPane_5.setViewportView(table_9);
 		table_9.setModel(new DefaultTableModel(
@@ -1505,7 +1651,7 @@ ScoreBoardPanel.setLayout(null);
 		});
 		btnNewButton_25.setBounds(271, 85, 91, 27);
 		StudentMenu.add(btnNewButton_25);
-		
+
 		JPanel WeeklyPanel = new JPanel();
 		WeeklyPanel.setBackground(new Color(176, 224, 230));
 		frmScheduleManagementSystem.getContentPane().add(WeeklyPanel, "WeeklyPanel");
@@ -1555,6 +1701,40 @@ ScoreBoardPanel.setLayout(null);
 		});
 		btnNewButton_20.setBounds(363, 23, 105, 27);
 		WeeklyPanel.add(btnNewButton_20);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(37, 218, 410, 199);
+		WeeklyPanel.add(scrollPane_7);
+		
+		table_11 = new JTable();
+		scrollPane_7.setViewportView(table_11);
+		table_11.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Checking", "To do"
+			}
+		));
+		
+		JLabel lblNewLabel_29 = new JLabel("Weekly Did List");
+		lblNewLabel_29.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblNewLabel_29.setBounds(160, 188, 221, 18);
+		WeeklyPanel.add(lblNewLabel_29);
+		
+		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBounds(37, 108, 410, 49);
+		WeeklyPanel.add(scrollPane_8);
 		
 		JPanel StudentUpdate = new JPanel();
 		StudentUpdate.setBackground(new Color(176, 224, 230));
@@ -1914,7 +2094,172 @@ ScoreBoardPanel.setLayout(null);
 			itime=Integer.parseInt(time);
 		}
 		app.registerSchedule(stu.getId(), name, app.getmonth(), app.getWeek(), app.getDate(), itime, type, 4,exam,assign);
-
+		JPanel SchoolMenu = new JPanel();
+		SchoolMenu.setBackground(new Color(176, 224, 230));
+		frmScheduleManagementSystem.getContentPane().add(SchoolMenu, "SchoolMenu");
+		SchoolMenu.setLayout(null);
+		
+		JLabel lblNewLabel_35 = new JLabel("School Menu");
+		lblNewLabel_35.setBounds(170, 108, 142, 18);
+		lblNewLabel_35.setFont(new Font("Dialog", Font.PLAIN, 20));
+		SchoolMenu.add(lblNewLabel_35);
+		
+		JLabel lblNewLabel_36 = new JLabel("Student List");
+		lblNewLabel_36.setFont(new Font("굴림", Font.BOLD, 17));
+		lblNewLabel_36.setBounds(181, 171, 111, 18);
+		SchoolMenu.add(lblNewLabel_36);
+		
+		JScrollPane scrollPane_12 = new JScrollPane();
+		scrollPane_12.setBounds(44, 206, 383, 130);
+		SchoolMenu.add(scrollPane_12);
+		
+		table_15 = new JTable();
+		scrollPane_12.setViewportView(table_15);
+		table_15.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"\uC804\uACF5", "\uD559\uBC88", "\uC774\uB984"
+			}
+		));
+		
+		JButton btnNewButton_38_1 = new JButton("Logout");
+		btnNewButton_38_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "MainPanel");
+			}
+		});
+		btnNewButton_38_1.setBounds(363, 12, 105, 27);
+		btnNewButton_38_1.setBackground(new Color(224, 255, 255));
+		btnNewButton_38_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_38_1.setForeground(new Color(0, 0, 128));
+		SchoolMenu.add(btnNewButton_38_1);
+		
+		JButton btnNewButton_39_1 = new JButton("Update");
+		btnNewButton_39_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "StudentLoginPanel");
+			}
+		});
+		btnNewButton_39_1.setBounds(363, 51, 105, 27);
+		btnNewButton_39_1.setBackground(new Color(224, 255, 255));
+		btnNewButton_39_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnNewButton_39_1.setForeground(new Color(0, 0, 128));
+		SchoolMenu.add(btnNewButton_39);
+		
+		JPanel SchoolUpdate = new JPanel();
+		SchoolUpdate.setBackground(new Color(176, 224, 230));
+		frmScheduleManagementSystem.getContentPane().add(SchoolUpdate, "SchoolUpdate");
+		SchoolUpdate.setLayout(null);
+		
+		JLabel label_8_1 = new JLabel("ID:");
+		label_8_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_8_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		label_8_1.setBounds(36, 185, 57, 15);
+		SchoolUpdate.add(label_8);
+		
+		JLabel label_9_1 = new JLabel("PassWord:");
+		label_9_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_9_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		label_9_1.setBounds(16, 221, 77, 15);
+		SchoolUpdate.add(label_9);
+		
+		JLabel label_10 = new JLabel("PW Check:");
+		label_10.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		label_10.setBounds(26, 253, 77, 19);
+		SchoolUpdate.add(label_10);
+		
+		JLabel label_11 = new JLabel("Name:");
+		label_11.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_11.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		label_11.setBounds(36, 287, 57, 15);
+		SchoolUpdate.add(label_11);
+		
+		JLabel label_12 = new JLabel("Departments:");
+		label_12.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		label_12.setBounds(14, 317, 89, 19);
+		SchoolUpdate.add(label_12);
+		
+		textField_25 = new JTextField();
+		textField_25.setColumns(10);
+		textField_25.setBounds(108, 179, 141, 23);
+		SchoolUpdate.add(textField_25);
+		
+		textField_26 = new JTextField();
+		textField_26.setColumns(10);
+		textField_26.setBounds(108, 215, 251, 23);
+		SchoolUpdate.add(textField_26);
+		
+		textField_27 = new JTextField();
+		textField_27.setColumns(10);
+		textField_27.setBounds(108, 249, 251, 23);
+		SchoolUpdate.add(textField_27);
+		
+		textField_28 = new JTextField();
+		textField_28.setColumns(10);
+		textField_28.setBounds(108, 282, 251, 21);
+		SchoolUpdate.add(textField_28);
+		
+		JButton btnAddDepartments = new JButton("Add Departments");
+		btnAddDepartments.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "AddDepartment");
+			}
+		});
+		btnAddDepartments.setForeground(new Color(47, 79, 79));
+		btnAddDepartments.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		btnAddDepartments.setBounds(108, 313, 209, 23);
+		SchoolUpdate.add(btnAddDepartments);
+		
+		JButton button_3 = new JButton("Check");
+		button_3.setForeground(new Color(47, 79, 79));
+		button_3.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 12));
+		button_3.setBackground(SystemColor.menu);
+		button_3.setBounds(261, 179, 97, 23);
+		SchoolUpdate.add(button_3);
+		
+		JButton button_4 = new JButton("Next Step!");
+		button_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "TotalTimeTablePanel");
+			}
+		});
+		button_4.setForeground(new Color(47, 79, 79));
+		button_4.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		button_4.setBounds(371, 180, 97, 93);
+		SchoolUpdate.add(button_4);
+		
+		JLabel label_13 = new JLabel("학교 회원 정보 수정");
+		label_13.setHorizontalAlignment(SwingConstants.CENTER);
+		label_13.setFont(new Font("Dialog", Font.PLAIN, 20));
+		label_13.setBounds(135, 121, 178, 28);
+		SchoolUpdate.add(label_13);
+		
+		JButton button_5 = new JButton("Go Back");
+		button_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cards.show(frmScheduleManagementSystem.getContentPane(), "SchoolMenu");
+			}
+		});
+		button_5.setForeground(new Color(47, 79, 79));
+		button_5.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
+		button_5.setBounds(371, 12, 97, 23);
+		SchoolUpdate.add(button_5);
+		
+		
+		
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

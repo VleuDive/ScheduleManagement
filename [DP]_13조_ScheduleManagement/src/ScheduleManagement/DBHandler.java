@@ -15,6 +15,10 @@ public class DBHandler {
 	{
 		conn = null;
 		stmt = null;
+		ConnectToDB();
+	}
+	public void ConnectToDB()
+	{
 		try {
 			Class.forName("com.tmax.tibero.jdbc.TbDriver"); // 사용할 DBMS 드라이버의 이름을 인수로 넘겨 설정한다.
 			System.out.println("드라이버 로딩성공"); // 드라이버 로딩에 성공한 경우 성공 메시지를 띄운다.
@@ -29,10 +33,6 @@ public class DBHandler {
 			System.out.println(se.getMessage());
 		}
 
-	}
-	public void ConnectToDB()
-	{
-		
 	}
 	
 	public String getString()
@@ -69,6 +69,23 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+	}
+	public ArrayList<ArrayList<String>> getAllUser() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM TUser";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("USERID"));
+			temp.add(rs.getString("TYPE"));
+			temp.add(rs.getString("PASSWORD"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
 	}
 	public void updateRowOfUser(String id,ArrayList<String> input) throws SQLException
 	{
@@ -135,7 +152,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -150,9 +167,9 @@ public class DBHandler {
 						if(!input.get(j).equals(""))
 							count++;
 					}
-					if(count!=0)
+				  	if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -283,6 +300,25 @@ public class DBHandler {
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
 		stmt.close();
+	}
+	public ArrayList<ArrayList<String>> getAllStudent() throws SQLException
+	{//StuNumber,StudentID,SchoolID,MajorNum,NickName)
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM Student";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("STUNUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("MAJORNUM"));
+			temp.add(rs.getString("NICKNAME"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
 	}
 	public ArrayList<Student> searchStudent(ArrayList<String> input) throws SQLException
 	{
@@ -438,6 +474,23 @@ public class DBHandler {
 	}
 	
 	//School 테이블
+	public ArrayList<ArrayList<String>> getAllSchools() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM School";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("SCHNUMBER"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("NAME"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
+	}
 	public void insertRowToSchool(ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
@@ -1306,6 +1359,23 @@ public class DBHandler {
 		System.out.println(query+" Executed");
 		stmt.close();
 		}
+	}
+	public ArrayList<ArrayList<String>> getAllMajor() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM Major";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("MNUMBER"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("NAME"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
 	}
 	public void deleteRowFromMajor(int num) throws SQLException
 	{
