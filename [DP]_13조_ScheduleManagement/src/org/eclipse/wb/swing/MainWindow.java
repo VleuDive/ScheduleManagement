@@ -52,6 +52,7 @@ import java.awt.Scrollbar;
 import java.awt.SystemColor;
 
 import javax.swing.JList;
+import javax.print.DocFlavor.STRING;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.JTree;
@@ -130,6 +131,8 @@ public class MainWindow {
 	private JTextField textField_27;
 	private JTextField textField_28;
 	private DBHandler d_Handle;
+	private JTextField textField_29;
+	private JTextField textField_30;
 	/**
 	 * Launch the application.
 	 */
@@ -502,7 +505,15 @@ public class MainWindow {
 		StudentRegisterPanel.add(lblSchool);
 		String MajorName="";
 		JComboBox comboBox = new JComboBox();
-		
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == comboBox)
+				{
+					String str = (String)comboBox.getSelectedItem();
+					
+				}
+			}
+		});
 		comboBox.setBounds(109, 182, 225, 36);
 		StudentRegisterPanel.add(comboBox);				
 		ArrayList<ArrayList<String>> temp=new ArrayList<ArrayList<String>>();
@@ -517,6 +528,7 @@ public class MainWindow {
 			for(int i=0;i<temp.size();i++)
 			{
 				comboBox.addItem(temp.get(i).get(2));
+				break;
 			}
 		}
 		
@@ -570,7 +582,7 @@ public class MainWindow {
 		{
 			for(int i=0;i<temp.size();i++)
 			{
-				comboBox_1.addItem(maj.get(i).get(2));
+				//comboBox_1.addItem(maj.get(i).get(0));
 			}
 		}
 
@@ -584,10 +596,11 @@ public class MainWindow {
 				String id=textField_2.getText();
 				String nickname=textField_3.getText();
 				String pw=textField_4.getText();
-				String schoolName=comboBox.getSelectedItem().toString();
-				String Major=comboBox_1.getSelectedItem().toString();
+				String schoolName="ffff";
+				String Major="C.E";
 				try {
 					app.StudentRegister(0, id, pw, schoolName, Major, nickname);
+					app.StudentLogin(id, pw);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -667,24 +680,6 @@ public class MainWindow {
 		SchoolRegisterPanel.add(textField_9);
 		textField_9.setColumns(10);
 		
-		JButton btnNewButton_6 = new JButton("Regitser Departments");
-		btnNewButton_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				cards.show(frmScheduleManagementSystem.getContentPane(), "AddDepartment");
-			}
-		});
-		
-		
-		btnNewButton_6.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		btnNewButton_6.setForeground(new Color(47, 79, 79));
-		btnNewButton_6.setBounds(101, 189, 209, 23);
-		SchoolRegisterPanel.add(btnNewButton_6);
-		
 		JButton btnNewButton_7 = new JButton("Check");
 		btnNewButton_7.setForeground(new Color(47, 79, 79));
 		btnNewButton_7.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 12));
@@ -695,17 +690,23 @@ public class MainWindow {
 		});
 		btnNewButton_7.setBounds(254, 55, 97, 23);
 		SchoolRegisterPanel.add(btnNewButton_7);
-		
+		final String schId=textField_6.getText();
 		JButton btnNewButton_8 = new JButton("Next Step!");
 		btnNewButton_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cards.show(frmScheduleManagementSystem.getContentPane(), "TotalTimeTablePanel");
+				
 				String id=textField_6.getText();
 				String pw=textField_7.getText();
 				String SchoolName=textField_9.getText();
 				try {
 					app.SchoolRegister(0, id, pw, SchoolName);
+					boolean log=app.SchoolLogin(id, pw);
+					if(log)
+					{
+						cards.show(frmScheduleManagementSystem.getContentPane(), "AddDepartment");
+					}
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -738,11 +739,6 @@ public class MainWindow {
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblName.setBounds(32, 161, 57, 15);
 		SchoolRegisterPanel.add(lblName);
-		
-		JLabel lblDepartments = new JLabel("Departments:");
-		lblDepartments.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		lblDepartments.setBounds(10, 191, 89, 19);
-		SchoolRegisterPanel.add(lblDepartments);
 		
 		JPanel TotalTimeTablePanel = new JPanel();
 		TotalTimeTablePanel.setBackground(new Color(176, 224, 230));
@@ -1009,7 +1005,7 @@ public class MainWindow {
 		btnNewButton_22.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cards.show(frmScheduleManagementSystem.getContentPane(), "StudentLoginPanel");
+				cards.show(frmScheduleManagementSystem.getContentPane(), "DailyPanel");
 			}
 			
 		});
@@ -1067,7 +1063,7 @@ public class MainWindow {
 		textField_14.setColumns(10);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(33, 61, 406, 100);
+		scrollPane_1.setBounds(33, 81, 406, 100);
 		DailyPanel.add(scrollPane_1);
 		
 		table = new JTable();
@@ -1092,20 +1088,32 @@ public class MainWindow {
 		scrollPane_1.setViewportView(table);
 		
 		JLabel lblNewLabel_5 = new JLabel("일정");
-		lblNewLabel_5.setBounds(33, 173, 62, 18);
+		lblNewLabel_5.setBounds(33, 191, 62, 18);
 		lblNewLabel_5.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 25));
 		DailyPanel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("To Do List");
 		lblNewLabel_6.setBounds(33, 37, 140, 18);
-		lblNewLabel_6.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 25));
+		lblNewLabel_6.setFont(new Font("1훈하얀고양이 R", Font.PLAIN, 22));
 		DailyPanel.add(lblNewLabel_6);
 
 		JButton btnNewButton_15 = new JButton("Add To Do List");
 		btnNewButton_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				cards.show(frmScheduleManagementSystem.getContentPane(), "AddToDoList");
+				int check=Integer.parseInt(textField_29.getText());
+				String name=textField_30.getText();
+				app.registerSchedule(app.getUser().getId(), "ffff", app.getmonth()+1, app.getWeek(), app.getDate(), -1, 0, 4, false, false);
+				for(int i=0;i<10;i++)
+				{
+					if(table.getValueAt(i, 0)==null)
+					{
+						table.setValueAt(check, i, 0);
+						table.setValueAt(name, i, 1);
+						break;
+					}
+				}
+				
 			}
 		});
 		btnNewButton_15.setBounds(314, 33, 125, 27);
@@ -1129,7 +1137,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_16.setBounds(314, 167, 125, 27);
+		btnNewButton_16.setBounds(314, 190, 125, 27);
 		btnNewButton_16.setForeground(new Color(47, 79, 79));
 		btnNewButton_16.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
 		DailyPanel.add(btnNewButton_16);
@@ -1151,7 +1159,7 @@ public class MainWindow {
 		DailyPanel.add(btnNewButton_23);
 		
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(33, 201, 406, 291);
+		scrollPane_4.setBounds(33, 219, 406, 291);
 		DailyPanel.add(scrollPane_4);
 		
 		table_1 = new JTable();
@@ -1259,31 +1267,85 @@ public class MainWindow {
 				}
 			));
 			scrollPane_4.setViewportView(table_1);
-		textField_14.setText(Integer.toString(app.getmonth()));
+		textField_14.setText(Integer.toString(app.getmonth()+1));
 		textField_13.setText(Integer.toString(app.getWeek()));
-		textField_12.setText(Integer.toString(app.getDate()));
+		String date="";
+		switch(app.getDate())
+		{
+		case 0:
+			{
+				date="일";
+			break;
+			}
+		case 1:
+		{
+			date="월";
+		break;
+		}
+		case 2:
+		{
+			date="화";
+		break;
+		}
+		case 3:
+		{
+			date="수";
+		break;
+		}
+		case 4:
+		{
+			date="목";
+		break;
+		}
+		case 5:
+		{
+			date="금";
+		break;
+		}
+		case 6:{
+			date="토";
+		break;
+		}
+		}
+		textField_12.setText(date);
 		Daily_Schedule day=new Daily_Schedule();
 		day=app.getToday();
 		ToDoList_ItemType todo=new ToDoList_ItemType();
 		Schedule_ItemType sche=new Schedule_ItemType();
+		if(day.Get_TodoList()[0].Get_ColoringCheck()!=0)
+		{
 		for(int i=0;i<10;i++)
 		{
 			todo=day.Get_TodoList()[i];
 			table.setValueAt(todo.Get_ColoringCheck(), i, 0);
 			table.setValueAt(todo.Get_Name(), i, 1);
 		}
+		}
+		if(day.Get_TimecontentList()[0].Get_TimeLine()!=9999)
+		{
 		for(int i=0;i<day.Get_TimecontentList().length;i++)
 		{
 			sche=day.Get_TimecontentList()[i];
 			table_1.setValueAt(sche.Get_TimeLine(), i, 0);
-			table_1.setValueAt(sche.Get_TimeLine(), i, 1);
 			table_1.setValueAt(sche.Get_Exam(), i, 2);
 			table_1.setValueAt(sche.Get_Checking(), i, 3);
+		}
 		}
 		JButton btnNewButton_32 = new JButton("Check");
 		btnNewButton_32.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				int ch=Integer.parseInt(textField_29.getText());
+				String name=textField_30.getText();
+				for(int i=0;i<10;i++)
+				{
+					if(table.getValueAt(i, 1)==name)
+					{
+						table.setValueAt(ch,i, 0);
+						break;
+					}
+				}
+				app.sortSchedule(app.getmonth(), app.getWeek(), app.getDate(), name);
 			}
 		});
 		btnNewButton_32.setForeground(new Color(47, 79, 79));
@@ -1303,8 +1365,18 @@ public class MainWindow {
 		});
 		btnNewButton_33.setForeground(new Color(47, 79, 79));
 		btnNewButton_33.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));
-		btnNewButton_33.setBounds(195, 167, 105, 27);
+		btnNewButton_33.setBounds(195, 190, 105, 27);
 		DailyPanel.add(btnNewButton_33);
+		
+		textField_29 = new JTextField();
+		textField_29.setBounds(33, 60, 116, 21);
+		DailyPanel.add(textField_29);
+		textField_29.setColumns(10);
+		
+		textField_30 = new JTextField();
+		textField_30.setBounds(155, 60, 116, 21);
+		DailyPanel.add(textField_30);
+		textField_30.setColumns(10);
 		
 		JPanel ScoreBoardPanel = new JPanel();
 		ScoreBoardPanel.setBackground(new Color(176, 224, 230));
@@ -1513,7 +1585,7 @@ ScoreBoardPanel.setLayout(null);
 		btnComplete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cards.show(frmScheduleManagementSystem.getContentPane(), "SchoolRegisterPanel");
+				cards.show(frmScheduleManagementSystem.getContentPane(), "TotalTimeTablePanel");
 			}
 		});
 		btnComplete.setBackground(new Color(224, 255, 255));
@@ -1553,8 +1625,8 @@ ScoreBoardPanel.setLayout(null);
 		scrollPane_5.setViewportView(table_9);
 		table_9.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"\uCEF4\uD4E8\uD130\uACF5\uD559\uACFC"},
-				{"\uC804\uC790\uACF5\uD559\uACFC"},
+				{null},
+				{null},
 				{null},
 				{null},
 				{null},
@@ -1577,6 +1649,40 @@ ScoreBoardPanel.setLayout(null);
 		AddDepartment.add(lblNewLabel_27);
 		
 		JButton btnNewButton_10_1 = new JButton("Add");
+		btnNewButton_10_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			String dep=textField_23.getText();
+			ArrayList<ArrayList<String>> depp=new ArrayList<ArrayList<String>>();
+			ArrayList<String> input=new ArrayList<String>();
+
+			try {
+				depp=d_Handle.getAllMajor();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			int num=depp.size();
+			input.add(Integer.toString(num));
+			input.add(app.getUser().getId());
+			input.add(dep);
+			try {
+				d_Handle.insertRowToMajor(input);
+				for(int i=0;i<table_9.getRowCount();i++)
+				{
+					if(table_9.getValueAt(i, 0)==null)
+						{
+						table_9.setValueAt(dep, i, 0);
+						break;
+						}
+				}
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+		});
 		btnNewButton_10_1.setBounds(176, 414, 105, 27);
 		btnNewButton_10_1.setBackground(new Color(224, 255, 255));
 		btnNewButton_10_1.setFont(new Font("Berlin Sans FB Demi", Font.PLAIN, 14));

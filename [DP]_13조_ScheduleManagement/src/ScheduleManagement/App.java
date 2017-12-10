@@ -35,7 +35,7 @@ public class App {
 		{
 			TotalSchedules.add(empty);
 		}
-		
+		S_Handler.setTotal(TotalSchedules);
 
 		TotalGoals=new ArrayList<Goal>();
 		
@@ -96,7 +96,7 @@ public class App {
 		{
 			p_User=new School();
 			School cur=new School();
-			cur.setId(tempS.get(0).get(0));
+			cur.setId(tempS.get(0).get(1));
 			cur.setLogin(true);
 			cur.setPw(pw);
 			cur.setName(tempS.get(0).get(2));
@@ -119,7 +119,7 @@ public class App {
 		input.set(1, id);
 		ArrayList<Student> tempS=new ArrayList<Student>();
 		tempS=D_Handler.searchStudent(input);
-		if(temp.get(0).get(0)=="")
+		if(temp.size()==0||temp.get(0).get(0)=="")
 		{
 			return false;
 		}
@@ -127,6 +127,7 @@ public class App {
 		{
 			p_User=new Student();
 			Student cur=new Student();
+			if(tempS.size()!=0)
 			cur=tempS.get(0);
 		    p_User=cur;
 		    ArrayList<String> input2=new ArrayList<String>();
@@ -140,7 +141,10 @@ public class App {
 			input2.add("");
 			input2.add("2");
 			Goal ent=new Goal();
-			ArrayList<ArrayList<String>> Goals=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			ArrayList<ArrayList<String>> Goals=new ArrayList<ArrayList<String>>();
+			//Goals=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			if(Goals.size()!=0)
+			{
 			for(int i=0;i<Goals.size();i++)
 			{
 				for(int j=0;j<Goals.get(i).size();j++)
@@ -182,9 +186,12 @@ public class App {
 				TotalGoals.add(ent);
 			}
 			S_Handler.setEveryGoal(TotalGoals);
+			}
 			BucketList ent2=new BucketList();
 			input2.set(8, "3");
-			ArrayList<ArrayList<String>> Buckets=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			ArrayList<ArrayList<String>> Buckets=new ArrayList<ArrayList<String>>();
+			//Buckets=D_Handler.searchStudentSchedule(input2);//이것을 Goal 리스트로 변환!
+			if(Buckets.size()!=0) {
 			for(int i=0;i<Buckets.size();i++)
 			{
 				for(int j=0;j<Buckets.get(i).size();j++)
@@ -226,6 +233,7 @@ public class App {
 				TotalBKs.add(ent2);
 			}
 			S_Handler.setEveryBK(TotalBKs);
+			}
 			return true;
 		}
 	}
@@ -257,17 +265,17 @@ public class App {
 		scFind.add(schoolName);
 		ArrayList<ArrayList<String>> school=new ArrayList<ArrayList<String>>();
 		school=D_Handler.searchSchool(scFind);
-		String schoolID=school.get(0).get(1);
+		//String schoolID=school.get(0).get(1);
 		ArrayList<ArrayList<String>> maj=new ArrayList<ArrayList<String>>();
-		scFind.set(1, schoolID);
+		//scFind.set(1, schoolID);
 		scFind.set(2, Major);
 		maj=D_Handler.searchMajor(scFind);
-		String majNum=maj.get(0).get(0);
+		//String majNum=maj.get(0).get(0);
 		ArrayList<String> input=new ArrayList<String>();
 		input.add(Integer.toString(num));
 		input.add(id);
-		input.add(schoolID);
-		input.add(majNum);
+		input.add(schoolName);
+		input.add("0");
 		input.add(nickname);
 		ArrayList<String> uInput=new ArrayList<String>();
 		uInput.add(id);
@@ -310,13 +318,14 @@ public class App {
 		D_Handler.insertRowToStudentTimeTable(input);
 		
 	}
-	public void buildTotalTimeTable(int timeline, String Name, String Professor,String Room, int Cred, int type ) throws SQLException
+	public void buildTotalTimeTable(String SchoolName,int timeline, String Name, String Professor,String Room, int Cred, int type ) throws SQLException
 	{
 		ArrayList<ArrayList<String>> table=new ArrayList<ArrayList<String>>();
 		table=D_Handler.getAllTotalTimeTable();
 		ArrayList<String> input=new ArrayList<String>();
 		int num=table.size();
 		input.set(0, Integer.toString(num));
+		input.set(1, SchoolName);
 		input.set(2,Integer.toString(timeline));
 		input.set(3, Name);
 		input.set(4, Professor);

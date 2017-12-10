@@ -84,7 +84,7 @@ public class DBHandler {
 			temp.add(rs.getString("PASSWORD"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	public void updateRowOfUser(String id,ArrayList<String> input) throws SQLException
@@ -196,6 +196,7 @@ public class DBHandler {
 			temp.add(rs.getString("PASSWORD"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 	}
 	
@@ -317,7 +318,7 @@ public class DBHandler {
 			temp.add(rs.getString("NICKNAME"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	public ArrayList<Student> searchStudent(ArrayList<String> input) throws SQLException
@@ -470,6 +471,7 @@ public class DBHandler {
 			toAdd.setTable(tmpTable);
 			result.add(toAdd);
 		}
+		stmt.close();
 		return result;
 	}
 	
@@ -483,12 +485,13 @@ public class DBHandler {
 		ArrayList<String> temp=new ArrayList<String>();
 		while(rs.next())
 		{
+			temp.clear();
 			temp.add(rs.getString("SCHNUMBER"));
 			temp.add(rs.getString("SCHOOLID"));
 			temp.add(rs.getString("NAME"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	public void insertRowToSchool(ArrayList<String> input) throws SQLException
@@ -507,6 +510,7 @@ public class DBHandler {
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
+		stmt.close();
 	}
 	public void updateRowOfSchool(int num, ArrayList<String> input) throws SQLException
 	{
@@ -616,6 +620,7 @@ public class DBHandler {
 			temp.add(rs.getString("NAME"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 	}
 	
@@ -640,7 +645,7 @@ public class DBHandler {
 			temp.add(rs.getString("SCHETYPE"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	public void insertRowToStudentSchedule(ArrayList<String> input) throws SQLException
@@ -1020,6 +1025,7 @@ public class DBHandler {
 			temp.add(rs.getString("SCHETYPE"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 		
 	}
@@ -1042,7 +1048,7 @@ public class DBHandler {
 			temp.add(rs.getString("TTYPE"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	//TotalTimeTable 테이블
@@ -1382,6 +1388,7 @@ public class DBHandler {
 			temp.add(rs.getString("TTYPE"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 	}
 	//Major 테이블
@@ -1419,7 +1426,7 @@ public class DBHandler {
 			temp.add(rs.getString("NAME"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	public void deleteRowFromMajor(int num) throws SQLException
@@ -1536,6 +1543,7 @@ public class DBHandler {
 		temp.add(rs.getString("NAME"));
 		toRet.add(temp);
 	}
+	stmt.close();
 	return toRet;
 	}
 	//ScoreBoard 테이블
@@ -1954,6 +1962,7 @@ public class DBHandler {
 			temp.add(rs.getString("FEEDBACK"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 	}
 	public ArrayList<ArrayList<String>> getAllStudentTimeTable() throws SQLException
@@ -1977,7 +1986,7 @@ public class DBHandler {
 			temp.add(rs.getString("IFASSIGNMENT"));
 			toRet.add(temp);
 		}
-		
+		stmt.close();
 		return toRet;
 	}
 	//StudentTimeTable 테이블
@@ -2395,6 +2404,7 @@ public class DBHandler {
 			temp.add(rs.getString("IFASSIGNMENT"));
 			toRet.add(temp);
 		}
+		stmt.close();
 		return toRet;
 	}
 	

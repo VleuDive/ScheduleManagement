@@ -243,7 +243,7 @@ public class ScheduleHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Daily_Schedule day=total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date];
+		Daily_Schedule day=total.get(month-1).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date];
 		for(int i=0;i<96;i++)
 		{
 			if(day.Get_TimecontentList()[i].StudentID=="")
@@ -258,7 +258,7 @@ public class ScheduleHandler {
 				day.Get_TodoList()[i]=todo;
 			}
 		}
-		total.get(month).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date]=day;
+		total.get(month-1).Get_Monthly_Schedule()[week].Get_Weekly_Schedule()[date]=day;
 		}
 	
 	public void deleteSchedule(int month, int week, int date, String name)
