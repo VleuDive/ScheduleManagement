@@ -620,6 +620,29 @@ public class DBHandler {
 	}
 	
 	//StudentSchedule 테이블
+	public ArrayList<ArrayList<String>> getAllStudentSchedule() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM StudentSchedule";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("SCHENUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("SCHETIME"));
+			temp.add(rs.getString("SCHEDATE"));
+			temp.add(rs.getString("SCHEWEEK"));
+			temp.add(rs.getString("SCHEMONTH"));
+			temp.add(rs.getString("SUBJECT"));
+			temp.add(rs.getString("STATE"));
+			temp.add(rs.getString("SCHETYPE"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
+	}
 	public void insertRowToStudentSchedule(ArrayList<String> input) throws SQLException
 	{
 
@@ -999,6 +1022,28 @@ public class DBHandler {
 		}
 		return toRet;
 		
+	}
+	public ArrayList<ArrayList<String>> getAllTotalTimeTable() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM TotalTimeTable";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("TNUMBER"));
+			temp.add(rs.getString("SCHOOLID"));
+			temp.add(rs.getString("TTIME"));
+			temp.add(rs.getString("NAME"));
+			temp.add(rs.getString("PROFESSOR"));
+			temp.add(rs.getString("ROOM"));
+			temp.add(rs.getString("CREDITS"));
+			temp.add(rs.getString("TTYPE"));
+			toRet.add(temp);
+		}
+		
+		return toRet;
 	}
 	//TotalTimeTable 테이블
 	public void insertRowToTotalTimeTable(ArrayList<String> input) throws SQLException
@@ -1909,6 +1954,30 @@ public class DBHandler {
 			temp.add(rs.getString("FEEDBACK"));
 			toRet.add(temp);
 		}
+		return toRet;
+	}
+	public ArrayList<ArrayList<String>> getAllStudentTimeTable() throws SQLException
+	{
+		ArrayList<ArrayList<String>> toRet=new ArrayList<ArrayList<String>>();
+		stmt=conn.createStatement();
+		String query="SELECT * FROM StudentTimeTable";
+		ResultSet rs=stmt.executeQuery(query);
+		ArrayList<String> temp=new ArrayList<String>();
+		while(rs.next())
+		{
+			temp.add(rs.getString("STANUMBER"));
+			temp.add(rs.getString("STUDENTID"));
+			temp.add(rs.getString("STATIME"));
+			temp.add(rs.getString("NAME"));
+			temp.add(rs.getString("PROFESSOR"));
+			temp.add(rs.getString("ROOM"));
+			temp.add(rs.getString("CREDITS"));
+			temp.add(rs.getString("STATYPE"));
+			temp.add(rs.getString("IFTEST"));
+			temp.add(rs.getString("IFASSIGNMENT"));
+			toRet.add(temp);
+		}
+		
 		return toRet;
 	}
 	//StudentTimeTable 테이블

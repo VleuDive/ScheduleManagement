@@ -296,13 +296,7 @@ public class App {
 	{
 		ArrayList<ArrayList<String>> table=new ArrayList<ArrayList<String>>();
 		ArrayList<String> input=new ArrayList<String>();
-		input.add("");
-		input.add(p_User.getId());
-		for(int i=0;i<8;i++)
-		{
-			input.add("");
-		}
-		table=D_Handler.searchStudentTimeTable(input);
+		table=D_Handler.getAllStudentTimeTable();
 		int num=table.size();
 		input.set(0, Integer.toString(num));
 		input.set(2,Integer.toString(timeline));
@@ -319,14 +313,8 @@ public class App {
 	public void buildTotalTimeTable(int timeline, String Name, String Professor,String Room, int Cred, int type ) throws SQLException
 	{
 		ArrayList<ArrayList<String>> table=new ArrayList<ArrayList<String>>();
+		table=D_Handler.getAllTotalTimeTable();
 		ArrayList<String> input=new ArrayList<String>();
-		input.add("");
-		input.add(p_User.getId());
-		for(int i=0;i<6;i++)
-		{
-			input.add("");
-		}
-		table=D_Handler.searchTotalTimeTable(input);
 		int num=table.size();
 		input.set(0, Integer.toString(num));
 		input.set(2,Integer.toString(timeline));

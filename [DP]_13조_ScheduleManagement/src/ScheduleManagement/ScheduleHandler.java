@@ -220,14 +220,24 @@ public class ScheduleHandler {
 			schedule.Set_Name(name);
 			schedule.Set_StudentId(StudentID);
 			schedule.Set_TimeLine(timeline);
+			schedule.Set_Exam(false);
+			schedule.Set_Assignment(false);
 		}
 		}
 		ArrayList<String> input=new ArrayList<String>();
 		try {
-			for(int i=0;i<9;i++)
-			{
-				input.add("");
-			}
+			ArrayList<ArrayList<String>> totsche=dbHandler.getAllStudentSchedule();
+			int num=0;
+			num=totsche.size();
+			input.add(Integer.toString(num));
+			input.add(StudentID);
+			input.add(Integer.toString(timeline));
+			input.add(Integer.toString(date));
+			input.add(Integer.toString(week));
+			input.add(Integer.toString(month));
+			input.add(name);
+			input.add(Integer.toString(4));
+			input.add(Integer.toString(type));
 			dbHandler.insertRowToStudentSchedule(input);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
