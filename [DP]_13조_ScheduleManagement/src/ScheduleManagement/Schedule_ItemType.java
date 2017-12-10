@@ -9,6 +9,10 @@ public class Schedule_ItemType {
 	private int type;
 	
 
+	public Schedule_ItemType()
+	{
+		
+	}
 	/*Get 함수*/
 	public String Get_Name()
 	{
@@ -101,6 +105,10 @@ class School_Schedule extends Schedule_ItemType
 	private boolean Exam;
 	private boolean Attendance;
 	/*Get 함수*/
+	public School_Schedule()
+	{
+		
+	}
 	public boolean Get_Assignment()
 	{
 	return Assignment;
@@ -151,6 +159,10 @@ class Private_Schedule extends Schedule_ItemType
 	 * */
 	private int Checking;
 	
+	public Private_Schedule()
+	{
+		
+	}
 	/*Get 함수*/
 	public int Get_Checking()
 	{

@@ -64,7 +64,7 @@ public class DBHandler {
 	public void deleteRowFromUser(String id) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM TUsers WHERE UserID=";
+		String query="DELETE FROM TUser WHERE UserID=";
 		query=query+id;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -143,7 +143,7 @@ public class DBHandler {
 			{
 				if(!input.get(i).equals(""))
 				{
-				query=query+"UserID LIKE'"+input.get(i)+"'";
+				query=query+"UserID LIKE '"+input.get(i)+"'";
 				int count=0;
 				for(int j=i+1;j<input.size();j++)
 				{
@@ -212,7 +212,7 @@ public class DBHandler {
 	public void deleteRowFromStudent(int num) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="DELETE FROM Users WHERE StudentID=";
+		String query="DELETE FROM Student WHERE StudentID=";
 		query=query+num;
 		stmt.executeQuery(query);
 		System.out.println(query+" Executed");
@@ -221,7 +221,7 @@ public class DBHandler {
 	public void updateRowOfStudent(int num,ArrayList<String> input) throws SQLException
 	{
 		stmt=conn.createStatement();
-		String query="UPDATE School SET";
+		String query="UPDATE Student SET";
 		for(int i=0;i<input.size();i++)
 		{
 			switch(i)
@@ -342,7 +342,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -359,7 +359,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -377,7 +377,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				break;
@@ -395,7 +395,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -574,7 +574,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -591,7 +591,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -860,7 +860,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -877,7 +877,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -895,7 +895,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				break;
@@ -913,7 +913,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -932,7 +932,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -951,7 +951,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -970,7 +970,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -989,7 +989,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1241,7 +1241,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -1258,7 +1258,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -1276,7 +1276,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				break;
@@ -1294,7 +1294,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1313,7 +1313,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1332,7 +1332,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1351,7 +1351,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1495,7 +1495,7 @@ public class DBHandler {
 			}
 			if(count!=0)
 			{
-				query=query+"AND";
+				query=query+" AND ";
 			}
 			}
 			break;
@@ -1512,7 +1512,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 			break;
@@ -1773,7 +1773,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -1791,7 +1791,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -1809,7 +1809,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				break;
@@ -1827,7 +1827,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1846,7 +1846,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1865,7 +1865,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1884,7 +1884,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1903,7 +1903,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -1922,7 +1922,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -2041,7 +2041,7 @@ public class DBHandler {
 				{
 					if(!input.get(i).equals(""))
 					{
-						query=query+" Name LIKE'"+input.get(i)+"'";
+						query=query+" Name LIKE '"+input.get(i)+"'";
 						int count=0;
 						for(int j=i+1;j<input.size();j++)
 						{
@@ -2215,7 +2215,7 @@ public class DBHandler {
 				}
 				if(count!=0)
 				{
-					query=query+"AND";
+					query=query+" AND ";
 				}
 				}
 				break;
@@ -2233,7 +2233,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -2251,7 +2251,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 					}
 				break;
@@ -2269,7 +2269,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				break;
@@ -2287,7 +2287,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -2306,7 +2306,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -2325,7 +2325,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -2344,7 +2344,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				
@@ -2363,7 +2363,7 @@ public class DBHandler {
 					}
 					if(count!=0)
 					{
-						query=query+"AND";
+						query=query+" AND ";
 					}
 				}
 				

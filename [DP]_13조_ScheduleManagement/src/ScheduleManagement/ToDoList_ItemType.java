@@ -20,7 +20,10 @@ public class ToDoList_ItemType {
 	private boolean Important;
 	
 	
-	
+	public ToDoList_ItemType()
+	{
+		
+	}
 	
 	/*Get 함수*/
 	public String Get_Name()
